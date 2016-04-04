@@ -42,6 +42,8 @@
     <string name="settings">Settings</string>
 
     <string name="time_default">1 giờ trước</string>
+    <string name="cunghoangdao_name">Cung Bạch Dương</string>
+    <string name="cunghoangdao_date">(01/07-24/07)</string>
 
     <string name="chd_bachduong">Cung Bạch Dương</string>
     <string name="chd_kimnguu">Cung Kim Ngưu</string>
@@ -55,6 +57,19 @@
     <string name="chd_maket">Cung Ma Kết</string>
     <string name="chd_baobinh">Cung Bảo Bình</string>
     <string name="chd_songngu">Cung Song Ngư</string>
+
+    <string name="chd_bachduong_date">(21/03-19/04)</string>
+    <string name="chd_kimnguu_date">(20/04-20/05)</string>
+    <string name="chd_songtu_date">(21/05-21/06)</string>
+    <string name="chd_cugiai_date">(22/06-22/07)</string>
+    <string name="chd_sutu_date">(23/07-22/08)</string>
+    <string name="chd_xunu_date">(23/08-22/09)</string>
+    <string name="chd_thienbinh_date">(23/09-23/10)</string>
+    <string name="chd_bocap_date">(24/10-22/11)</string>
+    <string name="chd_nhanma_date">(22/11-21/12)</string>
+    <string name="chd_maket_date">(22/12-19/01)</string>
+    <string name="chd_baobinh_date">(20/01-18/02)</string>
+    <string name="chd_songngu_date">(19/02-20/03)</string>
 
     <!--<integer name="chd_bachduong_image">@R.drawable.chd_bachduong</integer>-->
     <!--<integer name="chd_kimnguu_image">@R.drawable.chd_bachduong</integer>-->

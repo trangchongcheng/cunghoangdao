@@ -2,7 +2,7 @@
     <string-array name="cunghoangdaoname">
         <item>@string/chd_bachduong</item>
         <item>@string/chd_kimnguu</item>
-        <item>@string/chd_songngu</item>
+        <item>@string/chd_songtu</item>
         <item>@string/chd_cugiai</item>
         <item>@string/chd_sutu</item>
         <item>@string/chd_xunu</item>
@@ -12,13 +12,12 @@
         <item>@string/chd_maket</item>
         <item>@string/chd_baobinh</item>
         <item>@string/chd_songngu</item>
-
     </string-array>
 
     <array name="cunghoangdaoimage">
         <item>@drawable/chd_bachduong</item>
         <item>@drawable/chd_kimnguu</item>
-        <item>@drawable/chd_songngu</item>
+        <item>@drawable/chd_songtu</item>
         <item>@drawable/chd_cugiai</item>
         <item>@drawable/chd_sutu</item>
         <item>@drawable/chd_xunu</item>
@@ -30,4 +29,18 @@
         <item>@drawable/chd_songngu</item>
 
     </array>
+    <string-array name="cunghoangdaodate">
+        <item>@string/chd_bachduong_date</item>
+        <item>@string/chd_kimnguu_date</item>
+        <item>@string/chd_songtu_date</item>
+        <item>@string/chd_cugiai_date</item>
+        <item>@string/chd_sutu_date</item>
+        <item>@string/chd_xunu_date</item>
+        <item>@string/chd_thienbinh_date</item>
+        <item>@string/chd_bocap_date</item>
+        <item>@string/chd_nhanma_date</item>
+        <item>@string/chd_maket_date</item>
+        <item>@string/chd_baobinh_date</item>
+        <item>@string/chd_songngu_date</item>
+    </string-array>
 </resources>

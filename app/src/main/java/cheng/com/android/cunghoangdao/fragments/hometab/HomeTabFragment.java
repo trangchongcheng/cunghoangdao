@@ -115,7 +115,8 @@ public class HomeTabFragment extends BaseFragment implements
 
         for (int i = 0; i < getResources().getStringArray(R.array.cunghoangdaoname).length; i++) {
             cunghoangdao = new Cunghoangdao(getResources().getStringArray(R.array.cunghoangdaoname)[i],
-                    getResources().obtainTypedArray(R.array.cunghoangdaoimage).getResourceId(i, -1));
+                    getResources().obtainTypedArray(R.array.cunghoangdaoimage).getResourceId(i, -1),
+                    getResources().getStringArray(R.array.cunghoangdaodate)[i]);
             arrayCunghoangdao.add(cunghoangdao);
             Log.d(TAG, "initSlideCungHoangDao: "+getResources().getIntArray(R.array.cunghoangdaoimage)[i]);
         }

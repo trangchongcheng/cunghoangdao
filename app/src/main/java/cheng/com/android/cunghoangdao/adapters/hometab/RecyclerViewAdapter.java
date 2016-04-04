@@ -24,7 +24,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
     @Override
     public int getItemViewType(int position) {
-       // return TimelineView.getTimeLineViewType(position, getItemCount());
+        // return TimelineView.getTimeLineViewType(position, getItemCount());
         return 0;
     }
 
@@ -47,11 +47,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     public void onBindViewHolder(RecyclerViewHolder recyclerViewHolder, int i) {
         Cunghoangdao model = arrayCunghoangdao.get(i);
         recyclerViewHolder.tvName.setText(model.getName());
-        Log.d(TAG, model.getImage()+"");
-        if(model.getImage() != 0){
+        Log.d(TAG, model.getImage() + "");
+        if (model.getImage() != 0) {
             Glide.with(context).load(model.getImage()).into(recyclerViewHolder.imgCunghoangdao);
         }
-
+        recyclerViewHolder.tvDate.setText(model.getDate());
     }
 
     @Override

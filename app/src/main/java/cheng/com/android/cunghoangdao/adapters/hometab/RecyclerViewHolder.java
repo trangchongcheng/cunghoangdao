@@ -13,6 +13,7 @@ import cheng.com.android.cunghoangdao.R;
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     public TextView tvName;
     public ImageView imgCunghoangdao;
+    public TextView tvDate;
     public RecyclerViewHolder(View view) {
         super(view);
         // Find all views ids
@@ -21,6 +22,8 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
                 .findViewById(R.id.item_slider_tvName);
         this.imgCunghoangdao = (ImageView) view
                 .findViewById(R.id.item_slider_imgSlider);
+        this.tvDate = (TextView) view
+                .findViewById(R.id.item_slider_tvDate);
 
 
     }

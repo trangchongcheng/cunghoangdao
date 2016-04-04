@@ -180,7 +180,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/cunghoangdao_fragment_recyclerSlide"
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="180dp" />
 
             <TextView
                 style="@style/text_categoryes"

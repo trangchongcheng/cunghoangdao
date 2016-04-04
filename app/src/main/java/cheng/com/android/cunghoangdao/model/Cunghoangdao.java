@@ -6,6 +6,7 @@ package cheng.com.android.cunghoangdao.model;
 public class Cunghoangdao {
     private String name;
     private int image;
+    private String date;
 
     public String getName() {
         return name;
@@ -23,8 +24,17 @@ public class Cunghoangdao {
         this.image = image;
     }
 
-    public Cunghoangdao(String name, int image) {
+    public Cunghoangdao(String name, int image, String date) {
         this.name = name;
         this.image = image;
+        this.date = date;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

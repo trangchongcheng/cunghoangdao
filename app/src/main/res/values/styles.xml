@@ -16,9 +16,6 @@
 
     </style>
 
-
-
-
     <style name="text_login">
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">20dp</item>
@@ -45,8 +42,18 @@
         <item name="android:textColor">@color/white</item>
     </style>
     <style name="text_cunghoangdao">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/navigationBarColor</item>
         <item name="android:textSize">12dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="text_date_cunghoangdao">
+        <item name="android:textColor">@color/half_black</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
     </style>
 
 
