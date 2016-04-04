@@ -1,0 +1,33 @@
+<resources>
+    <string-array name="cunghoangdaoname">
+        <item>@string/chd_bachduong</item>
+        <item>@string/chd_kimnguu</item>
+        <item>@string/chd_songngu</item>
+        <item>@string/chd_cugiai</item>
+        <item>@string/chd_sutu</item>
+        <item>@string/chd_xunu</item>
+        <item>@string/chd_thienbinh</item>
+        <item>@string/chd_bocap</item>
+        <item>@string/chd_nhanma</item>
+        <item>@string/chd_maket</item>
+        <item>@string/chd_baobinh</item>
+        <item>@string/chd_songngu</item>
+
+    </string-array>
+
+    <array name="cunghoangdaoimage">
+        <item>@drawable/chd_bachduong</item>
+        <item>@drawable/chd_kimnguu</item>
+        <item>@drawable/chd_songngu</item>
+        <item>@drawable/chd_cugiai</item>
+        <item>@drawable/chd_sutu</item>
+        <item>@drawable/chd_xunu</item>
+        <item>@drawable/chd_thienbinh</item>
+        <item>@drawable/chd_bocap</item>
+        <item>@drawable/chd_nhanma</item>
+        <item>@drawable/chd_maket</item>
+        <item>@drawable/chd_baobinh</item>
+        <item>@drawable/chd_songngu</item>
+
+    </array>
+</resources>

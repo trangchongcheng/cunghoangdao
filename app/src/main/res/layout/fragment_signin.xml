@@ -1,0 +1,104 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_name"
+                android:layout_width="match_parent"
+                style="@style/btn_namsinh"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/fragment_signin_edtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    style="@style/text_login"
+                    android:hint="Nhập tên của bạn vào" />
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:id="@+id/fragment_signin_tvQuestion"
+                android:layout_below="@+id/input_layout_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_login"
+                android:text="Bạn thuộc cung gì? Vui lòng chọn ngày-tháng-năm sinh!"/>
+            <Button
+                android:layout_below="@+id/fragment_signin_tvQuestion"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_signin_btnDateOfBirth"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/config_buttonsignup"
+                style="@style/btn_namsinh"
+                android:text="Chọn năm sinh"/>
+            <ProgressBar
+                android:visibility="gone"
+                android:layout_below="@+id/fragment_signin_btnDateOfBirth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragment_signin_progressBar"
+                android:layout_centerInParent="true"/>
+            <RelativeLayout
+                android:id="@+id/rlShow"
+                android:visibility="gone"
+                android:layout_below="@+id/fragment_signin_btnDateOfBirth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+                <LinearLayout
+                    android:id="@+id/lnlHello"
+                    android:layout_width="wrap_content"
+                    android:layout_height="250dp"
+                    android:background="@drawable/reply">
+
+                <TextView
+                    android:id="@+id/fragment_signin_tvHello"
+                    style="@style/text_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center"/>
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/fragment_signin_ivcunghoangdao"
+                    android:src="@drawable/chipi"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_below="@+id/lnlHello"/>
+            </RelativeLayout>
+
+
+
+            <Button android:id="@+id/fragment_signin_btnsignup"
+                android:layout_alignParentBottom="true"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_sign_up"
+                style="@style/btn_namsinh"
+                android:background="@drawable/config_buttonsignup"
+                android:textColor="@android:color/white"/>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>
