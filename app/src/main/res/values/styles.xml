@@ -42,6 +42,7 @@
         <item name="android:textColor">@color/white</item>
     </style>
     <style name="text_cunghoangdao">
+        <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/navigationBarColor</item>
         <item name="android:textSize">12dp</item>
         <item name="android:layout_width">wrap_content</item>
@@ -59,7 +60,7 @@
 
     <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
         <item name="tabTextAppearance">@style/MyCustomTabText</item>
-        <item name="tabSelectedTextColor">@color/textColorPrimary</item>
+        <item name="tabSelectedTextColor">@color/white</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -93,7 +94,7 @@
         <item name="timeline_lineColor">@color/icon_12_con_giap</item>
         <item name="timeline_lineStyle">linear</item>
         <item name="timeline_lineWidth">0dp</item>
-        <item name="android:background">@drawable/config_click_icon</item>
+        <item name="android:background">@drawable/ripple_icon_cunghoangdao</item>
         <item name="android:clickable">true</item>
     </style>
 </resources>

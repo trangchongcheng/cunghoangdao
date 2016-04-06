@@ -24,7 +24,7 @@ public class BaseAsyntask extends AsyncTask<Void, Void, ArrayList<NewsFeed>> {
 
     @Override
     protected ArrayList<NewsFeed> doInBackground(Void... params) {
-        ArrayList<NewsFeed> newsFeedList = (ArrayList<NewsFeed>) NewsFeed.parse(mUrl);
+        ArrayList<NewsFeed> newsFeedList = (ArrayList<NewsFeed>) NewsFeed.parse(mUrl,context);
         return newsFeedList;
     }
 

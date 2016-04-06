@@ -29,7 +29,7 @@ public class CategoryActivity extends BaseActivity implements JsoupParseAsyntask
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerCategoryAdapter categoryAdapter;
     private ProgressBar progressBar;
-    private String mLink;
+    private String mLink,mTitle;
     protected Handler handler;
     public int page = 1;
     private boolean isFirt = true;
@@ -48,7 +48,10 @@ public class CategoryActivity extends BaseActivity implements JsoupParseAsyntask
 
     @Override
     public void init() {
+        mLink = getIntent().getStringExtra(HomeTabFragment.URL_CATEGORY);
+        mTitle = getIntent().getStringExtra(HomeTabFragment.TITLE_CATEGORY);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(mTitle);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         rcvCategory = (RecyclerView) findViewById(R.id.activity_category_rcvNews);
@@ -56,7 +59,6 @@ public class CategoryActivity extends BaseActivity implements JsoupParseAsyntask
         mLayoutManager = new LinearLayoutManager(this);
         rcvCategory.setLayoutManager(mLayoutManager);
         progressBar = (ProgressBar) findViewById(R.id.activity_category_progressbar);
-        mLink = getIntent().getStringExtra(HomeTabFragment.URL_CATEGORY);
         handler = new Handler();
         new JsoupParseAsyntask(this, mLink, this).execute();
     }

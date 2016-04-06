@@ -3,6 +3,7 @@ package cheng.com.android.cunghoangdao.fragments.tuvi;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -30,7 +31,7 @@ public class TuViTabFragment extends BaseFragment implements
 
     @Override
     public void init() {
-
+        Log.d(TAG, "init: ");
         rcvListNews = (RecyclerView) getView().findViewById(R.id.fragment_cunghoangdao_rcvNews);
         rcvListNews.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
@@ -70,7 +71,7 @@ public class TuViTabFragment extends BaseFragment implements
     public void putIntent(String content, String title) {
         Intent intent = new Intent(context, ViewingActivity.class);
         intent.putExtra(RecyclerCunghoangdaoAdapter.CONTENT, content);
-        intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, title);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, "Tử Vi");
         startActivity(intent);
     }
 }

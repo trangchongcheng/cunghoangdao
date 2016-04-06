@@ -1,5 +1,6 @@
 package cheng.com.android.cunghoangdao.activities.maincreen;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,12 +48,14 @@ public class MainScreenActivity extends BaseActivity {
     private ViewPageContainerFragment homeFragment;
     private FragmentManager fragmentManager;
     boolean doubleBackToExitPressedOnce = false;
-
+    private ActionBarDrawerToggle actionBarDrawerToggle;
     @Override
     public void onBackPressed() {
         int count = fragmentManager.getBackStackEntryCount();
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(Gravity.LEFT); //CLOSE Nav Drawer!
+            drawerLayout.closeDrawer(Gravity.LEFT);
+            animationIcon();
+            //CLOSE Nav Drawer!
         } else if (count == 0) {
             super.onBackPressed();
             //additional code
@@ -146,7 +150,7 @@ public class MainScreenActivity extends BaseActivity {
             }
         });
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout, mToolbar, openDrawer, R.string.closeDrawer) {
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -161,8 +165,11 @@ public class MainScreenActivity extends BaseActivity {
                 super.onDrawerOpened(drawerView);
             }
         };
-        drawerLayout.setDrawerListener(actionBarDrawerToggle);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         actionBarDrawerToggle.syncState();
+
+
         if (savedInstanceState == null) {
             initScreen();
             Log.d(TAG, "savedInstanceState == null");
@@ -171,6 +178,19 @@ public class MainScreenActivity extends BaseActivity {
             Log.d(TAG, "savedInstanceState # null");
         }
 
+    }
+    public void animationIcon(){
+        ValueAnimator anim = ValueAnimator.ofFloat(1, 0);
+        anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float slideOffset = (Float) valueAnimator.getAnimatedValue();
+                actionBarDrawerToggle.onDrawerSlide(drawerLayout, slideOffset);
+            }
+        });
+        anim.setInterpolator(new DecelerateInterpolator());
+        anim.setDuration(2000);
+        anim.start();
     }
 
     @Override

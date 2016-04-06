@@ -17,10 +17,11 @@ import cheng.com.android.cunghoangdao.model.Cunghoangdao;
 /**
  * Created by Welcome on 1/26/2016.
  */
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
+public class RecyclerViewIconCungHoangDaoAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
     private final String TAG = getClass().getSimpleName();
     Context context;
     ArrayList<Cunghoangdao> arrayCunghoangdao;
+    public OnItemClickIconCungHoangDao onItemClickIconCungHoangDao;
 
     @Override
     public int getItemViewType(int position) {
@@ -28,35 +29,47 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         return 0;
     }
 
-    public RecyclerViewAdapter(Context context, ArrayList<Cunghoangdao> arrayCunghoangdao) {
+    public RecyclerViewIconCungHoangDaoAdapter(Context context, ArrayList<Cunghoangdao> arrayCunghoangdao,
+    OnItemClickIconCungHoangDao onItemClickIconCungHoangDao) {
         this.context = context;
         this.arrayCunghoangdao = arrayCunghoangdao;
+        this.onItemClickIconCungHoangDao = onItemClickIconCungHoangDao;
     }
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-//        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_activity_main_slider, null);
+//        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_fragment_hometab_icon_cunghoangdao, null);
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View itemView = inflater.inflate(R.layout.item_activity_main_slider, viewGroup, false);
+        View itemView = inflater.inflate(R.layout.item_fragment_hometab_icon_cunghoangdao, viewGroup, false);
 
         RecyclerViewHolder viewHolder = new RecyclerViewHolder(itemView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder recyclerViewHolder, int i) {
-        Cunghoangdao model = arrayCunghoangdao.get(i);
+    public void onBindViewHolder(RecyclerViewHolder recyclerViewHolder, final int position) {
+        final Cunghoangdao model = arrayCunghoangdao.get(position);
         recyclerViewHolder.tvName.setText(model.getName());
         Log.d(TAG, model.getImage() + "");
         if (model.getImage() != 0) {
             Glide.with(context).load(model.getImage()).into(recyclerViewHolder.imgCunghoangdao);
         }
         recyclerViewHolder.tvDate.setText(model.getDate());
+        recyclerViewHolder.ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClickIconCungHoangDao.onItemClickIconCungHoangDao(v,position,model.getName());
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return (null != arrayCunghoangdao ? arrayCunghoangdao.size() : 0);
+    }
+
+    public interface OnItemClickIconCungHoangDao{
+        void onItemClickIconCungHoangDao(View v,int position, String category);
     }
 
 }

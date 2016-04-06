@@ -3,14 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scroll"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
+    android:layout_height="wrap_content"
     android:layout_gravity="fill_vertical"
-    android:layout_marginBottom="?attr/actionBarSize">
+    android:layout_marginBottom="?attr/actionBarSize"
+    android:fitsSystemWindows="true">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:custom="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
@@ -38,12 +36,11 @@
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <com.alorma.timeline.RoundTimelineView
-                    android:onClick="category"
                     android:id="@+id/fragment_hometab_tlTi"
                     style="@style/icon_12_con_giap"
                     android:layout_width="?android:listPreferredItemHeight"
@@ -51,7 +48,6 @@
                     app:timeline_type="end" />
 
                 <com.alorma.timeline.RoundTimelineView
-                    android:onClick="category"
                     android:id="@+id/fragment_hometab_tlSuu"
                     style="@style/icon_12_con_giap"
                     android:layout_width="?android:listPreferredItemHeight"
@@ -59,7 +55,6 @@
                     app:timeline_type="start" />
 
                 <com.alorma.timeline.RoundTimelineView
-                    android:onClick="category"
                     android:id="@+id/fragment_hometab_tlDan"
                     style="@style/icon_12_con_giap"
                     android:layout_width="?android:listPreferredItemHeight"
@@ -67,7 +62,6 @@
                     app:timeline_type="end" />
 
                 <com.alorma.timeline.RoundTimelineView
-                    android:onClick="category"
                     android:id="@+id/fragment_hometab_tlMeo"
                     style="@style/icon_12_con_giap"
                     android:layout_width="?android:listPreferredItemHeight"
@@ -76,7 +70,6 @@
 
 
                 <com.alorma.timeline.RoundTimelineView
-                    android:onClick="category"
                     android:id="@+id/fragment_hometab_tlThin"
                     style="@style/icon_12_con_giap"
                     android:layout_width="?android:listPreferredItemHeight"
@@ -84,7 +77,6 @@
                     app:timeline_type="end" />
 
                 <com.alorma.timeline.RoundTimelineView
-                    android:onClick="category"
                     android:id="@+id/fragment_hometab_tlTy"
                     style="@style/icon_12_con_giap"
                     android:layout_width="?android:listPreferredItemHeight"
@@ -92,7 +84,6 @@
                     app:timeline_type="start" />
 
                 <com.alorma.timeline.RoundTimelineView
-                    android:onClick="category"
                     android:id="@+id/fragment_hometab_tlNgo"
                     style="@style/icon_12_con_giap"
                     android:layout_width="?android:listPreferredItemHeight"
@@ -100,7 +91,6 @@
                     app:timeline_type="end" />
 
                 <com.alorma.timeline.RoundTimelineView
-                    android:onClick="category"
                     android:id="@+id/fragment_hometab_tlMui"
                     style="@style/icon_12_con_giap"
                     android:layout_width="?android:listPreferredItemHeight"
@@ -115,7 +105,6 @@
                     app:timeline_type="end" />
 
                 <com.alorma.timeline.RoundTimelineView
-                    android:onClick="category"
                     android:id="@+id/fragment_hometab_tlDau"
                     style="@style/icon_12_con_giap"
                     android:layout_width="?android:listPreferredItemHeight"
@@ -123,15 +112,14 @@
                     app:timeline_type="start" />
 
                 <com.alorma.timeline.RoundTimelineView
-                    android:onClick="category"
                     android:id="@+id/fragment_hometab_tlTuat"
                     style="@style/icon_12_con_giap"
                     android:layout_width="?android:listPreferredItemHeight"
                     android:layout_height="?android:listPreferredItemHeight"
+                    android:onClick="category"
                     app:timeline_type="end" />
 
                 <com.alorma.timeline.RoundTimelineView
-                    android:onClick="category"
                     android:id="@+id/fragment_hometab_tlHoi"
                     style="@style/icon_12_con_giap"
                     android:layout_width="?android:listPreferredItemHeight"
@@ -142,8 +130,8 @@
         </HorizontalScrollView>
 
         <TextView
-            android:onClick="Category"
             style="@style/text_categoryes"
+            android:onClick="Category"
             android:text="@string/moi_nhat" />
 
         <RelativeLayout
@@ -165,12 +153,38 @@
                 android:layout_centerInParent="true"
                 android:indeterminate="true"
                 android:visibility="visible" />
+            <LinearLayout
+                android:id="@+id/fragment_hometab_ll"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:id="@+id/fragment_hometab_tvConnection"
+                android:text="@string/connection"
+                android:layout_below="@id/content_main_lvNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:background="@drawable/style_button_connect"
+                android:layout_gravity="center"
+                android:id="@+id/fragment_hometab_btnConnect"
+                android:text="@string/thulai"
+                android:layout_width="90dp"
+                android:layout_height="40dp"
+                android:layout_below="@+id/fragment_hometab_tvConnection"
+                />
+            </LinearLayout>
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/cunghoangdao_fragment_llFooter"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -187,21 +201,22 @@
                 android:text="@string/new_feed" />
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:id="@+id/fragment_hometab_rl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/fragment_hometab_rvNewFeed"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp" />
-
+                    android:layout_height="560dp" />
                 <ProgressBar
                     android:id="@+id/fragment_hometab_progressBarNews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:indeterminate="true"
-                    android:visibility="visible" />
+                    android:visibility="invisible" />
+
             </RelativeLayout>
         </LinearLayout>
 

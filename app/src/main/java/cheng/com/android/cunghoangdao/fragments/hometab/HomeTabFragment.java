@@ -8,8 +8,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.alorma.timeline.RoundTimelineView;
 import com.bumptech.glide.Glide;
@@ -25,7 +28,7 @@ import cheng.com.android.cunghoangdao.activities.viewing.ViewingActivity;
 import cheng.com.android.cunghoangdao.adapters.cunghoangdaotab.RecyclerCunghoangdaoAdapter;
 import cheng.com.android.cunghoangdao.adapters.hometab.LatestPostsAdapter;
 import cheng.com.android.cunghoangdao.adapters.hometab.RecyclerNewsFeedAdapter;
-import cheng.com.android.cunghoangdao.adapters.hometab.RecyclerViewAdapter;
+import cheng.com.android.cunghoangdao.adapters.hometab.RecyclerViewIconCungHoangDaoAdapter;
 import cheng.com.android.cunghoangdao.common.UrlGetXml;
 import cheng.com.android.cunghoangdao.fragments.BaseFragment;
 import cheng.com.android.cunghoangdao.model.Cunghoangdao;
@@ -38,17 +41,22 @@ import cheng.com.android.cunghoangdao.services.BaseAsyntask;
 public class HomeTabFragment extends BaseFragment implements
         BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener, BaseAsyntask.OnReturnNewsFeedList
         , LatestPostsAdapter.OnItemClickListener, RecyclerNewsFeedAdapter.OnClickItemNewsFeed,
+        RecyclerViewIconCungHoangDaoAdapter.OnItemClickIconCungHoangDao,
         View.OnClickListener {
     private final String TAG = getClass().getSimpleName();
     public final static String URL_CATEGORY = "url_category";
+    public final static String TITLE_CATEGORY = "title_category";
     private RecyclerView mRecyclerViewSlider, rvNewsFeed;
     private ProgressBar progressBar, progressBarNews;
-    RecyclerViewAdapter custom_addapter;
+    RecyclerViewIconCungHoangDaoAdapter custom_addapter;
     ArrayList<Cunghoangdao> arrayCunghoangdao;
     ListView lvNews;
     private LatestPostsAdapter mTimeLineAdapter;
     private SliderLayout mDemoSlider;
     private RoundTimelineView tlTi, tlSuu, tlDan, tlMeo, tlThin, tlTy, tlNgo, tlMui, tlThan, tlDau, tlTuat, tlHoi;
+    private Button btnConnect;
+    private LinearLayout ll;
+    private RelativeLayout rl;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -56,9 +64,10 @@ public class HomeTabFragment extends BaseFragment implements
     }
 
 
+
     @Override
     public void init() {
-        Log.d(TAG, "init ");
+        Log.d(TAG, "init +");
         lvNews = (ListView) getView().findViewById(R.id.content_main_lvNews);
         //  mDemoSlider = (SliderLayout) getView().findViewById(R.id.frangment_main_slider);
         mRecyclerViewSlider = (RecyclerView) getView().findViewById(R.id.cunghoangdao_fragment_recyclerSlide);
@@ -69,6 +78,9 @@ public class HomeTabFragment extends BaseFragment implements
         rvNewsFeed.setLayoutManager(new LinearLayoutManager(getContext()));
         progressBar = (ProgressBar) getView().findViewById(R.id.fragment_hometab_progressBar);
         progressBarNews = (ProgressBar) getView().findViewById(R.id.fragment_hometab_progressBarNews);
+        btnConnect = (Button) getView().findViewById(R.id.fragment_hometab_btnConnect);
+        ll = (LinearLayout) getView().findViewById(R.id.fragment_hometab_ll);
+        rl = (RelativeLayout)getView().findViewById(R.id.fragment_hometab_rl);
         initNews();
         new BaseAsyntask(getContext(), UrlGetXml.HOME_TAB, this).execute();
         initSlideCungHoangDao();
@@ -89,6 +101,13 @@ public class HomeTabFragment extends BaseFragment implements
         tlDau.setOnClickListener(this);
         tlTuat.setOnClickListener(this);
         tlHoi.setOnClickListener(this);
+        btnConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new BaseAsyntask(getContext(), UrlGetXml.HOME_TAB, HomeTabFragment.this).execute();
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -100,27 +119,13 @@ public class HomeTabFragment extends BaseFragment implements
     private void initSlideCungHoangDao() {
         arrayCunghoangdao = new ArrayList<>();
         Cunghoangdao cunghoangdao = null;
-//        Cunghoangdao chdBachDuong = new Cunghoangdao(getResources().getString(R.string.chd_bachduong), R.drawable.chd_bachduong);
-//        Cunghoangdao chdKimNguu = new Cunghoangdao(getResources().getString(R.string.chd_kimnguu), R.drawable.chd_kimnguu);
-//        Cunghoangdao chdSongTu = new Cunghoangdao(getResources().getString(R.string.chd_songngu), R.drawable.chd_songngu);
-//        Cunghoangdao chdCuGiai = new Cunghoangdao(getResources().getString(R.string.chd_cugiai), R.drawable.chd_cugiai);
-//        Cunghoangdao chdSuTu = new Cunghoangdao(getResources().getString(R.string.chd_sutu), R.drawable.chd_sutu);
-//        Cunghoangdao chdXuNu = new Cunghoangdao(getResources().getString(R.string.chd_xunu), R.drawable.chd_xunu);
-//        Cunghoangdao chdThienBinh = new Cunghoangdao(getResources().getString(R.string.chd_thienbinh), R.drawable.chd_thienbinh);
-//        Cunghoangdao chdBoCap = new Cunghoangdao(getResources().getString(R.string.chd_bocap), R.drawable.chd_bocap);
-//        Cunghoangdao chdNhanMa = new Cunghoangdao(getResources().getString(R.string.chd_nhanma), R.drawable.chd_nhanma);
-//        Cunghoangdao chdMaKet = new Cunghoangdao(getResources().getString(R.string.chd_maket), R.drawable.chd_maket);
-//        Cunghoangdao chdBaoBinh = new Cunghoangdao(getResources().getString(R.string.chd_baobinh), R.drawable.chd_baobinh);
-//        Cunghoangdao chdSongNgu = new Cunghoangdao(getResources().getString(R.string.chd_songngu), R.drawable.chd_songngu);
-
         for (int i = 0; i < getResources().getStringArray(R.array.cunghoangdaoname).length; i++) {
             cunghoangdao = new Cunghoangdao(getResources().getStringArray(R.array.cunghoangdaoname)[i],
                     getResources().obtainTypedArray(R.array.cunghoangdaoimage).getResourceId(i, -1),
                     getResources().getStringArray(R.array.cunghoangdaodate)[i]);
             arrayCunghoangdao.add(cunghoangdao);
-            Log.d(TAG, "initSlideCungHoangDao: "+getResources().getIntArray(R.array.cunghoangdaoimage)[i]);
         }
-        custom_addapter = new RecyclerViewAdapter(getContext(), arrayCunghoangdao);
+        custom_addapter = new RecyclerViewIconCungHoangDaoAdapter(getContext(), arrayCunghoangdao, this);
         mRecyclerViewSlider.setAdapter(custom_addapter);
         custom_addapter.notifyDataSetChanged();
     }
@@ -200,21 +205,31 @@ public class HomeTabFragment extends BaseFragment implements
     @Override
     public void OnNewsFeedListSend(ArrayList<NewsFeed> arr) {
         ArrayList<NewsFeed> arrayLastPost = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            arrayLastPost.add(arr.get(i));
-        }
         ArrayList<NewsFeed> arrayNewsFeed = new ArrayList<>();
-        for (int i = 4; i < arr.size(); i++) {
-            arrayNewsFeed.add(arr.get(i));
+     //   Log.d(TAG, "OnNewsFeedListSend: " + arr.isEmpty());
+        if(arr!=null){
+            ll.setVisibility(View.INVISIBLE);
+            rl.setVisibility(View.VISIBLE);
+            for (int i = 0; i < 4; i++) {
+                arrayLastPost.add(arr.get(i));
+            }
+            for (int i = 4; i < arr.size(); i++) {
+                arrayNewsFeed.add(arr.get(i));
+            }
+            mTimeLineAdapter = new LatestPostsAdapter(getContext(), arrayLastPost, this);
+
+            lvNews.setAdapter(mTimeLineAdapter);
+            progressBar.setVisibility(View.INVISIBLE);
+
+            RecyclerNewsFeedAdapter adapter = new RecyclerNewsFeedAdapter(getContext(), arrayNewsFeed, this);
+            rvNewsFeed.setAdapter(adapter);
+            progressBarNews.setVisibility(View.INVISIBLE);
+        }else {
+            progressBar.setVisibility(View.INVISIBLE);
+            ll.setVisibility(View.VISIBLE);
+            rl.setVisibility(View.INVISIBLE);
+
         }
-        mTimeLineAdapter = new LatestPostsAdapter(getContext(), arrayLastPost, this);
-
-        lvNews.setAdapter(mTimeLineAdapter);
-        progressBar.setVisibility(View.INVISIBLE);
-
-        RecyclerNewsFeedAdapter adapter = new RecyclerNewsFeedAdapter(getContext(), arrayNewsFeed, this);
-        rvNewsFeed.setAdapter(adapter);
-        progressBarNews.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -249,49 +264,110 @@ public class HomeTabFragment extends BaseFragment implements
         startActivity(intent);
     }
 
+    Intent intent ;
+
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(context, CategoryActivity.class);
+       intent = new Intent(context, CategoryActivity.class);
         switch (v.getId()) {
             case R.id.fragment_hometab_tlTi:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_TI);
+                intent.putExtra(TITLE_CATEGORY, "Tuổi Tý");
                 break;
             case R.id.fragment_hometab_tlSuu:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_SUU);
+                intent.putExtra(TITLE_CATEGORY, "Tuổi Sửu");
                 break;
             case R.id.fragment_hometab_tlDan:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_DAN);
+                intent.putExtra(TITLE_CATEGORY, "Tuổi Dần");
                 break;
             case R.id.fragment_hometab_tlMeo:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_MAO);
+                intent.putExtra(TITLE_CATEGORY, "Tuổi Mão");
                 break;
             case R.id.fragment_hometab_tlThin:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_THIN);
+                intent.putExtra(TITLE_CATEGORY, "Tuổi Thin");
                 break;
             case R.id.fragment_hometab_tlTy:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_TY);
+                intent.putExtra(TITLE_CATEGORY, "Tuổi Tỵ");
                 break;
             case R.id.fragment_hometab_tlNgo:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_NGO);
+                intent.putExtra(TITLE_CATEGORY, "Tuổi Ngọ");
                 break;
             case R.id.fragment_hometab_tlMui:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_MUI);
+                intent.putExtra(TITLE_CATEGORY, "Tuổi Mùi");
                 break;
             case R.id.fragment_hometab_tlThan:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_THAN);
+                intent.putExtra(TITLE_CATEGORY, "Tuổi Thân");
                 break;
             case R.id.fragment_hometab_tlDau:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_DAN);
+                intent.putExtra(TITLE_CATEGORY, "Tuổi Dậu");
                 break;
             case R.id.fragment_hometab_tlTuat:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_TUAT);
+                intent.putExtra(TITLE_CATEGORY, "Tuổi Tuất");
                 break;
             case R.id.fragment_hometab_tlHoi:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_HOI);
+                intent.putExtra(TITLE_CATEGORY, "Tuổi Hợi");
                 break;
             default:
                 break;
         }
         startActivity(intent);
     }
+
+    @Override
+    public void onItemClickIconCungHoangDao(View v, int position, String category) {
+        intent = new Intent(context, CategoryActivity.class);
+        switch (position) {
+            case 0:
+                intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_BACH_DUONG);
+                intent.putExtra(TITLE_CATEGORY, category);
+            case 1:
+                intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_KIM_NGUU);
+                intent.putExtra(TITLE_CATEGORY, category);
+            case 2:
+                intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_SONG_TU);
+                intent.putExtra(TITLE_CATEGORY, category);
+            case 3:
+                intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_CU_GIAI);
+                intent.putExtra(TITLE_CATEGORY, category);
+            case 4:
+                intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_SU_TU);
+                intent.putExtra(TITLE_CATEGORY, category);
+            case 5:
+                intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_XU_NU);
+                intent.putExtra(TITLE_CATEGORY, category);
+            case 6:
+                intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_THIEN_BINH);
+                intent.putExtra(TITLE_CATEGORY, category);
+            case 7:
+                intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_BO_CAP);
+                intent.putExtra(TITLE_CATEGORY, category);
+            case 8:
+                intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_NHAN_MA);
+                intent.putExtra(TITLE_CATEGORY, category);
+            case 9:
+                intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_MA_KET);
+                intent.putExtra(TITLE_CATEGORY, category);
+            case 10:
+                intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_BAO_BINH);
+                intent.putExtra(TITLE_CATEGORY, category);
+            case 11:
+                intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_SONG_NGU);
+                intent.putExtra(TITLE_CATEGORY, category);
+            default:
+                break;
+        }
+        startActivity(intent);
+    }
+
 }

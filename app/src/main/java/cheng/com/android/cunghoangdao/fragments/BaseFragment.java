@@ -2,6 +2,7 @@ package cheng.com.android.cunghoangdao.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import android.view.ViewGroup;
 /**
  * Created by Welcome on 1/17/2016.
  */
-public abstract class BaseFragment extends android.support.v4.app.Fragment {
+public abstract class BaseFragment extends Fragment {
+    protected boolean isVisible;
+    private final String TAG = getClass().getSimpleName();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +25,7 @@ public abstract class BaseFragment extends android.support.v4.app.Fragment {
         setEvent();
         setValue();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

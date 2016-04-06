@@ -1,5 +1,6 @@
 package cheng.com.android.cunghoangdao.model.hometab;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.alorma.timeline.TimelineView;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cheng.com.android.cunghoangdao.services.XMLGetData;
+import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
 
 /**
  * Created by Welcome on 3/24/2016.
@@ -28,7 +30,7 @@ public class NewsFeed {
     private int type;
     private int alignment;
 
-    private static int mNumberLastPost = 0;
+    private static int mNumberLastPost;
     private XmlPullParserFactory factory;
     private XmlPullParser parser;
     private String tagName;
@@ -170,7 +172,8 @@ public class NewsFeed {
     }
 
 
-    public static List<NewsFeed> parse(String url) {
+    public static List<NewsFeed> parse(String url,Context context) {
+        mNumberLastPost = 0;
         InputStream inputStream = null;
         List<NewsFeed> rssFeedList = null;
         XmlPullParserFactory factory;
@@ -178,6 +181,9 @@ public class NewsFeed {
         String tagName;
         String mTitle = null, mLink = null, mDescription = null,
                 mPubdate = null, mCategory = null, mContent = null, mImageUrl = null;
+        if(ConnectionUltils.isConnected(context)==false){
+            return null;
+        }
         try {
             int count = 0;
             factory = XmlPullParserFactory.newInstance();
@@ -222,7 +228,6 @@ public class NewsFeed {
                         if (tagName.equals("channel")) {
                             done = true;
                         } else if (tagName.equals("item")) {
-
                             if (mNumberLastPost < 4) {
                                 if (mNumberLastPost == 0) {
                                     newsFeed = new NewsFeed(mTitle, mLink, mPubdate, mCategory,
@@ -240,7 +245,7 @@ public class NewsFeed {
                                         mDescription, mContent, mImageUrl, TimelineView.TYPE_START);
                             }
                             rssFeedList.add(newsFeed);
-                            mNumberLastPost++;
+                            ++mNumberLastPost;
                         }
                         break;
                 }

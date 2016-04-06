@@ -13,7 +13,7 @@
         card_view:cardCornerRadius="1dp">
 
         <LinearLayout
-            android:background="@drawable/config_click_item_timeline"
+            android:background="@drawable/ripple_item_listview"
             android:clickable="true"
             android:id="@+id/item_cunghoangdao_ll"
             android:layout_margin="16dp"

@@ -45,6 +45,9 @@
     <string name="cunghoangdao_name">Cung Bạch Dương</string>
     <string name="cunghoangdao_date">(01/07-24/07)</string>
 
+    <string name="connection">Không thể tải dữ liệu.\nVui lòng kiểm tra lại kết nối và thử lại!</string>
+    <string name="thulai">Thử lại</string>
+
     <string name="chd_bachduong">Cung Bạch Dương</string>
     <string name="chd_kimnguu">Cung Kim Ngưu</string>
     <string name="chd_songtu">Cung Song Tử</string>

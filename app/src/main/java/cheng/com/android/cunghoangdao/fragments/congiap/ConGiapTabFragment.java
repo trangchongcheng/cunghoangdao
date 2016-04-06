@@ -1,7 +1,6 @@
 package cheng.com.android.cunghoangdao.fragments.congiap;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,9 +28,10 @@ public class ConGiapTabFragment extends BaseFragment implements
     private ProgressBar progressBar;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerCunghoangdaoAdapter recyclerCunghoangdaoAdapter;
+
     @Override
     public void init() {
-
+        Log.d(TAG, "init: ");
         rcvListNews = (RecyclerView) getView().findViewById(R.id.fragment_cunghoangdao_rcvNews);
         rcvListNews.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
@@ -50,6 +50,7 @@ public class ConGiapTabFragment extends BaseFragment implements
     public void setValue() {
 
     }
+
 
 
     @Override
@@ -71,7 +72,7 @@ public class ConGiapTabFragment extends BaseFragment implements
     public void putIntent(String content,String title) {
         Intent intent = new Intent(getActivity(), ViewingActivity.class);
         intent.putExtra(RecyclerCunghoangdaoAdapter.CONTENT, content);
-        intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, title);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, "12 Con Giáp");
         startActivity(intent);
     }
 }

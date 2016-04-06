@@ -46,9 +46,9 @@ public class Custom_Addapter extends BaseAdapter{
         final viewHolder viewHolder;
         if(convertView==null){
             viewHolder = new viewHolder();
-            convertView = inflater.inflate(R.layout.item_activity_main_slider,null);
-            viewHolder.tvName = (TextView) convertView.findViewById(R.id.item_slider_tvName);
-            viewHolder.imgCunghoangdao= (ImageView) convertView.findViewById(R.id.item_slider_imgSlider);
+            convertView = inflater.inflate(R.layout.item_fragment_hometab_icon_cunghoangdao,null);
+            viewHolder.tvName = (TextView) convertView.findViewById(R.id.item_icon_tvName);
+            viewHolder.imgCunghoangdao= (ImageView) convertView.findViewById(R.id.item_icon_imgSlider);
 
             convertView.setTag(viewHolder);
         }else {

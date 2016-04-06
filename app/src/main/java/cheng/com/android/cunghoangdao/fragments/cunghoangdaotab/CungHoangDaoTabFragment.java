@@ -3,6 +3,7 @@ package cheng.com.android.cunghoangdao.fragments.cunghoangdaotab;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -28,9 +29,14 @@ public class CungHoangDaoTabFragment extends BaseFragment implements
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerCunghoangdaoAdapter recyclerCunghoangdaoAdapter;
     public final static String CONTENT = "content";
+    private boolean isPrepared;
+    private boolean mUserSeen = false;
+    private boolean mViewCreated = false;
     @Override
     public void init() {
+        isPrepared = true;
 
+        Log.d(TAG, "init: +");
         rcvListNews = (RecyclerView) getView().findViewById(R.id.fragment_cunghoangdao_rcvNews);
         rcvListNews.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getContext());
@@ -45,9 +51,57 @@ public class CungHoangDaoTabFragment extends BaseFragment implements
 
     }
 
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        Log.d(TAG, "setUserVisibleHint: ");
+        if (!mUserSeen && isVisibleToUser) {
+            mUserSeen = true;
+            onUserFirstSight();
+            tryViewCreatedFirstSight();
+        }
+        onUserVisibleChanged(isVisibleToUser);
+    }
+    private void tryViewCreatedFirstSight() {
+        if (mUserSeen && mViewCreated) {
+            onViewCreatedFirstSight(getView());
+        }
+    }
+
+    /**
+     * Called when the new created view is visible to user for the first time.
+     */
+    protected void onViewCreatedFirstSight(View view) {
+        Log.d(TAG, "onViewCreatedFirstSight: ");
+    }
+
+    /**
+     * Called when the fragment's UI is visible to user for the first time.
+     *
+     * <p>However, the view may not be created currently if in {@link android.support.v4.view.ViewPager}.
+     */
+    protected void onUserFirstSight() {
+        Log.d(TAG, "onUserFirstSight: ");
+    }
+
+    /**
+     * Called when the visible state to user has been changed.
+     */
+    protected void onUserVisibleChanged(boolean visible) {
+        Log.d(TAG, "onUserVisibleChanged: ");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mViewCreated = false;
+        mUserSeen = false;
+    }
+
+
     @Override
     public void setValue() {
-
     }
 
     @Override
@@ -69,7 +123,7 @@ public class CungHoangDaoTabFragment extends BaseFragment implements
     public void putIntent(String content,String title) {
             Intent intent = new Intent(context, ViewingActivity.class);
             intent.putExtra(RecyclerCunghoangdaoAdapter.CONTENT, content);
-            intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, title);
+            intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, "Cung Hoàng Đạo");
             startActivity(intent);
     }
 }

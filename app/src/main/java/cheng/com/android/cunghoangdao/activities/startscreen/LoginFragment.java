@@ -1,5 +1,6 @@
 package cheng.com.android.cunghoangdao.activities.startscreen;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,8 +15,9 @@ import com.sleepbot.datetimepicker.time.TimePickerDialog;
 import java.util.Calendar;
 
 import cheng.com.android.cunghoangdao.R;
-import cheng.com.android.cunghoangdao.model.Common;
 import cheng.com.android.cunghoangdao.fragments.BaseFragment;
+import cheng.com.android.cunghoangdao.model.Common;
+import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
 import cheng.com.android.cunghoangdao.ultils.SharedPreferencesUser;
 import me.drakeet.materialdialog.MaterialDialog;
 
@@ -23,6 +25,7 @@ import me.drakeet.materialdialog.MaterialDialog;
  * Created by Welcome on 1/19/2016.
  */
 public class LoginFragment extends BaseFragment implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    private final String TAG = getClass().getSimpleName();
     public static final String DATEPICKER_TAG = "datepicker";
     private Button btnDayOfBirth, btnSignup;
     private TextView tvHello;
@@ -32,6 +35,7 @@ public class LoginFragment extends BaseFragment implements DatePickerDialog.OnDa
     private DatePickerDialog datePickerDialog;
     private int year, month, day;
     private OnLoginFragmentListener mOnLoginFragmentListener;
+
 
     @Override
     public void init() {
@@ -59,16 +63,38 @@ public class LoginFragment extends BaseFragment implements DatePickerDialog.OnDa
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(rlShow.getVisibility()==View.VISIBLE) {
-                    Common.user.setUserName(edtName.getText() + "");
-                    Common.user.setYear(year);
-                    Common.user.setMonth(month);
-                    Common.user.setDao(day);
-                    SharedPreferencesUser.getInstance(getActivity()).saveInfo();
-                    mOnLoginFragmentListener.onSignUpSuccess();
-                }else {
-                    showMessage("Lỗi thông tin","Vui lòng điền thông tin chính xác");
+                if (ConnectionUltils.isConnected(getActivity())){
+                    if(rlShow.getVisibility()==View.VISIBLE) {
+                        Common.user.setUserName(edtName.getText() + "");
+                        Common.user.setYear(year);
+                        Common.user.setMonth(month);
+                        Common.user.setDao(day);
+                        SharedPreferencesUser.getInstance(getActivity()).saveInfo();
+                        mOnLoginFragmentListener.onSignUpSuccess();
+                    }else {
+                        showMessage("Lỗi thông tin","Vui lòng điền thông tin chính xác");
+                    }
+                } else{
+                    final MaterialDialog dialog = new MaterialDialog(getActivity());
+                    dialog.setTitle("No connection");
+                    dialog.setMessage("Please connect to the internet");
+                    dialog.setNegativeButton("CANCEL", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                    dialog.setPositiveButton("OK", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                            startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+                            getActivity().overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                        }
+                    });
+                    dialog.show();
                 }
+
 
             }
         });
