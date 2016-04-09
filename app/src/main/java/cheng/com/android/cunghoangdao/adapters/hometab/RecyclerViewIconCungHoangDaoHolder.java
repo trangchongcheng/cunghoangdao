@@ -11,12 +11,12 @@ import cheng.com.android.cunghoangdao.R;
 /**
  * Created by Welcome on 1/26/2016.
  */
-public class RecyclerViewHolder extends RecyclerView.ViewHolder {
+public class RecyclerViewIconCungHoangDaoHolder extends RecyclerView.ViewHolder {
     public TextView tvName;
     public ImageView imgCunghoangdao;
     public TextView tvDate;
     public LinearLayout ll;
-    public RecyclerViewHolder(View view) {
+    public RecyclerViewIconCungHoangDaoHolder(View view) {
         super(view);
         // Find all views ids
 

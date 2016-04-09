@@ -153,31 +153,33 @@
                 android:layout_centerInParent="true"
                 android:indeterminate="true"
                 android:visibility="visible" />
+
             <LinearLayout
                 android:id="@+id/fragment_hometab_ll"
-                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            <TextView
-                android:layout_centerHorizontal="true"
-                android:id="@+id/fragment_hometab_tvConnection"
-                android:text="@string/connection"
-                android:layout_below="@id/content_main_lvNews"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Button
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
-                android:background="@drawable/style_button_connect"
-                android:layout_gravity="center"
-                android:id="@+id/fragment_hometab_btnConnect"
-                android:text="@string/thulai"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:layout_below="@+id/fragment_hometab_tvConnection"
-                />
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/fragment_hometab_tvConnection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/content_main_lvNews"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/connection" />
+
+                <Button
+                    android:id="@+id/fragment_hometab_btnConnect"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/fragment_hometab_tvConnection"
+                    android:layout_gravity="center"
+                    android:background="@drawable/style_button_connect"
+                    android:text="@string/thulai"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -209,6 +211,7 @@
                     android:id="@+id/fragment_hometab_rvNewFeed"
                     android:layout_width="match_parent"
                     android:layout_height="560dp" />
+
                 <ProgressBar
                     android:id="@+id/fragment_hometab_progressBarNews"
                     android:layout_width="wrap_content"

@@ -86,7 +86,7 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
                     R.layout.item_fragment_cunghoangdao, parent, false);
             // create ViewHolder
             vh = new CategoryViewHolder(v);
-        }else {
+        } else {
             View v = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.item_progress, parent, false);
 
@@ -96,10 +96,10 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof CategoryViewHolder) {
 
-            Category category= (Category) arrCategory.get(position);
+            final Category category = (Category) arrCategory.get(position);
 
             ((CategoryViewHolder) holder).tvTitle.setText(category.getmTitle());
 
@@ -111,6 +111,13 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
                         .centerCrop()
                         .into(((CategoryViewHolder) holder).imgThumbnail);
             }
+            ((CategoryViewHolder) holder).ll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickItemCategory.onItemClickListener(v, position, category.getmTitle(),
+                            category.getmLink(), category.getmImage());
+                }
+            });
 
         } else {
             ((ProgressViewHolder) holder).progressBar.setIndeterminate(true);
@@ -160,6 +167,6 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     }
 
     public interface OnClickItemCategory {
-        void onItemClickListener(View v, int position, String link);
+        void onItemClickListener(View v, int position, String title, String linkAricle, String linkImage);
     }
 }

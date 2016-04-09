@@ -21,6 +21,7 @@ public class Category {
     private String mImage;
     private String mLink;
     private String mDescription;
+    private String mContent;
 
     public Category() {
     }
@@ -30,6 +31,13 @@ public class Category {
         this.mImage = mImage;
         this.mLink = mLink;
         this.mDescription = mDescription;
+    }
+    public Category(String mTitle, String mImage, String mLink, String mDescription,String mContent) {
+        this.mTitle = mTitle;
+        this.mImage = mImage;
+        this.mLink = mLink;
+        this.mDescription = mDescription;
+        this.mContent = mContent;
     }
 
     public Category(String mTitle, String mImage, String mLink) {
@@ -70,6 +78,13 @@ public class Category {
         this.mDescription = mDescription;
     }
 
+    public String getmContent() {
+        return mContent;
+    }
+
+    public void setmContent(String mContent) {
+        this.mContent = mContent;
+    }
 
     public static ArrayList<Category> paserJsoupCategory(String url) {
         ArrayList<Category> arrCategory = new ArrayList<>();
@@ -84,10 +99,11 @@ public class Category {
             for (int i = 0; i < title.size(); i++) {
                 arrCategory.add(new Category(title.get(i).attr("title"),
                         image.get(i).attr("src"), title.get(i).attr("href") + ""));
+
             }
         }catch (HttpStatusException ex){
             isLast = true;
-            Log.d("Category", "Last");
+            Log.d("Category", "HttpStatusException");
             return arrCategory;
         }
         catch (SocketTimeoutException e) {
@@ -98,4 +114,5 @@ public class Category {
 
         return arrCategory;
     }
+
 }

@@ -20,7 +20,7 @@ public class ViewPageContainerFragment extends BaseFragment {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private final String TAG = getClass().getSimpleName();
-    private  ViewPagerAdapter adapter;
+    private ViewPagerAdapter adapter;
     private boolean[] isTabsSelected = new boolean[5];
     private OnTabChangeListener mOnTabChangeListener;
     private int countSelectedTab = 1;
@@ -28,15 +28,14 @@ public class ViewPageContainerFragment extends BaseFragment {
 
     @Override
     public void init() {
-        tabLayout =  (TabLayout)getView().findViewById(R.id.tab_layout);
-        viewPager =  (ViewPager) getView().findViewById(R.id.view_pager);
+        tabLayout = (TabLayout) getView().findViewById(R.id.tab_layout);
+        viewPager = (ViewPager) getView().findViewById(R.id.view_pager);
         adapter = new ViewPagerAdapter(getFragmentManager());
     }
 
     @Override
     public void setEvent() {
         setupViewPager(viewPager);
-      //  viewPager.setOffscreenPageLimit(1);
         isTabsSelected[0] = true;
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -46,12 +45,18 @@ public class ViewPageContainerFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                Log.d(TAG, "onPageSelected: "+position);
                 if (position != 0) {
-                    if (!isTabsSelected[position]
-                            && adapter.getItem(position).getChildFragmentManager().getBackStackEntryCount() == 1
-                            && getCurrentFragment(position) instanceof OnTabChangeListener) {
-                        mOnTabChangeListener = (OnTabChangeListener) getCurrentFragment(position);
+//                    if (!isTabsSelected[position]
+//                            && adapter.getItem(position).getChildFragmentManager().getBackStackEntryCount() == 1
+//                            && getCurrentFragment(position) instanceof OnTabChangeListener) {
+//                        mOnTabChangeListener = (OnTabChangeListener) getCurrentFragment(position);
+//                        mOnTabChangeListener.onTabSelected();
+//                        Log.d(TAG, "onPageSelected: ");
+//                    }
+                    if (getCurrentFragment(position) instanceof OnTabChangeListener) {
+                        Fragment f = getCurrentFragment(position);
+                        mOnTabChangeListener = (OnTabChangeListener) f;
+                        Log.d(TAG, "onPageSelected: ");
                         mOnTabChangeListener.onTabSelected();
                     }
                 } else if (adapter.getItem(0).getChildFragmentManager().getBackStackEntryCount() == 1) {
@@ -71,7 +76,6 @@ public class ViewPageContainerFragment extends BaseFragment {
     }
 
 
-
     @Override
     public void setValue() {
 
@@ -81,6 +85,7 @@ public class ViewPageContainerFragment extends BaseFragment {
     public int getLayoutId() {
         return R.layout.fragment_viewpage;
     }
+
     private void setupViewPager(ViewPager viewPager) {
         adapter.addFrag(new HomeContainerFragment(), "Home");
         adapter.addFrag(new CungHoangDaoContainerFragment(), "Cung Hoàng Đạo");
@@ -88,10 +93,12 @@ public class ViewPageContainerFragment extends BaseFragment {
         adapter.addFrag(new TuViContainerFragment(), "Tử Vi");
         viewPager.setAdapter(adapter);
     }
+
     public Fragment getCurrentFragment(int position) {
         FragmentManager fm = getChildFragmentManager();
         return fm.findFragmentById(R.id.container_framelayout);
     }
+
     public interface OnTabChangeListener {
         void onTabSelected();
     }

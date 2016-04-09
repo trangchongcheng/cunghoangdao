@@ -5,6 +5,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
@@ -28,6 +30,8 @@ public class TuViTabFragment extends BaseFragment implements
     private ProgressBar progressBar;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerCunghoangdaoAdapter recyclerCunghoangdaoAdapter;
+    private Button btnConnect;
+    private LinearLayout ll;
 
     @Override
     public void init() {
@@ -37,13 +41,20 @@ public class TuViTabFragment extends BaseFragment implements
         mLayoutManager = new LinearLayoutManager(getContext());
         rcvListNews.setLayoutManager(mLayoutManager);
         progressBar = (ProgressBar) getView().findViewById(R.id.fragment_cunghoangdao_progressbar);
-
+        btnConnect = (Button) getView().findViewById(R.id.fragment_cunghoangdao_btnConnect);
+        ll = (LinearLayout) getView().findViewById(R.id.fragment_cunghoangdao_ll);
         new BaseAsyntask(getContext(), UrlGetXml.TU_VI, this).execute();
     }
 
     @Override
     public void setEvent() {
-
+        btnConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new BaseAsyntask(getContext(), UrlGetXml.CUNG_HOANG_DAO, TuViTabFragment.this).execute();
+                progressBar.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -58,20 +69,27 @@ public class TuViTabFragment extends BaseFragment implements
 
     @Override
     public void OnNewsFeedListSend(ArrayList<NewsFeed> arr) {
-        recyclerCunghoangdaoAdapter = new RecyclerCunghoangdaoAdapter(getContext(), arr, this);
-        rcvListNews.setAdapter(recyclerCunghoangdaoAdapter);
-        progressBar.setVisibility(View.INVISIBLE);
+        if (arr != null) {
+            ll.setVisibility(View.INVISIBLE);
+            recyclerCunghoangdaoAdapter = new RecyclerCunghoangdaoAdapter(getContext(), arr, this);
+            rcvListNews.setAdapter(recyclerCunghoangdaoAdapter);
+            progressBar.setVisibility(View.INVISIBLE);
+        } else {
+            progressBar.setVisibility(View.INVISIBLE);
+            ll.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
-    public void onItemClickListener(View v, int position, String content, String title) {
-        putIntent(content, title);
+    public void onItemClickListener(View v, int position, String content, String title, String linkImage) {
+        putIntent(content, title, linkImage);
     }
 
-    public void putIntent(String content, String title) {
+    public void putIntent(String content, String title, String linkImage) {
         Intent intent = new Intent(context, ViewingActivity.class);
         intent.putExtra(RecyclerCunghoangdaoAdapter.CONTENT, content);
         intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, "Tử Vi");
+        intent.putExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE, linkImage);
         startActivity(intent);
     }
 }

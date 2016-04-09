@@ -162,7 +162,6 @@ public class MainActivity extends BaseActivity {
         viewPager.setAdapter(adapter);
     }
 
-//    private Fragment getFragmentCurrent(int position){
-//        FragmentManager fm =
-//    }
+
+
 }

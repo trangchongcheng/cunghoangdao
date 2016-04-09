@@ -58,13 +58,46 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="16dp">
+            <LinearLayout
+                android:id="@+id/activity_viewing_ll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
 
+                <TextView
+                    android:id="@+id/activity_viewing_tvConnection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/connection" />
+
+                <Button
+                    android:id="@+id/activity_viewing_btnConnect"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/fragment_hometab_tvConnection"
+                    android:layout_gravity="center"
+                    android:background="@drawable/style_button_connect"
+                    android:text="@string/thulai"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary" />
+            </LinearLayout>
             <TextView
                 android:id="@+id/activity_viewing_tvContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="23dp" />
+            <ProgressBar
+                android:visibility="invisible"
+                android:id="@+id/activity_viewing_progress"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
+
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
@@ -79,5 +112,63 @@
         app:fabSize="mini"
         app:layout_anchor="@+id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu"
+        android:layout_gravity="bottom|right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        app:menu_fab_size="normal"
+        app:menu_showShadow="true"
+        app:menu_shadowColor="#66000000"
+        app:menu_shadowRadius="4dp"
+        app:menu_shadowXOffset="1dp"
+        app:menu_shadowYOffset="3dp"
+        app:menu_colorNormal="@color/colorPrimary"
+        app:menu_colorPressed="@color/grayish_lime_green"
+        app:menu_colorRipple="#99FFFFFF"
+        app:menu_animationDelayPerItem="100"
+        app:menu_icon="@drawable/ic_floatbutton_24dp"
+        app:menu_buttonSpacing="0dp"
+        app:menu_labels_margin="0dp"
+        app:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        app:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        app:menu_labels_paddingTop="4dp"
+        app:menu_labels_paddingRight="8dp"
+        app:menu_labels_paddingBottom="4dp"
+        app:menu_labels_paddingLeft="8dp"
+        app:menu_labels_padding="8dp"
+        app:menu_labels_textColor="#FFFFFF"
+        app:menu_labels_textSize="14sp"
+        app:menu_labels_cornerRadius="3dp"
+        app:menu_labels_colorNormal="#333333"
+        app:menu_labels_colorPressed="#444444"
+        app:menu_labels_colorRipple="#66FFFFFF"
+        app:menu_labels_showShadow="true"
+        app:menu_labels_singleLine="false"
+        app:menu_labels_ellipsize="none"
+        app:menu_labels_maxLines="-1"
+        app:menu_labels_position="left"
+        app:menu_openDirection="up"
+        app:menu_backgroundColor="@android:color/transparent"
+        app:menu_fab_label="Mở rộng">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/activity_viewing_flbtnSave"
+            app:fab_label="Lưu lại"
+            android:src="@drawable/ic_save_sqlite_18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_size="mini"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_colorPressed="@color/blue_semi_transparent"
+            app:fab_colorRipple="#99FFFFFF"
+            />
+
+    </com.github.clans.fab.FloatingActionMenu>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,7 +1,6 @@
 package cheng.com.android.cunghoangdao.adapters.hometab;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +55,8 @@ public class LatestPostsAdapter extends ArrayAdapter<NewsFeed> {
         viewHolder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mOnItemClickListener.onItemClick(v, position, newsFeed.getmContent(), newsFeed.getmTitle());
+                mOnItemClickListener.onItemClick(v, position, newsFeed.getmContent(),
+                        newsFeed.getmTitle(),newsFeed.getmImageUrl());
             }
         });
 
@@ -64,7 +64,7 @@ public class LatestPostsAdapter extends ArrayAdapter<NewsFeed> {
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View view, int position, String content,String title);
+        void onItemClick(View view, int position, String content,String title, String linkImage);
     }
 
     static class ViewHolderItem {
@@ -73,30 +73,7 @@ public class LatestPostsAdapter extends ArrayAdapter<NewsFeed> {
         TimelineView timeline;
     }
 
-    public static String getDate(String pubDate) {
-        return pubDate.substring(0, pubDate.indexOf("+", 0));
 
-    }
 
-    public String getDescription(String pubDate) {
-        return pubDate.substring(0, pubDate.indexOf(".", 0));
-
-    }
-
-    private class ImageGetter implements Html.ImageGetter {
-        public Drawable getDrawable(String source) {
-            int id;
-            if (source.equals("hughjackman.jpg")) {
-                id = R.drawable.chipi;
-            } else {
-                return null;
-            }
-            Drawable d = getContext().getResources().getDrawable(id);
-            d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
-            return d;
-        }
-    }
-
-    ;
 
 }

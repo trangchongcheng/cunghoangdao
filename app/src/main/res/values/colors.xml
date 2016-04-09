@@ -5,7 +5,7 @@
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="navigationBarColor">#374046</color>
-    <color name="colorAccent">#f67280</color>
+    <color name="colorAccent">#64B5F6</color>
 
     <color name="icon_12_con_giap">#ffffff</color>
     <color name="black_semi_transparent">#B2000000</color>
@@ -17,7 +17,7 @@
     <color name="pink_pressed">#ec407a</color>
     <color name="blue_semi_transparent">#64B5F6</color>
     <color name="green_semi_transparent_pressed">#66BB6A</color>
-
+    <color name="grayish_lime_green">#A2D4AB</color>
 
     <color name="white_background">#ffffff</color>
     <color name="dark_moderate_cyan">#2f9395</color>

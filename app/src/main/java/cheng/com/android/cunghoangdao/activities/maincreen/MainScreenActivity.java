@@ -1,6 +1,11 @@
 package cheng.com.android.cunghoangdao.activities.maincreen;
 
 import android.animation.ValueAnimator;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -24,9 +29,12 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseActivity;
+import cheng.com.android.cunghoangdao.activities.offline.OfflineActivity;
 import cheng.com.android.cunghoangdao.fragments.ViewPageContainerFragment;
 import cheng.com.android.cunghoangdao.model.Common;
+import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.drakeet.materialdialog.MaterialDialog;
 
 import static cheng.com.android.cunghoangdao.R.string.openDrawer;
 
@@ -49,6 +57,8 @@ public class MainScreenActivity extends BaseActivity {
     private FragmentManager fragmentManager;
     boolean doubleBackToExitPressedOnce = false;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+    private int state = 0;
+
     @Override
     public void onBackPressed() {
         int count = fragmentManager.getBackStackEntryCount();
@@ -62,11 +72,6 @@ public class MainScreenActivity extends BaseActivity {
         } else {
             fragmentManager.popBackStack();
         }
-        Log.d(TAG, count + "");
-//        String backStateName = homeFragment.getClass().getName();
-//        Log.d(TAG, backStateName);
-//        super.onBackPressed();
-
         this.doubleBackToExitPressedOnce = true;
         Toast.makeText(this, "Please click BACK again to exit", Snackbar.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
@@ -102,6 +107,7 @@ public class MainScreenActivity extends BaseActivity {
         floatButton_item_detail.setTitle("Chi tiết về bạn");
         floatButton_item_detail.setSize(1);
         floatButton.addButton(floatButton_item_detail);
+        Log.d(TAG, "oncreate");
     }
 
     @Override
@@ -122,7 +128,8 @@ public class MainScreenActivity extends BaseActivity {
                 switch (menuItem.getItemId()) {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.inbox:
-                        Toast.makeText(getApplicationContext(), "Inbox Selected", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainScreenActivity.this, OfflineActivity.class);
+                        startActivity(intent);
                         return true;
                     // For rest of the options we just show a toast on click
                     case R.id.starred:
@@ -179,7 +186,8 @@ public class MainScreenActivity extends BaseActivity {
         }
 
     }
-    public void animationIcon(){
+
+    public void animationIcon() {
         ValueAnimator anim = ValueAnimator.ofFloat(1, 0);
         anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -206,9 +214,87 @@ public class MainScreenActivity extends BaseActivity {
                 .replace(R.id.activity_maincree_frame_container, homeFragment, "home")
                 .commit();
         fragmentManager.executePendingTransactions();
-        Log.d("nr of fragment in back stack", fragmentManager.getBackStackEntryCount() + "");
     }
 
+    private void registerReceivers() {
+        this.registerReceiver(NetworkChangeReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+    }
+
+    private BroadcastReceiver NetworkChangeReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(final Context context, Intent intent) {
+            //boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
+
+            if (ConnectionUltils.isConnected(context) == true) {
+                Log.d(TAG, "onReceive: " + " co mang");
+            } else {
+                Log.d(TAG, "showdialog");
+                showDialog(context);
+            }
+        }
+    };
 
 
+    public void showDialog(Context context) {
+        final MaterialDialog dialog;
+        dialog = new MaterialDialog(context);
+        dialog.setTitle("Không tìm thấy Network");
+        dialog.setMessage("Vui lòng kiểm tra lại đường truyền");
+        dialog.setNegativeButton("OK", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "CECK++: ");
+                dialog.dismiss();
+                Log.d(TAG, "onClick: ");
+            }
+        });
+        dialog.setPositiveButton("Bật mạng", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            }
+        });
+        dialog.show();
+
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume: ");
+        super.onResume();
+        registerReceivers();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(TAG, "onStop: ");
+        super.onPause();
+        try {
+            unregisterReceiver(NetworkChangeReceiver);
+        } catch (IllegalArgumentException e) {
+        }
+
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d(TAG, "onStop: ");
+        super.onStop();
+        try {
+            unregisterReceiver(NetworkChangeReceiver);
+        } catch (IllegalArgumentException e) {
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, "onDestroy: ");
+        super.onDestroy();
+        try {
+            unregisterReceiver(NetworkChangeReceiver);
+        } catch (IllegalArgumentException e) {
+        }
+    }
 }

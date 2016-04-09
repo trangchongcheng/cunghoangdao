@@ -30,6 +30,7 @@
         <activity android:name=".activities.maincreen.MainScreenActivity"></activity>
         <activity android:name=".activities.viewing.ViewingActivity"></activity>
         <activity android:name=".activities.category.CategoryActivity"></activity>
+        <activity android:name=".activities.offline.OfflineActivity"></activity>
     </application>
 
 </manifest>

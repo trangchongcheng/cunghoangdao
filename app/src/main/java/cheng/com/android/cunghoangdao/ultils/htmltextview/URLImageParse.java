@@ -1,14 +1,12 @@
 package cheng.com.android.cunghoangdao.ultils.htmltextview;
 
+
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.text.Html.ImageGetter;
-import android.util.Base64;
-import android.util.Log;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -18,40 +16,43 @@ import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
-import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
+public class URLImageParse implements ImageGetter {
+    private Context context;
+    private TextView container;
 
-public class URLImageParser implements ImageGetter {
-    Context context;
-    TextView container;
+    @SuppressWarnings("deprecation")
+    // Needed to replace drawable with downloaded one
+    private class URLDrawable extends BitmapDrawable {
+        protected Drawable drawable;
 
-    public URLImageParser(TextView container, Context context) {
-        this.context = context;
-        this.container = container;
+        @Override
+        public void draw(Canvas canvas) {
+            // override the draw to refresh function later
+            if (drawable != null) {
+                drawable.draw(canvas);
+            }
+        }
+    }
+
+    public URLImageParse(TextView t, Context c) {
+        context = c;
+        container = t;
     }
 
     public Drawable getDrawable(String source) {
-        if(source.matches("data:image.*base64.*")) {
-            String base_64_source = source.replaceAll("data:image.*base64", "");
-            byte[] data = Base64.decode(base_64_source, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-            Drawable image = new BitmapDrawable(context.getResources(), bitmap);
-            image.setBounds(0, 0, 0 + image.getIntrinsicWidth(), 0 + image.getIntrinsicHeight());
-            Log.d("URLImageParser", "image: "+image);
-            return image;
-        } else {
-            URLDrawable urlDrawable = new URLDrawable();
-            ImageGetterAsyncTask asyncTask = new ImageGetterAsyncTask(urlDrawable);
-            asyncTask.execute(source);
-            Log.d("URLImageParser", "urlDrawable: "+urlDrawable);
-            return urlDrawable; //return reference to URLDrawable where We will change with actual image from the src tag
-        }
+        URLDrawable urlDrawable = new URLDrawable();
+
+        ImageGetterAsyncTask asyncTask = new ImageGetterAsyncTask(urlDrawable);
+
+        asyncTask.execute(source);
+        return urlDrawable;
     }
 
     public class ImageGetterAsyncTask extends AsyncTask<String, Void, Drawable> {
         URLDrawable urlDrawable;
 
         public ImageGetterAsyncTask(URLDrawable d) {
-            this.urlDrawable = d;
+            urlDrawable = d;
         }
 
         @Override
@@ -62,6 +63,7 @@ public class URLImageParser implements ImageGetter {
 
         @Override
         protected void onPostExecute(Drawable result) {
+            // Scales image/container if space is available in container
             int width = (int) (result.getIntrinsicWidth());
             int height = (int) (result.getIntrinsicHeight());
             float scale = context.getResources().getDisplayMetrics().density;
@@ -76,25 +78,20 @@ public class URLImageParser implements ImageGetter {
             urlDrawable.drawable = result;
 
             // Invalidate TextView to redraw image
-            URLImageParser.this.container.invalidate();
+            URLImageParse.this.container.invalidate();
 
 
 
             // Resize TextView height to accommodate for image
             // 4.0+ devices
-            URLImageParser.this.container
-                    .setHeight((URLImageParser.this.container.getHeight() + height));
-            URLImageParser.this.container.setWidth((URLImageParser.this.container.getHeight() + width));
+            URLImageParse.this.container
+                    .setHeight((URLImageParse.this.container.getHeight() + height));
             // Needed for devices before 4.0
-            URLImageParser.this.container.setEllipsize(null);
-
+            URLImageParse.this.container.setEllipsize(null);
         }
 
         public Drawable fetchDrawable(String urlString) {
             try {
-                if (ConnectionUltils.isConnected(context) == false) {
-                    return null;
-                }
                 InputStream is = fetch(urlString);
                 Drawable drawable = Drawable.createFromStream(is, "src");
 
@@ -108,12 +105,12 @@ public class URLImageParser implements ImageGetter {
                 }
 
                 drawable.setBounds(0, 0, 0 + width, 0 + height);
-                Log.d("URLImageParser", "fetchDrawable: "+drawable);
                 return drawable;
             } catch (Exception e) {
                 return null;
             }
         }
+
         private InputStream fetch(String urlString) throws MalformedURLException, IOException {
             URL url = null;
             InputStream stream = null;

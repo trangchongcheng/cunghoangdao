@@ -25,12 +25,15 @@ import cheng.com.android.cunghoangdao.ultils.TimeAgoUtils;
 public class RecyclerCunghoangdaoAdapter extends RecyclerView.Adapter<RecyclerCunghoangdaoAdapter.ViewHolder> {
     private final String TAG = getClass().getSimpleName();
     public final static String CONTENT = "content";
-    public final static String TITLE ="title";
+    public final static String TITLE = "title";
+    public final static String LINK = "link";
+    public final static String LINK_IMAGE = "link_image";
+    public final static String CATEGORY = "category";
     public ArrayList<NewsFeed> arrNewsFeed;
     Context context;
     private OnClickItemNewsFeed onClickItemNewsFeed;
 
-    public RecyclerCunghoangdaoAdapter(Context context, ArrayList<NewsFeed> arrNewsFeed,OnClickItemNewsFeed onClickItemNewsFeed) {
+    public RecyclerCunghoangdaoAdapter(Context context, ArrayList<NewsFeed> arrNewsFeed, OnClickItemNewsFeed onClickItemNewsFeed) {
         this.context = context;
         this.arrNewsFeed = arrNewsFeed;
         this.onClickItemNewsFeed = onClickItemNewsFeed;
@@ -57,7 +60,7 @@ public class RecyclerCunghoangdaoAdapter extends RecyclerView.Adapter<RecyclerCu
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickItemNewsFeed.onItemClickListener(v,position,newsFeed.getmContent(),newsFeed.getmTitle());
+                onClickItemNewsFeed.onItemClickListener(v, position, newsFeed.getmContent(), newsFeed.getmTitle(), newsFeed.getmLink());
             }
         });
     }
@@ -86,7 +89,8 @@ public class RecyclerCunghoangdaoAdapter extends RecyclerView.Adapter<RecyclerCu
 
         }
     }
-    public interface OnClickItemNewsFeed{
-        void onItemClickListener(View v, int position, String content, String title);
+
+    public interface OnClickItemNewsFeed {
+        void onItemClickListener(View v, int position, String content, String title, String link);
     }
 }

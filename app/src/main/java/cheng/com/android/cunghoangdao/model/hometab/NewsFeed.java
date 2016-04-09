@@ -19,6 +19,15 @@ import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
  * Created by Welcome on 3/24/2016.
  */
 public class NewsFeed {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
     private String mTitle;
     private String mLink;
     private String mPubdate;
@@ -75,6 +84,16 @@ public class NewsFeed {
         this.mImageUrl = mImageUrl;
         this.type = type;
         this.alignment = alignment;
+
+    }
+
+    public NewsFeed(int id, String mCategory, String mTitle, String mDescription, String mImageUrl, String mContent) {
+        this.id = id;
+        this.mCategory = mCategory;
+        this.mTitle = mTitle;
+        this.mDescription = mDescription;
+        this.mImageUrl = mImageUrl;
+        this.mContent = mContent;
 
     }
 
@@ -172,7 +191,7 @@ public class NewsFeed {
     }
 
 
-    public static List<NewsFeed> parse(String url,Context context) {
+    public static List<NewsFeed> parse(String url, Context context) {
         mNumberLastPost = 0;
         InputStream inputStream = null;
         List<NewsFeed> rssFeedList = null;
@@ -181,7 +200,7 @@ public class NewsFeed {
         String tagName;
         String mTitle = null, mLink = null, mDescription = null,
                 mPubdate = null, mCategory = null, mContent = null, mImageUrl = null;
-        if(ConnectionUltils.isConnected(context)==false){
+        if (ConnectionUltils.isConnected(context) == false) {
             return null;
         }
         try {
@@ -231,18 +250,18 @@ public class NewsFeed {
                             if (mNumberLastPost < 4) {
                                 if (mNumberLastPost == 0) {
                                     newsFeed = new NewsFeed(mTitle, mLink, mPubdate, mCategory,
-                                            mDescription, mContent, mImageUrl, TimelineView.TYPE_START);
+                                            mDescription, formatContent(mContent), mImageUrl, TimelineView.TYPE_START);
                                 } else if (mNumberLastPost == 3) {
                                     newsFeed = new NewsFeed(mTitle, mLink, mPubdate, mCategory,
-                                            mDescription, mContent, mImageUrl, TimelineView.TYPE_END);
+                                            mDescription, formatContent(mContent), mImageUrl, TimelineView.TYPE_END);
                                 } else {
                                     newsFeed = new NewsFeed(mTitle, mLink, mPubdate, mCategory,
-                                            mDescription, mContent, mImageUrl, TimelineView.TYPE_DEFAULT);
+                                            mDescription, formatContent(mContent), mImageUrl, TimelineView.TYPE_DEFAULT);
                                 }
 
                             } else {
                                 newsFeed = new NewsFeed(mTitle, mLink, mPubdate, mCategory,
-                                        mDescription, mContent, mImageUrl, TimelineView.TYPE_START);
+                                        mDescription, formatContent(mContent), mImageUrl, TimelineView.TYPE_START);
                             }
                             rssFeedList.add(newsFeed);
                             ++mNumberLastPost;
@@ -258,6 +277,10 @@ public class NewsFeed {
         return rssFeedList;
 
     }
+    public static String formatContent(String content){
+       return content.substring(0,content.indexOf(("The post"),0));
+    }
+//
     public static String getImageFromContent(String content) {
         try {
             int start = content.indexOf("src=\"", 0) + 5;

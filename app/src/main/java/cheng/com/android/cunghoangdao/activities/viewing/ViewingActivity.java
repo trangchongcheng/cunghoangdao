@@ -13,27 +13,45 @@ import android.text.Html;
 import android.text.Spannable;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.URLSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.github.clans.fab.FloatingActionButton;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseActivity;
 import cheng.com.android.cunghoangdao.adapters.cunghoangdaotab.RecyclerCunghoangdaoAdapter;
+import cheng.com.android.cunghoangdao.model.Article;
+import cheng.com.android.cunghoangdao.provider.DataHandlerSaveContent;
+import cheng.com.android.cunghoangdao.services.CovertBitmapToByte;
+import cheng.com.android.cunghoangdao.services.JsoupParseContent;
+import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
 import cheng.com.android.cunghoangdao.ultils.htmltextview.URLImageParser;
 import cheng.com.android.cunghoangdao.ultils.removelink.URLSpanNoUnderline;
 
 /**
  * Created by Welcome on 3/28/2016.
  */
-public class ViewingActivity extends BaseActivity {
+public class ViewingActivity extends BaseActivity implements JsoupParseContent.OnReturnContent,
+        CovertBitmapToByte.OnReturnBimapFromByte {
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mClsToolbar;
     private int mutedColor = R.attr.colorPrimary;
     private TextView tvContent;
     private final String TAG = getClass().getSimpleName();
-    String content, title;
+    String content, title, linkArticle, linkImage, category;
+    private Intent intent;
+    private ProgressBar progressBar;
+    private FloatingActionButton flbtnSave;
+    private DataHandlerSaveContent db;
+    private Spannable htmlSpan;
+    private String contentTemp;
+    private LinearLayout ll;
+    private Button btnConnect;
 
     @Override
     public void setContentView() {
@@ -43,31 +61,41 @@ public class ViewingActivity extends BaseActivity {
 
     @Override
     public void init() {
-        Intent intent = getIntent();
-        content = intent.getStringExtra(RecyclerCunghoangdaoAdapter.CONTENT);
+        intent = getIntent();
+        linkArticle = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK);
         title = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TITLE);
+        linkImage = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE);
+        category = intent.getStringExtra(RecyclerCunghoangdaoAdapter.CATEGORY);
 
         mToolbar = (Toolbar) findViewById(R.id.activity_viewing_toolbar);
         mToolbar.setTitle(title);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        progressBar = (ProgressBar) findViewById(R.id.activity_viewing_progress);
         tvContent = (TextView) findViewById(R.id.activity_viewing_tvContent);
         mClsToolbar = (CollapsingToolbarLayout) findViewById(R.id.activity_viewing_cls_toolbar);
-        URLImageParser p = new URLImageParser(tvContent);
-        Spannable htmlSpan = (Spannable) Html.fromHtml(content, p, null);
-        tvContent.setText(htmlSpan);
-        tvContent.setMovementMethod(new ScrollingMovementMethod());
-        Spannable processedText = removeUnderlines(htmlSpan);
-        tvContent.setClickable(true);
-        tvContent.setText(processedText);
-        custfont(this, tvContent);
-        // setDynamicColor();
+        flbtnSave = (FloatingActionButton) findViewById(R.id.activity_viewing_flbtnSave);
+        progressBar.setVisibility(View.VISIBLE);
+        ll = (LinearLayout) findViewById(R.id.activity_viewing_ll);
+        btnConnect = (Button) findViewById(R.id.activity_viewing_btnConnect);
+
+        db = new DataHandlerSaveContent(this);
+        setDynamicColor();
     }
 
     @Override
     public void setValue(Bundle savedInstanceState) {
+        setContent();
+    }
 
+    public void setContent(){
+        if (linkArticle != null) {
+            new JsoupParseContent(this, linkArticle, this).execute();
+        } else {
+            content = intent.getStringExtra(RecyclerCunghoangdaoAdapter.CONTENT);
+            setContent(content);
+        }
 
     }
 
@@ -77,6 +105,22 @@ public class ViewingActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        flbtnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new CovertBitmapToByte(getApplicationContext(),ViewingActivity.this).execute(linkImage);
+            }
+        });
+        btnConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContent();
+                if(ConnectionUltils.isConnected(getApplicationContext())){
+                    ll.setVisibility(View.GONE);
+
+                }
             }
         });
     }
@@ -111,24 +155,6 @@ public class ViewingActivity extends BaseActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        Log.d(TAG, "onStop: ");
-    }
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-        Log.d(TAG, "onPostResume: ");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d(TAG, "onDestroy: ");
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
@@ -154,4 +180,35 @@ public class ViewingActivity extends BaseActivity {
     private void overrideFonts(Context context, View child) {
     }
 
+    @Override
+    public void onReturnContent(String contentParsered) {
+        setContent(contentParsered);
+    }
+
+    public void setContent(String content) {
+        if(ConnectionUltils.isConnected(this)){
+            URLImageParser p = new URLImageParser(tvContent, this);
+            htmlSpan = (Spannable) Html.fromHtml(content, p, null);
+            tvContent.setText(htmlSpan);
+            tvContent.setMovementMethod(new ScrollingMovementMethod());
+            Spannable processedText = removeUnderlines(htmlSpan);
+            tvContent.setText(processedText);
+            custfont(this, tvContent);
+            progressBar.setVisibility(View.INVISIBLE);
+            contentTemp = content;
+        }else {
+            ll.setVisibility(View.VISIBLE);
+        }
+
+    }
+
+    @Override
+    public void onReturnBimapFromByte(byte[] image) {
+        if(content!=null){
+            db.addArticle(new Article(title,category,image,content));
+        }else {
+            db.addArticle(new Article(title,category,image,contentTemp));
+        }
+
+    }
 }

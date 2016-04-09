@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.fragments.BaseFragment;
-import cheng.com.android.cunghoangdao.ultils.htmltextview.URLImageParser;
+import cheng.com.android.cunghoangdao.ultils.htmltextview.URLImageParser1;
 import cheng.com.android.cunghoangdao.ultils.removelink.URLSpanNoUnderline;
 
 /**
@@ -41,7 +41,7 @@ public class ViewingFragment extends BaseFragment {
 
     @Override
     public void setValue() {
-        URLImageParser p = new URLImageParser(tvContent);
+        URLImageParser1 p = new URLImageParser1(tvContent);
         Spannable htmlSpan = (Spannable) Html.fromHtml(content, p, null);
         tvContent.setText(htmlSpan);
         tvContent.setMovementMethod(new ScrollingMovementMethod());
@@ -87,5 +87,6 @@ public class ViewingFragment extends BaseFragment {
         }
         return p_Text;
     }
+
 
 }

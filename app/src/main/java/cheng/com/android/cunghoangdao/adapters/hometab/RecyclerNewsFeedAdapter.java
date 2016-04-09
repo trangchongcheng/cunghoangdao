@@ -54,14 +54,15 @@ public class RecyclerNewsFeedAdapter extends RecyclerView.Adapter<RecyclerNewsFe
         holder.item_listnewsfeed_ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickItemNewsFeed.onClickItemNewsFeed(v, position, newsFeed.getmContent(), newsFeed.getmTitle());
+                onClickItemNewsFeed.onClickItemNewsFeed(v, position, newsFeed.getmContent(),
+                        newsFeed.getmTitle(),newsFeed.getmImageUrl());
             }
         });
 
     }
 
     public interface OnClickItemNewsFeed {
-        void onClickItemNewsFeed(View view, int position, String content, String title);
+        void onClickItemNewsFeed(View view, int position, String content, String title,String linkImage);
     }
 
     @Override

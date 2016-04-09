@@ -57,12 +57,12 @@ public class HomeTabFragment extends BaseFragment implements
     private Button btnConnect;
     private LinearLayout ll;
     private RelativeLayout rl;
+    private int state = 0;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
-
 
 
     @Override
@@ -80,7 +80,7 @@ public class HomeTabFragment extends BaseFragment implements
         progressBarNews = (ProgressBar) getView().findViewById(R.id.fragment_hometab_progressBarNews);
         btnConnect = (Button) getView().findViewById(R.id.fragment_hometab_btnConnect);
         ll = (LinearLayout) getView().findViewById(R.id.fragment_hometab_ll);
-        rl = (RelativeLayout)getView().findViewById(R.id.fragment_hometab_rl);
+        rl = (RelativeLayout) getView().findViewById(R.id.fragment_hometab_rl);
         initNews();
         new BaseAsyntask(getContext(), UrlGetXml.HOME_TAB, this).execute();
         initSlideCungHoangDao();
@@ -206,8 +206,8 @@ public class HomeTabFragment extends BaseFragment implements
     public void OnNewsFeedListSend(ArrayList<NewsFeed> arr) {
         ArrayList<NewsFeed> arrayLastPost = new ArrayList<>();
         ArrayList<NewsFeed> arrayNewsFeed = new ArrayList<>();
-     //   Log.d(TAG, "OnNewsFeedListSend: " + arr.isEmpty());
-        if(arr!=null){
+        //   Log.d(TAG, "OnNewsFeedListSend: " + arr.isEmpty());
+        if (arr != null) {
             ll.setVisibility(View.INVISIBLE);
             rl.setVisibility(View.VISIBLE);
             for (int i = 0; i < 4; i++) {
@@ -224,7 +224,7 @@ public class HomeTabFragment extends BaseFragment implements
             RecyclerNewsFeedAdapter adapter = new RecyclerNewsFeedAdapter(getContext(), arrayNewsFeed, this);
             rvNewsFeed.setAdapter(adapter);
             progressBarNews.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             progressBar.setVisibility(View.INVISIBLE);
             ll.setVisibility(View.VISIBLE);
             rl.setVisibility(View.INVISIBLE);
@@ -232,9 +232,10 @@ public class HomeTabFragment extends BaseFragment implements
         }
     }
 
+
     @Override
-    public void onItemClick(View view, int position, String content, String title) {
-        putIntent(content, title);
+    public void onItemClick(View view, int position, String content, String title, String linkImage) {
+        putIntent(content, title, linkImage);
     }
 
     public void replaceFragment(Fragment fragment, boolean isAddToBackStack, boolean isHaveAnimation) {
@@ -253,22 +254,24 @@ public class HomeTabFragment extends BaseFragment implements
 
 
     @Override
-    public void onClickItemNewsFeed(View view, int position, String content, String title) {
-        putIntent(content, title);
+    public void onClickItemNewsFeed(View view, int position, String content, String title, String linkImage) {
+        putIntent(content, title, linkImage);
     }
 
-    public void putIntent(String content, String title) {
+    public void putIntent(String content, String title, String linkImage) {
         Intent intent = new Intent(context, ViewingActivity.class);
         intent.putExtra(RecyclerCunghoangdaoAdapter.CONTENT, content);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE, linkImage);
         intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, title);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.CATEGORY, "Tin Mới");
         startActivity(intent);
     }
 
-    Intent intent ;
+    Intent intent;
 
     @Override
     public void onClick(View v) {
-       intent = new Intent(context, CategoryActivity.class);
+        intent = new Intent(context, CategoryActivity.class);
         switch (v.getId()) {
             case R.id.fragment_hometab_tlTi:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_TI);
@@ -307,7 +310,7 @@ public class HomeTabFragment extends BaseFragment implements
                 intent.putExtra(TITLE_CATEGORY, "Tuổi Thân");
                 break;
             case R.id.fragment_hometab_tlDau:
-                intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_DAN);
+                intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_DAU);
                 intent.putExtra(TITLE_CATEGORY, "Tuổi Dậu");
                 break;
             case R.id.fragment_hometab_tlTuat:
@@ -331,43 +334,56 @@ public class HomeTabFragment extends BaseFragment implements
             case 0:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_BACH_DUONG);
                 intent.putExtra(TITLE_CATEGORY, category);
+                break;
             case 1:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_KIM_NGUU);
                 intent.putExtra(TITLE_CATEGORY, category);
+                break;
             case 2:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_SONG_TU);
                 intent.putExtra(TITLE_CATEGORY, category);
+                break;
             case 3:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_CU_GIAI);
                 intent.putExtra(TITLE_CATEGORY, category);
+                break;
             case 4:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_SU_TU);
                 intent.putExtra(TITLE_CATEGORY, category);
+                break;
             case 5:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_XU_NU);
                 intent.putExtra(TITLE_CATEGORY, category);
+                break;
             case 6:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_THIEN_BINH);
                 intent.putExtra(TITLE_CATEGORY, category);
+                break;
             case 7:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_BO_CAP);
                 intent.putExtra(TITLE_CATEGORY, category);
+                break;
             case 8:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_NHAN_MA);
                 intent.putExtra(TITLE_CATEGORY, category);
+                break;
             case 9:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_MA_KET);
                 intent.putExtra(TITLE_CATEGORY, category);
+                break;
             case 10:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_BAO_BINH);
                 intent.putExtra(TITLE_CATEGORY, category);
+                break;
             case 11:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.CUNG_SONG_NGU);
                 intent.putExtra(TITLE_CATEGORY, category);
+                break;
             default:
                 break;
         }
         startActivity(intent);
     }
+
 
 }

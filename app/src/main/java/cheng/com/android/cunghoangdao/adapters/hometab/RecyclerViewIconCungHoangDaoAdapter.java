@@ -17,7 +17,7 @@ import cheng.com.android.cunghoangdao.model.Cunghoangdao;
 /**
  * Created by Welcome on 1/26/2016.
  */
-public class RecyclerViewIconCungHoangDaoAdapter extends RecyclerView.Adapter<RecyclerViewHolder> {
+public class RecyclerViewIconCungHoangDaoAdapter extends RecyclerView.Adapter<RecyclerViewIconCungHoangDaoHolder> {
     private final String TAG = getClass().getSimpleName();
     Context context;
     ArrayList<Cunghoangdao> arrayCunghoangdao;
@@ -37,17 +37,17 @@ public class RecyclerViewIconCungHoangDaoAdapter extends RecyclerView.Adapter<Re
     }
 
     @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public RecyclerViewIconCungHoangDaoHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
 //        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_fragment_hometab_icon_cunghoangdao, null);
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View itemView = inflater.inflate(R.layout.item_fragment_hometab_icon_cunghoangdao, viewGroup, false);
 
-        RecyclerViewHolder viewHolder = new RecyclerViewHolder(itemView);
+        RecyclerViewIconCungHoangDaoHolder viewHolder = new RecyclerViewIconCungHoangDaoHolder(itemView);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder recyclerViewHolder, final int position) {
+    public void onBindViewHolder(RecyclerViewIconCungHoangDaoHolder recyclerViewHolder, final int position) {
         final Cunghoangdao model = arrayCunghoangdao.get(position);
         recyclerViewHolder.tvName.setText(model.getName());
         Log.d(TAG, model.getImage() + "");
