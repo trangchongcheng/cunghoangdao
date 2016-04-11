@@ -121,8 +121,8 @@ public class URLImageParser implements ImageGetter {
                 url = new URL(urlString);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.setRequestMethod("GET");
-                conn.setReadTimeout(18000); //18s
-                conn.setConnectTimeout(18000); //18s
+                conn.setReadTimeout(30000); //18s
+                conn.setConnectTimeout(30000); //18s
                 conn.setUseCaches(false);
                 conn.setDoInput(true);
                 conn.connect();

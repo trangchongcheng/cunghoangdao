@@ -34,7 +34,6 @@
     <string name="cung_hoang_dao">12 CUNG HOÀNG ĐẠO</string>
     <string name="new_feed">BÀI VIẾT NỖI BẬT</string>
 
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie. Fusce quis mauris a enim sollicitudin ultrices non eget velit. Aliquam eu pulvinar enim. Praesent libero nisl, ultricies vel maximus eu, maximus et nisi. Phasellus pharetra nec ligula vitae mollis. Quisque porttitor ornare magna, quis dignissim libero aliquam id. Donec sollicitudin ultrices ante, a semper erat tristique in. Vivamus sodales in ligula at sodales. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla tempus bibendum nibh, ac tincidunt quam convallis non. Proin dolor nunc, egestas et tortor consequat, dignissim lacinia odio. Ut ut aliquet erat.  Ut non scelerisque elit. Morbi dolor neque, iaculis eu justo rutrum, aliquet dictum mauris. Phasellus quis massa ut ligula feugiat congue a et dolor. Etiam a dui a sapien ornare accumsan ac ut lorem. Suspendisse vehicula lorem dapibus nibh rhoncus ultricies. Proin sem nulla, elementum quis pharetra quis, commodo vitae nisi. Donec urna orci, posuere et iaculis sit amet, fringilla quis sapien. Pellentesque nec posuere felis. Praesent malesuada tellus nisi, non dictum justo interdum eget. Quisque mollis euismod libero, non aliquam lorem interdum vitae. Aliquam vehicula efficitur purus eget rutrum. Sed pulvinar fermentum risus ac viverra. Cras laoreet ligula quam, ac lacinia nisl elementum in. Aenean velit arcu, euismod a venenatis non, pulvinar pulvinar massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam efficitur ipsum in placerat molestie. Fusce quis mauris a enim sollicitudin ultrices non eget velit. Aliquam eu pulvinar enim. Praesent libero nisl, ultricies vel maximus eu, maximus et nisi. Phasellus pharetra nec ligula vitae mollis. Quisque porttitor ornare magna, quis dignissim libero aliquam id. Donec sollicitudin ultrices ante, a semper erat tristique in. Vivamus sodales in ligula at sodales. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla tempus bibendum nibh, ac tincidunt quam convallis non. Proin dolor nunc, egestas et tortor consequat, dignissim lacinia odio. Ut ut aliquet erat.  Ut non scelerisque elit. Morbi dolor neque, iaculis eu justo rutrum, aliquet dictum mauris. Phasellus quis massa ut ligula feugiat congue a et dolor. Etiam a dui a sapien ornare accumsan ac ut lorem. Suspendisse vehicula lorem dapibus nibh rhoncus ultricies. Proin sem nulla, elementum quis pharetra quis, commodo vitae nisi. Donec urna orci, posuere et iaculis sit amet, fringilla quis sapien. Pellentesque nec posuere felis. Praesent malesuada tellus nisi, non dictum justo interdum eget. Quisque mollis euismod libero, non aliquam lorem interdum vitae. Aliquam vehicula efficitur purus eget rutrum. Sed pulvinar fermentum risus ac viverra. Cras laoreet ligula quam, ac lacinia nisl elementum in. Aenean velit arcu, euismod a venenatis non, pulvinar pulvinar massa.</string>
     <string name="home">Home</string>
     <string name="favourite">Favourite</string>
     <string name="downloaded">Downloaded</string>
@@ -74,17 +73,15 @@
     <string name="chd_baobinh_date">(20/01-18/02)</string>
     <string name="chd_songngu_date">(19/02-20/03)</string>
 
-    <!--<integer name="chd_bachduong_image">@R.drawable.chd_bachduong</integer>-->
-    <!--<integer name="chd_kimnguu_image">@R.drawable.chd_bachduong</integer>-->
-    <!--<integer name="chd_songtu_image">@R.drawable.chd_songtu</integer>-->
-    <!--<integer name="chd_cugiai_image">@R.drawable.chd_cugiai</integer>-->
-    <!--<integer name="chd_sutu_image">@R.drawable.chd_sutu</integer>-->
-    <!--<integer name="chd_xunu_image">@R.drawable.chd_xunu</integer>-->
-    <!--<integer name="chd_thienbinh_image">@R.drawable.chd_thienbinh</integer>-->
-    <!--<integer name="chd_bocap_image">@R.drawable.chd_bocap</integer>-->
-    <!--<integer name="chd_nhanma_image">@R.drawable.chd_nhanma</integer>-->
-    <!--<integer name="chd_maket_image">@R.drawable.chd_maket</integer>-->
-    <!--<integer name="chd_baobinh_image">@R.drawable.chd_baobinh</integer>-->
-    <!--<integer name="chd_songngu-image">@R.drawable.chd_songngu</integer>-->
+    <string name="danh_muc">Danh Mục</string>
+    <string name="tien_ich">Tiện ích</string>
+
+    <string name="menu_item_tu_vi">Tử Vi Hàng Ngày</string>
+    <string name="menu_item_phong_thuy">Phong Thủy</string>
+    <string name="menu_item_ngay_tot">Ngày Tốt</string>
+    <string name="menu_item_download">Tải Xuống</string>
+
+    <string name="menu_item_trac_nghiem">Trắc nghiệm tình yêu</string>
+    <string name="menu_item_am_duong">Lịch Âm Dương</string>
 
 </resources>

@@ -6,13 +6,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.URLSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -21,6 +24,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseActivity;
@@ -52,6 +56,9 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
     private String contentTemp;
     private LinearLayout ll;
     private Button btnConnect;
+    private NestedScrollView nestscv;
+    private FloatingActionMenu flbtnMenu;
+    private int mPreviousVisibleItem;
 
     @Override
     public void setContentView() {
@@ -79,9 +86,18 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
         progressBar.setVisibility(View.VISIBLE);
         ll = (LinearLayout) findViewById(R.id.activity_viewing_ll);
         btnConnect = (Button) findViewById(R.id.activity_viewing_btnConnect);
+        nestscv = (NestedScrollView) findViewById(R.id.activity_viewing_nestscv);
+        flbtnMenu = (FloatingActionMenu) findViewById(R.id.activity_viewing_flbtn_menu);
 
         db = new DataHandlerSaveContent(this);
         setDynamicColor();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                flbtnMenu.showMenu(true);
+            }
+        }, 300);
     }
 
     @Override
@@ -89,7 +105,7 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
         setContent();
     }
 
-    public void setContent(){
+    public void setContent() {
         if (linkArticle != null) {
             new JsoupParseContent(this, linkArticle, this).execute();
         } else {
@@ -110,16 +126,28 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
         flbtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new CovertBitmapToByte(getApplicationContext(),ViewingActivity.this).execute(linkImage);
+                new CovertBitmapToByte(getApplicationContext(), ViewingActivity.this).execute(linkImage);
+                flbtnMenu.hideMenu(true);
             }
         });
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setContent();
-                if(ConnectionUltils.isConnected(getApplicationContext())){
+                if (ConnectionUltils.isConnected(getApplicationContext())) {
                     ll.setVisibility(View.GONE);
 
+                }
+            }
+        });
+        nestscv.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                Log.d(TAG, scrollX + "-" + scrollY + "-" + oldScrollX + "-" + oldScrollY + "");
+                if (scrollY > oldScrollY) {
+                    flbtnMenu.hideMenu(true);
+                } else if (scrollY < oldScrollY) {
+                    flbtnMenu.showMenu(true);
                 }
             }
         });
@@ -182,11 +210,12 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
 
     @Override
     public void onReturnContent(String contentParsered) {
+        Log.d(TAG, "onReturnContent: "+contentParsered);
         setContent(contentParsered);
     }
 
     public void setContent(String content) {
-        if(ConnectionUltils.isConnected(this)){
+        if (ConnectionUltils.isConnected(this)) {
             URLImageParser p = new URLImageParser(tvContent, this);
             htmlSpan = (Spannable) Html.fromHtml(content, p, null);
             tvContent.setText(htmlSpan);
@@ -196,7 +225,7 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
             custfont(this, tvContent);
             progressBar.setVisibility(View.INVISIBLE);
             contentTemp = content;
-        }else {
+        } else {
             ll.setVisibility(View.VISIBLE);
         }
 
@@ -204,11 +233,13 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
 
     @Override
     public void onReturnBimapFromByte(byte[] image) {
-        if(content!=null){
-            db.addArticle(new Article(title,category,image,content));
-        }else {
-            db.addArticle(new Article(title,category,image,contentTemp));
+        if (content != null) {
+            db.addArticle(new Article(title, category, image, content));
+        } else {
+            db.addArticle(new Article(title, category, image, contentTemp));
         }
 
     }
+
+
 }

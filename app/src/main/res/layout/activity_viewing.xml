@@ -43,6 +43,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/activity_viewing_nestscv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
@@ -101,7 +102,6 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.FloatingActionButton
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
@@ -110,10 +110,11 @@
         app:backgroundTint="@color/colorPrimary"
         app:elevation="6dp"
         app:fabSize="mini"
+        android:visibility="visible"
         app:layout_anchor="@+id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
     <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/menu"
+        android:id="@+id/activity_viewing_flbtn_menu"
         android:layout_gravity="bottom|right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -154,10 +155,13 @@
         app:menu_labels_maxLines="-1"
         app:menu_labels_position="left"
         app:menu_openDirection="up"
+        android:visibility="visible"
         app:menu_backgroundColor="@android:color/transparent"
         app:menu_fab_label="Mở rộng">
 
         <com.github.clans.fab.FloatingActionButton
+            app:fab_showAnimation="@anim/fab_scale_up"
+            app:fab_hideAnimation="@anim/fab_scale_down"
             android:id="@+id/activity_viewing_flbtnSave"
             app:fab_label="Lưu lại"
             android:src="@drawable/ic_save_sqlite_18dp"

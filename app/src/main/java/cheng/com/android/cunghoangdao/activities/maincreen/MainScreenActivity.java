@@ -121,34 +121,27 @@ public class MainScreenActivity extends BaseActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 if (menuItem.isChecked()) menuItem.setChecked(false);
-                else menuItem.setChecked(true);
+                //else menuItem.setChecked(true);
                 //Closing drawer on item click
                 drawerLayout.closeDrawers();
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.inbox:
+                    case R.id.itemPhongThuy:
+                        return true;
+                    // For rest of the options we just show a toast on click
+                    case R.id.itemNgayTot:
+                        Toast.makeText(getApplicationContext(), "Stared Selected", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.itemDownload:
                         Intent intent = new Intent(MainScreenActivity.this, OfflineActivity.class);
                         startActivity(intent);
                         return true;
-                    // For rest of the options we just show a toast on click
-                    case R.id.starred:
-                        Toast.makeText(getApplicationContext(), "Stared Selected", Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.sent_mail:
+                    case R.id.itemTracNghiem:
                         Toast.makeText(getApplicationContext(), "Send Selected", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.drafts:
-                        Toast.makeText(getApplicationContext(), "Drafts Selected", Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.allmail:
-                        Toast.makeText(getApplicationContext(), "All Mail Selected", Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.trash:
-                        Toast.makeText(getApplicationContext(), "Trash Selected", Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.spam:
-                        Toast.makeText(getApplicationContext(), "Spam Selected", Toast.LENGTH_SHORT).show();
+                    case R.id.itemAmDuong:
+                        Toast.makeText(getApplicationContext(), "Send Selected", Toast.LENGTH_SHORT).show();
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
@@ -156,6 +149,8 @@ public class MainScreenActivity extends BaseActivity {
                 }
             }
         });
+
+
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,
                 drawerLayout, mToolbar, openDrawer, R.string.closeDrawer) {
@@ -225,7 +220,6 @@ public class MainScreenActivity extends BaseActivity {
         @Override
         public void onReceive(final Context context, Intent intent) {
             //boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
-
             if (ConnectionUltils.isConnected(context) == true) {
                 Log.d(TAG, "onReceive: " + " co mang");
             } else {

@@ -95,31 +95,19 @@ public class MainActivity extends BaseActivity {
                 switch (menuItem.getItemId()) {
 
 
-                    //Replacing the main content with ContentFragment Which is our Inbox View;
-                    case R.id.inbox:
+                    case R.id.itemPhongThuy:
                         Toast.makeText(getApplicationContext(), "Inbox Selected", Toast.LENGTH_SHORT).show();
                         return true;
 
                     // For rest of the options we just show a toast on click
 
-                    case R.id.starred:
+                    case R.id.itemNgayTot:
                         Toast.makeText(getApplicationContext(), "Stared Selected", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.sent_mail:
+                    case R.id.itemTuVi:
                         Toast.makeText(getApplicationContext(), "Send Selected", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.drafts:
-                        Toast.makeText(getApplicationContext(), "Drafts Selected", Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.allmail:
-                        Toast.makeText(getApplicationContext(), "All Mail Selected", Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.trash:
-                        Toast.makeText(getApplicationContext(), "Trash Selected", Toast.LENGTH_SHORT).show();
-                        return true;
-                    case R.id.spam:
-                        Toast.makeText(getApplicationContext(), "Spam Selected", Toast.LENGTH_SHORT).show();
-                        return true;
+
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
                         return true;

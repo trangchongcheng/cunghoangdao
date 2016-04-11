@@ -15,6 +15,16 @@
         <item name="windowActionModeOverlay">true</item>
 
     </style>
+    <style name="AppThemeDrawer" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 
     <style name="text_login">
         <item name="android:textColor">#ffffff</item>
