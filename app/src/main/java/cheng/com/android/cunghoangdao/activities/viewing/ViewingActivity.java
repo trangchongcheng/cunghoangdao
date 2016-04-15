@@ -16,6 +16,7 @@ import android.text.Html;
 import android.text.Spannable;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.URLSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -224,6 +225,7 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
 
     @Override
     public void onReturnContent(String contentParsered) {
+        Log.d(TAG, "onReturnContent: "+contentParsered);
         setContent(contentParsered);
     }
 

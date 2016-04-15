@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INSTALL_LOCATION_PROVIDER" />
@@ -54,6 +56,15 @@
         <provider android:authorities="com.facebook.app.FacebookContentProvider1041345645929173"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true" />
+        <service android:name=".services.PushNotifyService"/>
+        <service android:name=".services.CheckTimesService"
+            android:exported="false"/>
+        <receiver android:name=".receiver.CheckNetworkStateReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

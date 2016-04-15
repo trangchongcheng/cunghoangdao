@@ -1,13 +1,12 @@
 package cheng.com.android.cunghoangdao.activities.maincreen;
 
 import android.animation.ValueAnimator;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,7 +18,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -31,8 +29,7 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.util.Calendar;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseActivity;
@@ -41,6 +38,7 @@ import cheng.com.android.cunghoangdao.activities.offline.OfflineActivity;
 import cheng.com.android.cunghoangdao.activities.video.VideoActivity;
 import cheng.com.android.cunghoangdao.fragments.ViewPageContainerFragment;
 import cheng.com.android.cunghoangdao.model.Common;
+import cheng.com.android.cunghoangdao.services.CheckTimesService;
 import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.drakeet.materialdialog.MaterialDialog;
@@ -118,25 +116,8 @@ public class MainScreenActivity extends BaseActivity {
         floatButton.addButton(floatButton_item_detail);
         Log.d(TAG, "oncreate");
 
-
-
-
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    getPackageName(),
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        }
-        catch (PackageManager.NameNotFoundException e) {
-
-        }
-        catch (NoSuchAlgorithmException e) {
-
-        }
+        Intent i = new Intent(this, CheckTimesService.class);
+        this.startService(i);
     }
 
     @Override
@@ -173,7 +154,7 @@ public class MainScreenActivity extends BaseActivity {
                     case R.id.itemTracNghiem:
                         intent = new Intent(MainScreenActivity.this, VideoActivity.class);
                         startActivity(intent);
-                        return  true;
+                        return true;
                     case R.id.itemAmDuong:
                         Toast.makeText(getApplicationContext(), "Send Selected", Toast.LENGTH_SHORT).show();
                         return true;
@@ -183,7 +164,6 @@ public class MainScreenActivity extends BaseActivity {
                 }
             }
         });
-
 
 
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,
@@ -253,7 +233,6 @@ public class MainScreenActivity extends BaseActivity {
 
         @Override
         public void onReceive(final Context context, Intent intent) {
-            //boolean noConnectivity = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
             if (ConnectionUltils.isConnected(context) == true) {
                 Log.d(TAG, "onReceive: " + " co mang");
             } else {
@@ -286,6 +265,24 @@ public class MainScreenActivity extends BaseActivity {
         });
         dialog.show();
 
+    }
+
+    @Override
+    protected void onStart() {
+        setTimeAlarm();
+        super.onStart();
+    }
+
+    public void setTimeAlarm(){
+        Calendar cal = Calendar.getInstance();
+        Intent intent = new Intent(this, CheckTimesService.class);
+        PendingIntent pintent = PendingIntent
+                .getService(this, 0, intent, 0);
+
+        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        // Start service every 20 seconds
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
+                5 * 1000, pintent);
     }
 
     @Override
