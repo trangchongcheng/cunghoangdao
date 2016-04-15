@@ -5,6 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +19,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -27,9 +31,14 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseActivity;
+import cheng.com.android.cunghoangdao.activities.lichngaytot.PhongThuyActivity;
 import cheng.com.android.cunghoangdao.activities.offline.OfflineActivity;
+import cheng.com.android.cunghoangdao.activities.video.VideoActivity;
 import cheng.com.android.cunghoangdao.fragments.ViewPageContainerFragment;
 import cheng.com.android.cunghoangdao.model.Common;
 import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
@@ -108,10 +117,31 @@ public class MainScreenActivity extends BaseActivity {
         floatButton_item_detail.setSize(1);
         floatButton.addButton(floatButton_item_detail);
         Log.d(TAG, "oncreate");
+
+
+
+
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    getPackageName(),
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        }
+        catch (PackageManager.NameNotFoundException e) {
+
+        }
+        catch (NoSuchAlgorithmException e) {
+
+        }
     }
 
     @Override
     public void setValue(Bundle savedInstanceState) {
+
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mCollapsingToolbarLayout.setTitle("Cung Hoàng Đạo");
@@ -120,6 +150,7 @@ public class MainScreenActivity extends BaseActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
+                Intent intent;
                 if (menuItem.isChecked()) menuItem.setChecked(false);
                 //else menuItem.setChecked(true);
                 //Closing drawer on item click
@@ -128,18 +159,21 @@ public class MainScreenActivity extends BaseActivity {
                 switch (menuItem.getItemId()) {
                     //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.itemPhongThuy:
+                        intent = new Intent(MainScreenActivity.this, PhongThuyActivity.class);
+                        startActivity(intent);
                         return true;
                     // For rest of the options we just show a toast on click
                     case R.id.itemNgayTot:
                         Toast.makeText(getApplicationContext(), "Stared Selected", Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.itemDownload:
-                        Intent intent = new Intent(MainScreenActivity.this, OfflineActivity.class);
+                        intent = new Intent(MainScreenActivity.this, OfflineActivity.class);
                         startActivity(intent);
                         return true;
                     case R.id.itemTracNghiem:
-                        Toast.makeText(getApplicationContext(), "Send Selected", Toast.LENGTH_SHORT).show();
-                        return true;
+                        intent = new Intent(MainScreenActivity.this, VideoActivity.class);
+                        startActivity(intent);
+                        return  true;
                     case R.id.itemAmDuong:
                         Toast.makeText(getApplicationContext(), "Send Selected", Toast.LENGTH_SHORT).show();
                         return true;

@@ -10,11 +10,11 @@ import cheng.com.android.cunghoangdao.model.Category;
 /**
  * Created by Welcome on 3/31/2016.
  */
-public class JsoupParseAsyntask extends AsyncTask<Void,Void,ArrayList<Category>> {
+public class JsoupParseCategory extends AsyncTask<Void,Void,ArrayList<Category>> {
     private String mUrl;
     private Context context;
     private OnReturnCategoryList onReturnCategoryList;
-    public JsoupParseAsyntask(Context context,String mUrl,OnReturnCategoryList onReturnCategoryList) {
+    public JsoupParseCategory(Context context, String mUrl, OnReturnCategoryList onReturnCategoryList) {
         this.context = context;
         this.mUrl = mUrl;
         this.onReturnCategoryList = onReturnCategoryList;

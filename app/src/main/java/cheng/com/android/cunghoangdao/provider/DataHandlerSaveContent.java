@@ -81,7 +81,6 @@ public class DataHandlerSaveContent extends SQLiteOpenHelper {
 
     public Article getArticleById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-
         Cursor cursor = db.query(TABLE_ARTICLE, new String[]{KEY_ID,
                         KEY_CONTENT}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);

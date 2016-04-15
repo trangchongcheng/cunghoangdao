@@ -92,7 +92,7 @@ public class URLImageParser implements ImageGetter {
 
         public Drawable fetchDrawable(String urlString) {
             try {
-                if (ConnectionUltils.isConnected(context) == false) {
+                if (!ConnectionUltils.isConnected(context)) {
                     return null;
                 }
                 InputStream is = fetch(urlString);
@@ -107,7 +107,7 @@ public class URLImageParser implements ImageGetter {
                     height = (int) (drawable.getIntrinsicHeight() * scale);
                 }
 
-                drawable.setBounds(0, 0, 0 + width, 0 + height);
+                drawable.setBounds(0, 0, width,  height);
                 Log.d("URLImageParser", "fetchDrawable: "+drawable);
                 return drawable;
             } catch (Exception e) {

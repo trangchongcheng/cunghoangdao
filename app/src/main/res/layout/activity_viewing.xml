@@ -158,6 +158,20 @@
         android:visibility="visible"
         app:menu_backgroundColor="@android:color/transparent"
         app:menu_fab_label="Mở rộng">
+        <com.github.clans.fab.FloatingActionButton
+            app:fab_showAnimation="@anim/fab_scale_up"
+            app:fab_hideAnimation="@anim/fab_scale_down"
+            android:id="@+id/activity_viewing_flbtnShare"
+            app:fab_label="Chia sẽ lên Facebook"
+            android:src="@drawable/ic_save_sqlite_18dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_size="mini"
+            app:fab_colorNormal="@color/colorAccent"
+            app:fab_colorPressed="@color/blue_semi_transparent"
+            app:fab_colorRipple="#99FFFFFF"
+            />
+
 
         <com.github.clans.fab.FloatingActionButton
             app:fab_showAnimation="@anim/fab_scale_up"

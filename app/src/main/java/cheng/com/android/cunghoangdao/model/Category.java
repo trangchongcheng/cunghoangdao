@@ -114,5 +114,25 @@ public class Category {
 
         return arrCategory;
     }
+    public static String paserJsoupLichNgayTot(String url) {
+        ArrayList<Category> arrCategory = new ArrayList<>();
+        Document document = null;
+        try {
+            document = Jsoup.connect(url)
+                    .timeout(18000)
+                    .get();
+        }catch (HttpStatusException ex){
+            isLast = true;
+            Log.d("Category", "HttpStatusException");
+            return null;
+        }
+        catch (SocketTimeoutException e) {
+            Log.d("Category", "Socket Timeout: ");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return document.toString();
+    }
 
 }

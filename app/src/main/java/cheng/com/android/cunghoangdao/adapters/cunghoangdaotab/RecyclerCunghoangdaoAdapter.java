@@ -28,6 +28,7 @@ public class RecyclerCunghoangdaoAdapter extends RecyclerView.Adapter<RecyclerCu
     public final static String TITLE = "title";
     public final static String LINK = "link";
     public final static String LINK_IMAGE = "link_image";
+    public final static String TYPE_OFFLINE = "type_offline";
     public final static String CATEGORY = "category";
     public ArrayList<NewsFeed> arrNewsFeed;
     Context context;

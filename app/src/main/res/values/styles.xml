@@ -90,13 +90,13 @@
         <item name="android:textStyle">bold</item>
     </style>
     <style name="text_title_categorye">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/navigationBarColor</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="text_descriptions">
-        <item name="android:textSize">8sp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="icon_12_con_giap">

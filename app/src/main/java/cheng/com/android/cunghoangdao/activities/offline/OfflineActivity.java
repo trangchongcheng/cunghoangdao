@@ -86,6 +86,7 @@ public class OfflineActivity extends BaseActivity implements RecyclerArticleAdap
     public void onSendContentFinish(String content) {
         Intent intent = new Intent(OfflineActivity.this, ViewingActivity.class);
         intent.putExtra(RecyclerCunghoangdaoAdapter.CONTENT,content);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.TYPE_OFFLINE,"type_offline");
         startActivity(intent);
     }
 

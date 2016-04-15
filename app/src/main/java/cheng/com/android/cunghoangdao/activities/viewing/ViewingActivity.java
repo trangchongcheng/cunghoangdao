@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -15,7 +16,6 @@ import android.text.Html;
 import android.text.Spannable;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.URLSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,6 +23,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.facebook.FacebookSdk;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -45,12 +48,12 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mClsToolbar;
     private int mutedColor = R.attr.colorPrimary;
-    private TextView tvContent;
+    public TextView tvContent;
     private final String TAG = getClass().getSimpleName();
-    String content, title, linkArticle, linkImage, category;
+    String content, title, linkArticle, linkImage, category, contentShare, typeIntent;
     private Intent intent;
     private ProgressBar progressBar;
-    private FloatingActionButton flbtnSave;
+    private FloatingActionButton flbtnSave, flbtnShare;
     private DataHandlerSaveContent db;
     private Spannable htmlSpan;
     private String contentTemp;
@@ -58,7 +61,8 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
     private Button btnConnect;
     private NestedScrollView nestscv;
     private FloatingActionMenu flbtnMenu;
-    private int mPreviousVisibleItem;
+    private Spannable processedText;
+    private Handler handler;
 
     @Override
     public void setContentView() {
@@ -69,10 +73,12 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
     @Override
     public void init() {
         intent = getIntent();
+        typeIntent = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_OFFLINE);
         linkArticle = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK);
         title = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TITLE);
         linkImage = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE);
         category = intent.getStringExtra(RecyclerCunghoangdaoAdapter.CATEGORY);
+
 
         mToolbar = (Toolbar) findViewById(R.id.activity_viewing_toolbar);
         mToolbar.setTitle(title);
@@ -83,12 +89,14 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
         tvContent = (TextView) findViewById(R.id.activity_viewing_tvContent);
         mClsToolbar = (CollapsingToolbarLayout) findViewById(R.id.activity_viewing_cls_toolbar);
         flbtnSave = (FloatingActionButton) findViewById(R.id.activity_viewing_flbtnSave);
+        flbtnShare = (FloatingActionButton) findViewById(R.id.activity_viewing_flbtnShare);
         progressBar.setVisibility(View.VISIBLE);
         ll = (LinearLayout) findViewById(R.id.activity_viewing_ll);
         btnConnect = (Button) findViewById(R.id.activity_viewing_btnConnect);
         nestscv = (NestedScrollView) findViewById(R.id.activity_viewing_nestscv);
         flbtnMenu = (FloatingActionMenu) findViewById(R.id.activity_viewing_flbtn_menu);
 
+        handler = new Handler();
         db = new DataHandlerSaveContent(this);
         setDynamicColor();
 
@@ -130,6 +138,13 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
                 flbtnMenu.hideMenu(true);
             }
         });
+        flbtnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setupFacebookShareIntent();
+                flbtnMenu.hideMenu(true);
+            }
+        });
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +158,6 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
         nestscv.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                Log.d(TAG, scrollX + "-" + scrollY + "-" + oldScrollX + "-" + oldScrollY + "");
                 if (scrollY > oldScrollY) {
                     flbtnMenu.hideMenu(true);
                 } else if (scrollY < oldScrollY) {
@@ -210,35 +224,81 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
 
     @Override
     public void onReturnContent(String contentParsered) {
-        Log.d(TAG, "onReturnContent: "+contentParsered);
         setContent(contentParsered);
     }
 
-    public void setContent(String content) {
+    public void setContent(final String content) {
         if (ConnectionUltils.isConnected(this)) {
-            URLImageParser p = new URLImageParser(tvContent, this);
-            htmlSpan = (Spannable) Html.fromHtml(content, p, null);
-            tvContent.setText(htmlSpan);
-            tvContent.setMovementMethod(new ScrollingMovementMethod());
-            Spannable processedText = removeUnderlines(htmlSpan);
-            tvContent.setText(processedText);
-            custfont(this, tvContent);
-            progressBar.setVisibility(View.INVISIBLE);
-            contentTemp = content;
-        } else {
-            ll.setVisibility(View.VISIBLE);
+            if (typeIntent != null) {
+                    tvContent.setText(content);
+                    ll.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                } else {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        URLImageParser p = new URLImageParser(tvContent, getApplicationContext());
+                        htmlSpan = (Spannable) Html.fromHtml(content, p, null);
+                        tvContent.setText(htmlSpan);
+                        tvContent.setMovementMethod(new ScrollingMovementMethod());
+                        processedText = removeUnderlines(htmlSpan);
+                        tvContent.setText(processedText);
+                        contentShare = htmlSpan.toString().substring(0, 150);
+                        custfont(getApplicationContext(), tvContent);
+                        progressBar.setVisibility(View.INVISIBLE);
+                        contentTemp = content;
+                        }
+                },1000);
+
+                }
+
+            } else {
+                if (typeIntent != null) {
+                    tvContent.setText(Html.fromHtml(content));
+                    ll.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.INVISIBLE);
+                } else {
+                    ll.setVisibility(View.VISIBLE);
+                }
+            }
+
         }
 
+    
+
+        @Override
+        public void onReturnBimapFromByte ( byte[] image){
+            if (content != null) {
+                db.addArticle(new Article(title, category, image, processedText.toString()));
+            } else {
+                db.addArticle(new Article(title, category, image, contentTemp));
+            }
+
+        }
+
+    private void shareTextUrl() {
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("text/plain");
+        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        share.putExtra(Intent.EXTRA_SUBJECT, title);
+        share.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(content.substring(1, 20)));
+
+        startActivity(Intent.createChooser(share, "Chia sẽ bài viết này"));
     }
 
-    @Override
-    public void onReturnBimapFromByte(byte[] image) {
-        if (content != null) {
-            db.addArticle(new Article(title, category, image, content));
-        } else {
-            db.addArticle(new Article(title, category, image, contentTemp));
-        }
+    public void setupFacebookShareIntent() {
+        ShareDialog shareDialog;
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        shareDialog = new ShareDialog(this);
 
+        ShareLinkContent linkContent = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("play.google.com"))
+                .setContentTitle(title)
+                .setContentDescription(contentShare)
+                .setImageUrl(Uri.parse(linkImage))
+                .build();
+
+        shareDialog.show(linkContent);
     }
 
 

@@ -40,14 +40,11 @@ public class JsoupParseContent extends AsyncTask<String, String, String> {
             Document document = Jsoup.connect(mLink)
                     .timeout(18000)
                     .get();
-            // Using Elements to get the class data
             content = document.select("div[class=\"entry-content\"],div[class=\"wp-caption aligncenter\"] img[src]");
             content.select("script").remove();
             content.select("script").remove();
             content.select("script").remove();
             content.select("script").remove();
-
-          //  content.toString().replaceAll("(adsbygoogle = window.adsbygoogle || []).push({});","");
 
         } catch (HttpStatusException ex) {
             Log.d("Category", "HttpStatusException");

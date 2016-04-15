@@ -35,4 +35,8 @@ public class UrlGetXml {
     public final static String CUNG_THIEN_BINH = "http://boi.vn/12-cung-hoang-dao/cung-thien-binh/";
     public final static String CUNG_XU_NU = "http://boi.vn/12-cung-hoang-dao/cung-xu-nu/";
 
+    public final static String PHONG_THUY = "http://lichngaytot.com/TongHopAjax/Ngam?categoryId=284&pageIndex=";
+
+
+
 }
