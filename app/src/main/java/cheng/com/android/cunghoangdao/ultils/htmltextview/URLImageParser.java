@@ -30,19 +30,19 @@ public class URLImageParser implements ImageGetter {
     }
 
     public Drawable getDrawable(String source) {
-        if(source.matches("data:image.*base64.*")) {
+        if (source.matches("data:image.*base64.*")) {
             String base_64_source = source.replaceAll("data:image.*base64", "");
             byte[] data = Base64.decode(base_64_source, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
             Drawable image = new BitmapDrawable(context.getResources(), bitmap);
             image.setBounds(0, 0, 0 + image.getIntrinsicWidth(), 0 + image.getIntrinsicHeight());
-            Log.d("URLImageParser", "image: "+image);
+            Log.d("URLImageParser", "image: " + image);
             return image;
         } else {
             URLDrawable urlDrawable = new URLDrawable();
             ImageGetterAsyncTask asyncTask = new ImageGetterAsyncTask(urlDrawable);
             asyncTask.execute(source);
-            Log.d("URLImageParser", "urlDrawable: "+urlDrawable);
+            Log.d("URLImageParser", "urlDrawable: " + urlDrawable);
             return urlDrawable; //return reference to URLDrawable where We will change with actual image from the src tag
         }
     }
@@ -62,22 +62,26 @@ public class URLImageParser implements ImageGetter {
 
         @Override
         protected void onPostExecute(Drawable result) {
-            int width = (int) (result.getIntrinsicWidth());
-            int height = (int) (result.getIntrinsicHeight());
-            float scale = context.getResources().getDisplayMetrics().density;
-            if (width * scale < container.getWidth()) {
-                width = (int) (result.getIntrinsicWidth() * scale);
-                height = (int) (result.getIntrinsicHeight() * scale);
+            int width = 0, height = 0;
+            if (result == null) {
+                urlDrawable.drawable = null;
+            } else {
+                width = (int) (result.getIntrinsicWidth());
+                height = (int) (result.getIntrinsicHeight());
+                float scale = context.getResources().getDisplayMetrics().density;
+                if (width * scale < container.getWidth()) {
+                    width = (int) (result.getIntrinsicWidth() * scale);
+                    height = (int) (result.getIntrinsicHeight() * scale);
+                }
+
+                urlDrawable.setBounds(0, 0, 0 + width, 0 + height);
+                urlDrawable.drawable = result;
             }
-
-            urlDrawable.setBounds(0, 0, 0 + width, 0 + height);
-
             // Change to downloaded image
-            urlDrawable.drawable = result;
+
 
             // Invalidate TextView to redraw image
             URLImageParser.this.container.invalidate();
-
 
 
             // Resize TextView height to accommodate for image
@@ -96,8 +100,10 @@ public class URLImageParser implements ImageGetter {
                     return null;
                 }
                 InputStream is = fetch(urlString);
+                if (is == null) {
+                    return null;
+                }
                 Drawable drawable = Drawable.createFromStream(is, "src");
-
                 // Scales image if space is available in container
                 int width = (int) (drawable.getIntrinsicWidth());
                 int height = (int) (drawable.getIntrinsicHeight());
@@ -107,13 +113,14 @@ public class URLImageParser implements ImageGetter {
                     height = (int) (drawable.getIntrinsicHeight() * scale);
                 }
 
-                drawable.setBounds(0, 0, width,  height);
-                Log.d("URLImageParser", "fetchDrawable: "+drawable);
+                drawable.setBounds(0, 0, width, height);
+                Log.d("URLImageParser", "fetchDrawable: " + drawable);
                 return drawable;
             } catch (Exception e) {
                 return null;
             }
         }
+
         private InputStream fetch(String urlString) throws MalformedURLException, IOException {
             URL url = null;
             InputStream stream = null;
@@ -132,8 +139,8 @@ public class URLImageParser implements ImageGetter {
                 return null;
             } catch (MalformedURLException e) {
                 e.printStackTrace();
+                return null;
             }
-
             return stream;
         }
     }

@@ -36,6 +36,6 @@ public class SetTimesSharedPreferences {
         Toast.makeText(context, "Set False", Toast.LENGTH_SHORT).show();
     }
     public boolean getIsTimes(){
-        return sharedPreferences.getBoolean(IS_TIMES,true);
+        return sharedPreferences.getBoolean(IS_TIMES,false);
     }
 }

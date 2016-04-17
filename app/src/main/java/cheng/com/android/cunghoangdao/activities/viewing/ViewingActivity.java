@@ -32,9 +32,11 @@ import com.github.clans.fab.FloatingActionMenu;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseActivity;
+import cheng.com.android.cunghoangdao.activities.maincreen.MainScreenActivity;
 import cheng.com.android.cunghoangdao.adapters.cunghoangdaotab.RecyclerCunghoangdaoAdapter;
 import cheng.com.android.cunghoangdao.model.Article;
 import cheng.com.android.cunghoangdao.provider.DataHandlerSaveContent;
+import cheng.com.android.cunghoangdao.provider.DataNewfeeds;
 import cheng.com.android.cunghoangdao.services.CovertBitmapToByte;
 import cheng.com.android.cunghoangdao.services.JsoupParseContent;
 import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
@@ -51,7 +53,7 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
     private int mutedColor = R.attr.colorPrimary;
     public TextView tvContent;
     private final String TAG = getClass().getSimpleName();
-    String content, title, linkArticle, linkImage, category, contentShare, typeIntent;
+    String content, title, linkArticle, linkImage, category, contentShare, typeOffline, typeNotify;
     private Intent intent;
     private ProgressBar progressBar;
     private FloatingActionButton flbtnSave, flbtnShare;
@@ -64,6 +66,7 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
     private FloatingActionMenu flbtnMenu;
     private Spannable processedText;
     private Handler handler;
+    private DataNewfeeds dbNewFeeds;
 
     @Override
     public void setContentView() {
@@ -74,7 +77,8 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
     @Override
     public void init() {
         intent = getIntent();
-        typeIntent = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_OFFLINE);
+        typeOffline = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_OFFLINE);
+        typeNotify = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_NOTIFY);
         linkArticle = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK);
         title = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TITLE);
         linkImage = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE);
@@ -99,6 +103,7 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
 
         handler = new Handler();
         db = new DataHandlerSaveContent(this);
+        dbNewFeeds = new DataNewfeeds(this);
         setDynamicColor();
 
         new Handler().postDelayed(new Runnable() {
@@ -129,6 +134,7 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setItent();
                 finish();
             }
         });
@@ -225,17 +231,17 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
 
     @Override
     public void onReturnContent(String contentParsered) {
-        Log.d(TAG, "onReturnContent: "+contentParsered);
+        Log.d(TAG, "onReturnContent: " + contentParsered);
         setContent(contentParsered);
     }
 
     public void setContent(final String content) {
         if (ConnectionUltils.isConnected(this)) {
-            if (typeIntent != null) {
-                    tvContent.setText(content);
-                    ll.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.INVISIBLE);
-                } else {
+            if (typeOffline != null) {
+                tvContent.setText(content);
+                ll.setVisibility(View.GONE);
+                progressBar.setVisibility(View.INVISIBLE);
+            } else {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -249,34 +255,33 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
                         custfont(getApplicationContext(), tvContent);
                         progressBar.setVisibility(View.INVISIBLE);
                         contentTemp = content;
-                        }
-                },1000);
+                    }
+                }, 1000);
 
-                }
-
-            } else {
-                if (typeIntent != null) {
-                    tvContent.setText(Html.fromHtml(content));
-                    ll.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.INVISIBLE);
-                } else {
-                    ll.setVisibility(View.VISIBLE);
-                }
             }
 
-        }
-
-    
-
-        @Override
-        public void onReturnBimapFromByte ( byte[] image){
-            if (content != null) {
-                db.addArticle(new Article(title, category, image, processedText.toString()));
+        } else {
+            if (typeOffline != null) {
+                tvContent.setText(Html.fromHtml(content));
+                ll.setVisibility(View.GONE);
+                progressBar.setVisibility(View.INVISIBLE);
             } else {
-                db.addArticle(new Article(title, category, image, contentTemp));
+                ll.setVisibility(View.VISIBLE);
             }
-
         }
+
+    }
+
+
+    @Override
+    public void onReturnBimapFromByte(byte[] image) {
+        if (content != null) {
+            db.addArticle(new Article(title, category, image, processedText.toString()));
+        } else {
+            db.addArticle(new Article(title, category, image, contentTemp));
+        }
+
+    }
 
     private void shareTextUrl() {
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
@@ -303,5 +308,24 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
         shareDialog.show(linkContent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (typeNotify != null) {
+            dbNewFeeds.delete(0);
+        }
+    }
 
+    @Override
+    public void onBackPressed() {
+        setItent();
+        super.onBackPressed();
+    }
+
+    public void setItent() {
+        if (typeNotify != null) {
+            Intent intent = new Intent(ViewingActivity.this, MainScreenActivity.class);
+            startActivity(intent);
+        }
+    }
 }

@@ -6,6 +6,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -87,14 +89,17 @@ public class PushNotifyService extends Service {
     void showNotification() {
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         Article article;
-        article = db.getArticleById(1);
+        article = db.getArticle(0);
         builder.setContentTitle(article.getmTitle())
                 .setAutoCancel(true)
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setContentText(article.getmDescription())
-                .setSmallIcon(R.drawable.ic_drafts_black);
+                .setSmallIcon(R.drawable.chipi);
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        builder.setSound(alarmSound);
         Intent mainIntent = new Intent(getApplicationContext(), ViewingActivity.class);
         mainIntent.putExtra(RecyclerCunghoangdaoAdapter.CONTENT,article.getmContent());
+        mainIntent.putExtra(RecyclerCunghoangdaoAdapter.TYPE_NOTIFY,"type_notify");
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 1,
                 mainIntent,

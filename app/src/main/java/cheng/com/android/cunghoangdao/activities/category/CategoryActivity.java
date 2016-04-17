@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -36,6 +37,7 @@ public class CategoryActivity extends BaseActivity implements JsoupParseCategory
     protected Handler handler;
     public int page = 1;
     private boolean isFirt = true;
+    private ArrayList<Category> array;
 
     @Override
     public void setContentView() {
@@ -57,7 +59,7 @@ public class CategoryActivity extends BaseActivity implements JsoupParseCategory
         mToolbar.setTitle(mCategory);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        array = new ArrayList<>();
         rcvCategory = (RecyclerView) findViewById(R.id.activity_category_rcvNews);
         rcvCategory.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
@@ -82,7 +84,7 @@ public class CategoryActivity extends BaseActivity implements JsoupParseCategory
         });
     }
 
-    private ArrayList<Category> array = new ArrayList<>();
+
 
     public ArrayList<Category> updateAdapter(ArrayList<Category> result) {
         if (!result.isEmpty()) {
@@ -98,10 +100,18 @@ public class CategoryActivity extends BaseActivity implements JsoupParseCategory
 
     @Override
     public void onReturnCategoryListFinish(final ArrayList<Category> arrCategory) {
-        updateAdapter(arrCategory);
-        categoryAdapter = new RecyclerCategoryAdapter(this, array, this, rcvCategory);
+        Log.d(TAG, "onReturnCategoryListFinish: "+arrCategory.size());
         if (isFirt) {
+            updateAdapter(arrCategory);
+            categoryAdapter = new RecyclerCategoryAdapter(this, array, this, rcvCategory);
             rcvCategory.setAdapter(categoryAdapter);
+            progressBar.setVisibility(View.INVISIBLE);
+        }else {
+            for (int i =0;i<arrCategory.size();i++){
+                array.add(arrCategory.get(i));
+                Log.d(TAG, "onReturnJsonObject: "+array.get(i).getmTitle());
+                rcvCategory.getAdapter().notifyItemInserted(array.size());
+            }
         }
         rcvCategory.getAdapter().notifyDataSetChanged();
         progressBar.setVisibility(View.INVISIBLE);
@@ -119,7 +129,7 @@ public class CategoryActivity extends BaseActivity implements JsoupParseCategory
                         array.remove(array.size()-1);
                         //rcvCategory.removeViewAt(rcvCategory.size());
                         //rcvCategory.getAdapter().notifyItemRemoved(array.size() - 1);
-                        rcvCategory.getAdapter().notifyItemRemoved(array.size());
+                        categoryAdapter.notifyItemRemoved(array.size());
                         new JsoupParseCategory(getApplicationContext(), mLink + "page/" + page,
                                 CategoryActivity.this).execute();
                         if (!Category.isLast) {

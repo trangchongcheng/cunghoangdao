@@ -5,6 +5,7 @@ import android.util.Log;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -135,7 +136,12 @@ public class Article {
                     .get();
             String title =("Thông báo tử vi hàng ngày");
             Elements content = document.select("div[class=\"chitiet-singger\"] div[class=\"kconten_item\"]");
-            content.select("img").remove();
+           // content.select("div[class=\"qc-660x60\"]").remove();
+           // content.select("div[class=\"qc-320x100\"]").remove();
+            for (Element script : content) {
+                Elements scripts = script.select("script");
+                scripts.remove();
+            }
             arrArticle = new Article(title,content.text().substring(0,150),content.toString());
 
         }catch (HttpStatusException ex){

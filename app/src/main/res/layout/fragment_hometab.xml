@@ -13,17 +13,6 @@
         android:layout_height="match_parent"
         android:layout_margin="8dp"
         android:orientation="vertical">
-        <!--  Recycler View  -->
-
-
-        <!--<com.daimajia.slider.library.SliderLayout-->
-        <!--android:id="@+id/frangment_main_slider"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="150dp"-->
-        <!--custom:auto_cycle="true"-->
-        <!--custom:indicator_visibility="visible"-->
-        <!--custom:pager_animation="Accordion"-->
-        <!--custom:pager_animation_span="1100" />-->
 
         <TextView
             style="@style/text_categoryes"
@@ -136,7 +125,8 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <ListView
                 android:id="@+id/content_main_lvNews"
@@ -159,8 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/fragment_hometab_tvConnection"

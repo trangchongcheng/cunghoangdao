@@ -11,6 +11,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import cheng.com.android.cunghoangdao.model.Article;
+
 /**
  * Created by Welcome on 4/14/2016.
  */
@@ -72,11 +73,20 @@ public class DataNewfeeds extends SQLiteOpenHelper {
         Toast.makeText(context, "Đã lưu thành công", Toast.LENGTH_SHORT).show();
     }
 
-    public Article getArticleById(int id) {
+    public int setHasRead() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(HAS_READ, 1);
+        // updating row
+        return db.update(TABLE_ARTICLE, values, HAS_READ + " = ?",
+                new String[]{String.valueOf(0)});
+    }
+
+    public Article getArticle(int hasRead) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_ARTICLE, new String[]{KEY_ID,
-                        KEY_TITLE,KEY_DESCRIPTION,KEY_CONTENT,HAS_READ}, KEY_ID + "=?",
-                new String[]{String.valueOf(id)}, null, null, null, null);
+                        KEY_TITLE, KEY_DESCRIPTION, KEY_CONTENT, HAS_READ}, HAS_READ + "=?",
+                new String[]{String.valueOf(hasRead)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
         Log.d(TAG, "getArticleById: " + cursor.getString(1));

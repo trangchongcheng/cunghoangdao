@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -118,13 +119,20 @@ public class PhongThuyActivity extends BaseActivity implements RecyclerCategoryA
 
     @Override
     public void onReturnJsonObject(ArrayList<Category> arrContent) {
-        updateAdapter(arrContent);
-        categoryAdapter = new RecyclerCategoryAdapter(this, array, this, rcvCategory);
+        Log.d(TAG, "onReturnJsonObject: "+arrContent.size());
         if (isFirt) {
+            updateAdapter(arrContent);
+            categoryAdapter = new RecyclerCategoryAdapter(this, array, this, rcvCategory);
             rcvCategory.setAdapter(categoryAdapter);
             progressBar.setVisibility(View.INVISIBLE);
+        }else {
+            for (int i =0;i<arrContent.size();i++){
+                array.add(arrContent.get(i));
+                Log.d(TAG, "onReturnJsonObject: "+array.get(i).getmTitle());
+                categoryAdapter.notifyItemInserted(array.size());
+            }
         }
-        rcvCategory.getAdapter().notifyDataSetChanged();
+       // rcvCategory.getAdapter().notifyDataSetChanged();
         progressBar.setVisibility(View.INVISIBLE);
         categoryAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
@@ -140,6 +148,7 @@ public class PhongThuyActivity extends BaseActivity implements RecyclerCategoryA
                         //rcvCategory.removeViewAt(rcvCategory.size());
                         //rcvCategory.getAdapter().notifyItemRemoved(array.size() - 1);
                         rcvCategory.getAdapter().notifyItemRemoved(array.size());
+                        rcvCategory.getAdapter().notifyDataSetChanged();
                         new LichngaytotAsyntask(getApplicationContext(), UrlGetXml.PHONG_THUY+page,
                                 ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, PhongThuyActivity.this).execute();
                         if (!Category.isLast) {

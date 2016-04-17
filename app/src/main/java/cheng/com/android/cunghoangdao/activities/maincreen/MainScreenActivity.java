@@ -35,7 +35,6 @@ import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseActivity;
 import cheng.com.android.cunghoangdao.activities.lichngaytot.PhongThuyActivity;
 import cheng.com.android.cunghoangdao.activities.offline.OfflineActivity;
-import cheng.com.android.cunghoangdao.activities.video.VideoActivity;
 import cheng.com.android.cunghoangdao.fragments.ViewPageContainerFragment;
 import cheng.com.android.cunghoangdao.model.Common;
 import cheng.com.android.cunghoangdao.services.CheckTimesService;
@@ -152,7 +151,7 @@ public class MainScreenActivity extends BaseActivity {
                         startActivity(intent);
                         return true;
                     case R.id.itemTracNghiem:
-                        intent = new Intent(MainScreenActivity.this, VideoActivity.class);
+                        intent = new Intent(MainScreenActivity.this, OfflineActivity.class);
                         startActivity(intent);
                         return true;
                     case R.id.itemAmDuong:
@@ -233,11 +232,13 @@ public class MainScreenActivity extends BaseActivity {
 
         @Override
         public void onReceive(final Context context, Intent intent) {
-            if (ConnectionUltils.isConnected(context) == true) {
-                Log.d(TAG, "onReceive: " + " co mang");
-            } else {
-                Log.d(TAG, "showdialog");
-                showDialog(context);
+            int times = 0;
+            if (!ConnectionUltils.isConnected(context)) {
+                if(times<1){
+                    Log.d(TAG, "showdialog");
+                    showDialog(context);
+                }
+                ++times;
             }
         }
     };

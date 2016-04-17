@@ -33,7 +33,7 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
 
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
-    private int visibleThreshold = 5;
+    private int visibleThreshold = 2;
     private int lastVisibleItem, totalItemCount;
     private boolean loading;
     public OnLoadMoreListener onLoadMoreListener;
@@ -133,7 +133,7 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public int getItemCount() {
+    public int getItemCount()    {
         return (null != arrCategory ? arrCategory.size() : 0);
     }
 

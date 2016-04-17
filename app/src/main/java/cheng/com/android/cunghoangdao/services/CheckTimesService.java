@@ -14,8 +14,9 @@ import cheng.com.android.cunghoangdao.ultils.SetTimesSharedPreferences;
 /**
  * Created by Welcome on 4/15/2016.
  */
-public class CheckTimesService extends Service{
+public class CheckTimesService extends Service {
     private final String TAG = getClass().getSimpleName();
+    private int times;
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -30,14 +31,15 @@ public class CheckTimesService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "onStartCommand: ");
         Calendar c = Calendar.getInstance();
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int min = c.get(Calendar.MINUTE);
         int ds = c.get(Calendar.AM_PM);
-        Log.d(TAG, "onStartCommand: "+hour);
-        if (hour > 22 && hour <25) {
+        Log.d(TAG, "onStartCommand: " + hour);
+        if (hour > 22 && hour < 25 && times < 1) {
+            Log.d(TAG, "onStartCommand: "+times);
             SetTimesSharedPreferences.getInstance(getApplicationContext()).setIsTimesFalse();
+            times = times + 1;
         }
         return START_STICKY;
     }
