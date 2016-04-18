@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import cheng.com.android.cunghoangdao.R;
+import cheng.com.android.cunghoangdao.interfaces.OnItemClickRecyclerView;
 import cheng.com.android.cunghoangdao.interfaces.OnLoadMoreListener;
 import cheng.com.android.cunghoangdao.model.Category;
 
@@ -29,8 +30,7 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     public final static String TITLE = "title";
     public ArrayList<Category> arrCategory;
     Context context;
-    private OnClickItemCategory onClickItemCategory;
-
+    public OnItemClickRecyclerView onItemClickRecyclerView;
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
     private int visibleThreshold = 2;
@@ -39,37 +39,32 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     public OnLoadMoreListener onLoadMoreListener;
 
     public RecyclerCategoryAdapter(Context context, ArrayList<Category> arrCategory,
-                                   OnClickItemCategory onClickItemCategory, RecyclerView recyclerView) {
+                                   OnItemClickRecyclerView onItemClickRecyclerView, RecyclerView recyclerView) {
         this.context = context;
         this.arrCategory = arrCategory;
-        this.onClickItemCategory = onClickItemCategory;
+        this.onItemClickRecyclerView = onItemClickRecyclerView;
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
 
-            final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView
-                    .getLayoutManager();
-
-
-            recyclerView
-                    .addOnScrollListener(new RecyclerView.OnScrollListener() {
-                        @Override
-                        public void onScrolled(RecyclerView recyclerView,
-                                               int dx, int dy) {
-                            super.onScrolled(recyclerView, dx, dy);
-
-                            totalItemCount = linearLayoutManager.getItemCount();
-                            lastVisibleItem = linearLayoutManager
-                                    .findLastVisibleItemPosition();
-                            if (!loading
-                                    && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                                // End has been reached
-                                // Do something
-                                if (onLoadMoreListener != null) {
-                                    onLoadMoreListener.onLoadMore();
-                                }
-                                loading = true;
-                            }
+            final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrolled(RecyclerView recyclerView,
+                                       int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    totalItemCount = linearLayoutManager.getItemCount();
+                    lastVisibleItem = linearLayoutManager
+                            .findLastVisibleItemPosition();
+                    if (!loading
+                            && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                        // End has been reached
+                        // Do something
+                        if (onLoadMoreListener != null) {
+                            onLoadMoreListener.onLoadMore();
                         }
-                    });
+                        loading = true;
+                    }
+                }
+            });
         }
     }
 
@@ -114,7 +109,7 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
             ((CategoryViewHolder) holder).ll.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onClickItemCategory.onItemClickListener(v, position, category.getmTitle(),
+                    onItemClickRecyclerView.onItemClickListener(v, position, category.getmTitle(),
                             category.getmLink(), category.getmImage());
                 }
             });
@@ -133,7 +128,7 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public int getItemCount()    {
+    public int getItemCount() {
         return (null != arrCategory ? arrCategory.size() : 0);
     }
 
@@ -164,9 +159,5 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
             super(v);
             progressBar = (ProgressBar) v.findViewById(R.id.item_progressBar);
         }
-    }
-
-    public interface OnClickItemCategory {
-        void onItemClickListener(View v, int position, String title, String linkAricle, String linkImage);
     }
 }

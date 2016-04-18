@@ -3,11 +3,8 @@ package cheng.com.android.cunghoangdao.activities.maincreen;
 import android.animation.ValueAnimator;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -32,24 +29,25 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import java.util.Calendar;
 
 import cheng.com.android.cunghoangdao.R;
-import cheng.com.android.cunghoangdao.activities.BaseActivity;
-import cheng.com.android.cunghoangdao.activities.lichngaytot.PhongThuyActivity;
+import cheng.com.android.cunghoangdao.activities.BaseMainActivity;
+import cheng.com.android.cunghoangdao.activities.lichngaytot.ClipPhongThuyActivity;
+import cheng.com.android.cunghoangdao.activities.lichngaytot.DanhmucActivity;
+import cheng.com.android.cunghoangdao.activities.lichngaytot.TienichActivity;
 import cheng.com.android.cunghoangdao.activities.offline.OfflineActivity;
 import cheng.com.android.cunghoangdao.fragments.ViewPageContainerFragment;
 import cheng.com.android.cunghoangdao.model.Common;
 import cheng.com.android.cunghoangdao.services.CheckTimesService;
-import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
 import de.hdodenhof.circleimageview.CircleImageView;
-import me.drakeet.materialdialog.MaterialDialog;
 
 import static cheng.com.android.cunghoangdao.R.string.openDrawer;
 
 /**
  * Created by Welcome on 3/29/2016.
  */
-public class MainScreenActivity extends BaseActivity {
+public class MainScreenActivity extends BaseMainActivity {
     private final String TAG = getClass().getSimpleName();
-
+    public static final String TYPE_CATEGORY ="type_category";
+    public static final String TOOLBAR_NAME ="toolbar_name";
     private Toolbar mToolbar;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -108,20 +106,17 @@ public class MainScreenActivity extends BaseActivity {
         floatButton_item_edit.setTitle("Thay đổi thông tin");
         floatButton_item_edit.setSize(1);
         floatButton.addButton(floatButton_item_edit);
-
         floatButton_item_detail = new FloatingActionButton(this);
         floatButton_item_detail.setTitle("Chi tiết về bạn");
         floatButton_item_detail.setSize(1);
         floatButton.addButton(floatButton_item_detail);
         Log.d(TAG, "oncreate");
-
         Intent i = new Intent(this, CheckTimesService.class);
         this.startService(i);
     }
 
     @Override
     public void setValue(Bundle savedInstanceState) {
-
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mCollapsingToolbarLayout.setTitle("Cung Hoàng Đạo");
@@ -132,26 +127,30 @@ public class MainScreenActivity extends BaseActivity {
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 Intent intent;
                 if (menuItem.isChecked()) menuItem.setChecked(false);
-                //else menuItem.setChecked(true);
-                //Closing drawer on item click
                 drawerLayout.closeDrawers();
-                //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
-                    //Replacing the main content with ContentFragment Which is our Inbox View;
                     case R.id.itemPhongThuy:
-                        intent = new Intent(MainScreenActivity.this, PhongThuyActivity.class);
+                        intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
+                        intent.putExtra(TYPE_CATEGORY,getResources().getString(R.string.phong_thuy));
+                        intent.putExtra(TOOLBAR_NAME,getResources().getString(R.string.menu_item_phong_thuy));
                         startActivity(intent);
                         return true;
-                    // For rest of the options we just show a toast on click
-                    case R.id.itemNgayTot:
-                        Toast.makeText(getApplicationContext(), "Stared Selected", Toast.LENGTH_SHORT).show();
+                    case R.id.itemXemtuong:
+                        intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
+                        intent.putExtra(TYPE_CATEGORY,getResources().getString(R.string.xem_tuong));
+                        intent.putExtra(TOOLBAR_NAME,getResources().getString(R.string.menu_item_xem_tuong));
+                        startActivity(intent);
+                        return true;
+                    case R.id.itemClip:
+                        intent = new Intent(MainScreenActivity.this, ClipPhongThuyActivity.class);
+                        startActivity(intent);
                         return true;
                     case R.id.itemDownload:
                         intent = new Intent(MainScreenActivity.this, OfflineActivity.class);
                         startActivity(intent);
                         return true;
                     case R.id.itemTracNghiem:
-                        intent = new Intent(MainScreenActivity.this, OfflineActivity.class);
+                        intent = new Intent(MainScreenActivity.this, TienichActivity.class);
                         startActivity(intent);
                         return true;
                     case R.id.itemAmDuong:
@@ -176,15 +175,12 @@ public class MainScreenActivity extends BaseActivity {
             @Override
             public void onDrawerOpened(View drawerView) {
                 // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
-
                 super.onDrawerOpened(drawerView);
             }
         };
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         actionBarDrawerToggle.syncState();
-
-
         if (savedInstanceState == null) {
             initScreen();
             Log.d(TAG, "savedInstanceState == null");
@@ -224,49 +220,6 @@ public class MainScreenActivity extends BaseActivity {
         fragmentManager.executePendingTransactions();
     }
 
-    private void registerReceivers() {
-        this.registerReceiver(NetworkChangeReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
-    }
-
-    private BroadcastReceiver NetworkChangeReceiver = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(final Context context, Intent intent) {
-            int times = 0;
-            if (!ConnectionUltils.isConnected(context)) {
-                if(times<1){
-                    Log.d(TAG, "showdialog");
-                    showDialog(context);
-                }
-                ++times;
-            }
-        }
-    };
-
-
-    public void showDialog(Context context) {
-        final MaterialDialog dialog;
-        dialog = new MaterialDialog(context);
-        dialog.setTitle("Không tìm thấy Network");
-        dialog.setMessage("Vui lòng kiểm tra lại đường truyền");
-        dialog.setNegativeButton("OK", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "CECK++: ");
-                dialog.dismiss();
-                Log.d(TAG, "onClick: ");
-            }
-        });
-        dialog.setPositiveButton("Bật mạng", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-            }
-        });
-        dialog.show();
-
-    }
 
     @Override
     protected void onStart() {
@@ -290,37 +243,6 @@ public class MainScreenActivity extends BaseActivity {
     protected void onResume() {
         Log.d(TAG, "onResume: ");
         super.onResume();
-        registerReceivers();
     }
 
-    @Override
-    protected void onPause() {
-        Log.d(TAG, "onStop: ");
-        super.onPause();
-        try {
-            unregisterReceiver(NetworkChangeReceiver);
-        } catch (IllegalArgumentException e) {
-        }
-
-    }
-
-    @Override
-    protected void onStop() {
-        Log.d(TAG, "onStop: ");
-        super.onStop();
-        try {
-            unregisterReceiver(NetworkChangeReceiver);
-        } catch (IllegalArgumentException e) {
-        }
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log.d(TAG, "onDestroy: ");
-        super.onDestroy();
-        try {
-            unregisterReceiver(NetworkChangeReceiver);
-        } catch (IllegalArgumentException e) {
-        }
-    }
 }

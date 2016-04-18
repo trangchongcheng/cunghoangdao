@@ -76,14 +76,28 @@
     <string name="danh_muc">Danh Mục</string>
     <string name="tien_ich">Tiện ích</string>
 
-    <string name="menu_item_tu_vi">Tử Vi Hàng Ngày</string>
-    <string name="menu_item_phong_thuy">Phong Thủy</string>
-    <string name="menu_item_ngay_tot">Ngày Tốt</string>
-    <string name="menu_item_download">Tải Xuống</string>
+    <string name="menu_item_tu_vi">Tử vi hàng ngày</string>
+    <string name="menu_item_phong_thuy">Phong thủy</string>
+    <string name="menu_item_ngay_tot">Ngày tốt</string>
+    <string name="menu_item_xem_tuong">Xem tướng</string>
+    <string name="menu_item_download">Tải xuống</string>
 
     <string name="menu_item_trac_nghiem">Trắc nghiệm tình yêu</string>
-    <string name="menu_item_am_duong">Lịch Âm Dương</string>
+    <string name="menu_item_am_duong">Lịch âm dương</string>
+    <string name="menu_item_clip_phongthuy">Clip phong thủy</string>
 
+    <string name="phong_thuy">phong_thuy</string>
+    <string name="xem_tuong">xem_tuong</string>
+
+    <string name="cung_nu">Cung Nữ</string>
+    <string name="cung_nam">Cung Nam</string>
+    <string name="btn_ketqua">Kết quả</string>
+    <string name="text_null">vs</string>
+    <string name="share_fb">Chia sẽ lên Facebook</string>
+    <string name="save_offline">Lưu lại đọc Offline</string>
+    <string name="boi_ty_chd">Bói tình yêu theo cung hoàng đạo</string>
+
+    <string name="offine_mess">Chưa có bài viết nào được tải về!</string>
 
     <string name="app_id">1041345645929173</string>
 </resources>

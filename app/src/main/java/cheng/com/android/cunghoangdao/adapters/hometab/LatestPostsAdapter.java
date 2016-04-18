@@ -15,7 +15,6 @@ import java.util.List;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.model.hometab.NewsFeed;
-import cheng.com.android.cunghoangdao.ultils.TimeAgoUtils;
 
 public class LatestPostsAdapter extends ArrayAdapter<NewsFeed> {
     private final LayoutInflater layoutInflater;
@@ -37,7 +36,6 @@ public class LatestPostsAdapter extends ArrayAdapter<NewsFeed> {
             viewHolder.ll = (LinearLayout) convertView.findViewById(R.id.item_timeline_ll);
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.item_timeline_tvTitle);
             viewHolder.tvDescription = (TextView) convertView.findViewById(R.id.item_timeline_tvDescriptions);
-            viewHolder.tvPubdate = (TextView) convertView.findViewById(R.id.item_timeline_tvPubdate);
             viewHolder.timeline = (TimelineView) convertView.findViewById(R.id.item_timeline_timeline);
             convertView.setTag(viewHolder);
         } else {
@@ -48,7 +46,6 @@ public class LatestPostsAdapter extends ArrayAdapter<NewsFeed> {
 
         viewHolder.tvTitle.setText(newsFeed.getmTitle());
         viewHolder.tvDescription.setText(Html.fromHtml(newsFeed.getmDescription()).toString());
-        viewHolder.tvPubdate.setText(TimeAgoUtils.getDate(TimeAgoUtils.formatTime(newsFeed.getmPubdate()), true));
         viewHolder.timeline.setTimelineType(newsFeed.getType());
         viewHolder.timeline.setTimelineAlignment(newsFeed.getAlignment());
 
@@ -68,7 +65,7 @@ public class LatestPostsAdapter extends ArrayAdapter<NewsFeed> {
     }
 
     static class ViewHolderItem {
-        TextView tvTitle, tvDescription, tvPubdate;
+        TextView tvTitle, tvDescription;
         LinearLayout ll;
         TimelineView timeline;
     }

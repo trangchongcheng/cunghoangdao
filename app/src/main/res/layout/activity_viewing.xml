@@ -89,7 +89,7 @@
                 android:id="@+id/activity_viewing_tvContent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="23dp" />
+                android:textSize="23sp" />
             <ProgressBar
                 android:visibility="invisible"
                 android:id="@+id/activity_viewing_progress"
@@ -100,19 +100,6 @@
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
-
-    <android.support.design.widget.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        android:clickable="true"
-        android:src="@drawable/ic_add_black"
-        app:backgroundTint="@color/colorPrimary"
-        app:elevation="6dp"
-        app:fabSize="mini"
-        android:visibility="visible"
-        app:layout_anchor="@+id/appbar"
-        app:layout_anchorGravity="bottom|right|end" />
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/activity_viewing_flbtn_menu"
         android:layout_gravity="bottom|right"
@@ -162,7 +149,7 @@
             app:fab_showAnimation="@anim/fab_scale_up"
             app:fab_hideAnimation="@anim/fab_scale_down"
             android:id="@+id/activity_viewing_flbtnShare"
-            app:fab_label="Chia sẽ lên Facebook"
+            app:fab_label="@string/share_fb"
             android:src="@drawable/ic_save_sqlite_18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -177,7 +164,7 @@
             app:fab_showAnimation="@anim/fab_scale_up"
             app:fab_hideAnimation="@anim/fab_scale_down"
             android:id="@+id/activity_viewing_flbtnSave"
-            app:fab_label="Lưu lại"
+            app:fab_label="@string/save_offline"
             android:src="@drawable/ic_save_sqlite_18dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

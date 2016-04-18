@@ -13,12 +13,14 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 
 import cheng.com.android.cunghoangdao.R;
-import cheng.com.android.cunghoangdao.activities.BaseActivity;
+import cheng.com.android.cunghoangdao.activities.BaseMainActivity;
+import cheng.com.android.cunghoangdao.activities.maincreen.MainScreenActivity;
 import cheng.com.android.cunghoangdao.activities.viewing.ViewingActivity;
 import cheng.com.android.cunghoangdao.adapters.category.RecyclerCategoryAdapter;
 import cheng.com.android.cunghoangdao.adapters.cunghoangdaotab.RecyclerCunghoangdaoAdapter;
 import cheng.com.android.cunghoangdao.common.UrlGetXml;
 import cheng.com.android.cunghoangdao.fragments.hometab.HomeTabFragment;
+import cheng.com.android.cunghoangdao.interfaces.OnItemClickRecyclerView;
 import cheng.com.android.cunghoangdao.interfaces.OnLoadMoreListener;
 import cheng.com.android.cunghoangdao.model.Category;
 import cheng.com.android.cunghoangdao.services.ApiServiceLichNgayTot;
@@ -27,18 +29,19 @@ import cheng.com.android.cunghoangdao.services.LichngaytotAsyntask;
 /**
  * Created by Welcome on 3/31/2016.
  */
-public class PhongThuyActivity extends BaseActivity implements RecyclerCategoryAdapter.OnClickItemCategory,
+public class DanhmucActivity extends BaseMainActivity implements OnItemClickRecyclerView,
         LichngaytotAsyntask.OnReturnJsonObject {
     private final String TAG = getClass().getSimpleName();
     private Toolbar mToolbar;
     private RecyclerView rcvCategory;
-    private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerCategoryAdapter categoryAdapter;
     private ProgressBar progressBar;
-    private String mLink, mCategory, mContent;
+    private String mCategory;
+    private String mContent;
     protected Handler handler;
     public int page = 0;
     private boolean isFirt = true;
+    private String category, toolbarName;
 
     @Override
     public void setContentView() {
@@ -54,27 +57,38 @@ public class PhongThuyActivity extends BaseActivity implements RecyclerCategoryA
 
     @Override
     public void init() {
-        mLink = getIntent().getStringExtra(HomeTabFragment.URL_CATEGORY);
+        Intent intent = getIntent();
+        category = intent.getStringExtra(MainScreenActivity.TYPE_CATEGORY);
+        toolbarName = intent.getStringExtra(MainScreenActivity.TOOLBAR_NAME);
+        String mLink = getIntent().getStringExtra(HomeTabFragment.URL_CATEGORY);
         mCategory = getIntent().getStringExtra(HomeTabFragment.TITLE_CATEGORY);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbar.setTitle(mCategory);
+        mToolbar.setTitle(toolbarName);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         rcvCategory = (RecyclerView) findViewById(R.id.activity_category_rcvNews);
         rcvCategory.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         rcvCategory.setLayoutManager(mLayoutManager);
         progressBar = (ProgressBar) findViewById(R.id.activity_category_progressbar);
         handler = new Handler();
+        initCategoryURL(page);
 
-        new LichngaytotAsyntask(this, UrlGetXml.PHONG_THUY+page,
-                ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, this).execute();
     }
 
     @Override
     public void setValue(Bundle savedInstanceState) {
 
+    }
+    public void initCategoryURL(int page){
+        Log.d(TAG, "initCategoryURL: "+category +"="+getResources().getString(R.string.phong_thuy));
+        if (category.equals(getResources().getString(R.string.phong_thuy))) {
+            new LichngaytotAsyntask(this, UrlGetXml.PHONG_THUY + page,
+                    ApiServiceLichNgayTot.ApiRequestType.TYPE_GET,1, this).execute();
+        }else if(category.equals(getResources().getString(R.string.xem_tuong))){
+            new LichngaytotAsyntask(this, UrlGetXml.XEM_TUONG + page,
+                    ApiServiceLichNgayTot.ApiRequestType.TYPE_GET,1, this).execute();
+        }
     }
 
     @Override
@@ -87,15 +101,8 @@ public class PhongThuyActivity extends BaseActivity implements RecyclerCategoryA
         });
     }
 
-
-
-    public void updateListItem(int page) {
-
-    }
-
     @Override
     public void onItemClickListener(View v, int position, String title, String linkArticle, String linkImage) {
-        //new JsoupParseContent(getApplicationContext(),link,this).execute();
         putIntent(title, linkArticle, linkImage);
     }
 
@@ -105,6 +112,7 @@ public class PhongThuyActivity extends BaseActivity implements RecyclerCategoryA
         intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, title);
         intent.putExtra(RecyclerCunghoangdaoAdapter.CATEGORY, mCategory);
         intent.putExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE, linkImage);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.TYPE_LICH_NGAY_TOT, "type_lichngaytot");
         startActivity(intent);
     }
 
@@ -119,46 +127,47 @@ public class PhongThuyActivity extends BaseActivity implements RecyclerCategoryA
 
     @Override
     public void onReturnJsonObject(ArrayList<Category> arrContent) {
-        Log.d(TAG, "onReturnJsonObject: "+arrContent.size());
-        if (isFirt) {
-            updateAdapter(arrContent);
-            categoryAdapter = new RecyclerCategoryAdapter(this, array, this, rcvCategory);
-            rcvCategory.setAdapter(categoryAdapter);
+        if(arrContent!=null){
+            if (isFirt) {
+                updateAdapter(arrContent);
+                categoryAdapter = new RecyclerCategoryAdapter(this, array, this, rcvCategory);
+                rcvCategory.setAdapter(categoryAdapter);
+                progressBar.setVisibility(View.INVISIBLE);
+            } else {
+                for (int i = 0; i < arrContent.size(); i++) {
+                    array.add(arrContent.get(i));
+                    Log.d(TAG, "onReturnJsonObject: " + array.get(i).getmTitle());
+                    categoryAdapter.notifyItemInserted(array.size());
+                }
+            }
             progressBar.setVisibility(View.INVISIBLE);
-        }else {
-            for (int i =0;i<arrContent.size();i++){
-                array.add(arrContent.get(i));
-                Log.d(TAG, "onReturnJsonObject: "+array.get(i).getmTitle());
-                categoryAdapter.notifyItemInserted(array.size());
-            }
-        }
-       // rcvCategory.getAdapter().notifyDataSetChanged();
-        progressBar.setVisibility(View.INVISIBLE);
-        categoryAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                isFirt = false;
-                page = page + 1;
-                array.add(null);
-                rcvCategory.getAdapter().notifyItemInserted(array.size() - 1);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        array.remove(array.size()-1);
-                        //rcvCategory.removeViewAt(rcvCategory.size());
-                        //rcvCategory.getAdapter().notifyItemRemoved(array.size() - 1);
-                        rcvCategory.getAdapter().notifyItemRemoved(array.size());
-                        rcvCategory.getAdapter().notifyDataSetChanged();
-                        new LichngaytotAsyntask(getApplicationContext(), UrlGetXml.PHONG_THUY+page,
-                                ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, PhongThuyActivity.this).execute();
-                        if (!Category.isLast) {
-                            categoryAdapter.setLoaded();
+            categoryAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore() {
+                    isFirt = false;
+                    page = page + 1;
+                    array.add(null);
+                    rcvCategory.getAdapter().notifyItemInserted(array.size() - 1);
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            array.remove(array.size() - 1);
+                            //rcvCategory.removeViewAt(rcvCategory.size());
+                            //rcvCategory.getAdapter().notifyItemRemoved(array.size() - 1);
+                            rcvCategory.getAdapter().notifyItemRemoved(array.size());
+                            rcvCategory.getAdapter().notifyDataSetChanged();
+                            initCategoryURL(page);
+                            if (!Category.isLast) {
+                                categoryAdapter.setLoaded();
+                            }
                         }
-                    }
-                }, 2500);
+                    }, 2500);
 
-            }
-        });
+                }
+            });
+        }
+
     }
+
 
 }

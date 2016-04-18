@@ -11,15 +11,15 @@
                 android:icon="@drawable/ic_star_black"
                 android:title="@string/menu_item_phong_thuy" />
             <item
-                android:id="@+id/itemNgayTot"
+                android:id="@+id/itemXemtuong"
                 android:checked="false"
                 android:icon="@drawable/ic_star_black"
-                android:title="@string/menu_item_ngay_tot" />
+                android:title="@string/menu_item_xem_tuong" />
             <item
-                android:id="@+id/itemTuVi"
+                android:id="@+id/itemClip"
                 android:checked="false"
                 android:icon="@drawable/ic_star_black"
-                android:title="@string/menu_item_tu_vi" />
+                android:title="@string/menu_item_clip_phongthuy" />
             <item
                 android:id="@+id/itemDownload"
                 android:checked="false"

@@ -30,6 +30,8 @@ public class RecyclerCunghoangdaoAdapter extends RecyclerView.Adapter<RecyclerCu
     public final static String LINK_IMAGE = "link_image";
     public final static String TYPE_OFFLINE = "type_offline";
     public final static String TYPE_NOTIFY = "type_notify";
+    public final static String TYPE_BOI = "type_boi";
+    public final static String TYPE_LICH_NGAY_TOT = "type_lichngaytot";
     public final static String CATEGORY = "category";
     public ArrayList<NewsFeed> arrNewsFeed;
     Context context;
@@ -57,7 +59,11 @@ public class RecyclerCunghoangdaoAdapter extends RecyclerView.Adapter<RecyclerCu
         holder.tvDescription.setText(Html.fromHtml(newsFeed.getmDescription()));
         holder.tvPubdate.setText(TimeAgoUtils.getDate(TimeAgoUtils.formatTime(newsFeed.getmPubdate()), true));
         if (!newsFeed.getmImageUrl().equals("")) {
-            Glide.with(context).load(newsFeed.getmImageUrl()).into(holder.imgThumbnail);
+            Glide.with(context).load(newsFeed.getmImageUrl())
+                    .placeholder(R.drawable.ic_waiting)
+                    .error(R.drawable.ic_waiting)
+                    .centerCrop()
+                    .into(holder.imgThumbnail);
         }
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override

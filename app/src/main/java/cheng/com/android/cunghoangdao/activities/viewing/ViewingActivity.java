@@ -34,11 +34,13 @@ import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseActivity;
 import cheng.com.android.cunghoangdao.activities.maincreen.MainScreenActivity;
 import cheng.com.android.cunghoangdao.adapters.cunghoangdaotab.RecyclerCunghoangdaoAdapter;
+import cheng.com.android.cunghoangdao.interfaces.OnReturnContent;
 import cheng.com.android.cunghoangdao.model.Article;
 import cheng.com.android.cunghoangdao.provider.DataHandlerSaveContent;
 import cheng.com.android.cunghoangdao.provider.DataNewfeeds;
 import cheng.com.android.cunghoangdao.services.CovertBitmapToByte;
 import cheng.com.android.cunghoangdao.services.JsoupParseContent;
+import cheng.com.android.cunghoangdao.services.JsoupParseLichNgayTot;
 import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
 import cheng.com.android.cunghoangdao.ultils.htmltextview.URLImageParser;
 import cheng.com.android.cunghoangdao.ultils.removelink.URLSpanNoUnderline;
@@ -46,14 +48,15 @@ import cheng.com.android.cunghoangdao.ultils.removelink.URLSpanNoUnderline;
 /**
  * Created by Welcome on 3/28/2016.
  */
-public class ViewingActivity extends BaseActivity implements JsoupParseContent.OnReturnContent,
+public class ViewingActivity extends BaseActivity implements OnReturnContent,
         CovertBitmapToByte.OnReturnBimapFromByte {
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mClsToolbar;
     private int mutedColor = R.attr.colorPrimary;
     public TextView tvContent;
     private final String TAG = getClass().getSimpleName();
-    String content, title, linkArticle, linkImage, category, contentShare, typeOffline, typeNotify;
+    String content, title, linkArticle, linkImage, category, contentShare,
+            typeOffline, typeNotify, typeBoi, typeLichngaytot;
     private Intent intent;
     private ProgressBar progressBar;
     private FloatingActionButton flbtnSave, flbtnShare;
@@ -79,17 +82,16 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
         intent = getIntent();
         typeOffline = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_OFFLINE);
         typeNotify = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_NOTIFY);
+        typeBoi = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_BOI);
+        typeLichngaytot = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_LICH_NGAY_TOT);
         linkArticle = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK);
         title = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TITLE);
         linkImage = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE);
         category = intent.getStringExtra(RecyclerCunghoangdaoAdapter.CATEGORY);
-
-
         mToolbar = (Toolbar) findViewById(R.id.activity_viewing_toolbar);
         mToolbar.setTitle(title);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         progressBar = (ProgressBar) findViewById(R.id.activity_viewing_progress);
         tvContent = (TextView) findViewById(R.id.activity_viewing_tvContent);
         mClsToolbar = (CollapsingToolbarLayout) findViewById(R.id.activity_viewing_cls_toolbar);
@@ -121,7 +123,11 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
 
     public void setContent() {
         if (linkArticle != null) {
-            new JsoupParseContent(this, linkArticle, this).execute();
+            if (typeBoi != null) {
+                new JsoupParseContent(this, linkArticle, this).execute();
+            } else {
+                new JsoupParseLichNgayTot(this, "http://lichngaytot.com" + linkArticle, this).execute();
+            }
         } else {
             content = intent.getStringExtra(RecyclerCunghoangdaoAdapter.CONTENT);
             setContent(content);
@@ -165,10 +171,12 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
         nestscv.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                if (scrollY > oldScrollY) {
-                    flbtnMenu.hideMenu(true);
-                } else if (scrollY < oldScrollY) {
-                    flbtnMenu.showMenu(true);
+                if (typeOffline == null) {
+                    if (scrollY > oldScrollY) {
+                        flbtnMenu.hideMenu(true);
+                    } else if (scrollY < oldScrollY) {
+                        flbtnMenu.showMenu(true);
+                    }
                 }
             }
         });
@@ -238,16 +246,21 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
     public void setContent(final String content) {
         if (ConnectionUltils.isConnected(this)) {
             if (typeOffline != null) {
-                tvContent.setText(content);
-                ll.setVisibility(View.GONE);
+                URLImageParser p = new URLImageParser(tvContent, getApplicationContext());
+                htmlSpan = (Spannable) Html.fromHtml(content, p, null);
+                tvContent.setMovementMethod(new ScrollingMovementMethod());
+                processedText = removeUnderlines(htmlSpan);
+                tvContent.setText(processedText);
+                contentShare = htmlSpan.toString().substring(0, 150);
+                custfont(getApplicationContext(), tvContent);
                 progressBar.setVisibility(View.INVISIBLE);
             } else {
+                Log.d(TAG, "setContent:2 ");
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         URLImageParser p = new URLImageParser(tvContent, getApplicationContext());
                         htmlSpan = (Spannable) Html.fromHtml(content, p, null);
-                        tvContent.setText(htmlSpan);
                         tvContent.setMovementMethod(new ScrollingMovementMethod());
                         processedText = removeUnderlines(htmlSpan);
                         tvContent.setText(processedText);
@@ -262,10 +275,14 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
 
         } else {
             if (typeOffline != null) {
+                flbtnMenu.hideMenu(true);
+                Log.d(TAG, "setContent:3 "+content);
                 tvContent.setText(Html.fromHtml(content));
                 ll.setVisibility(View.GONE);
                 progressBar.setVisibility(View.INVISIBLE);
+
             } else {
+                Log.d(TAG, "setContent:4");
                 ll.setVisibility(View.VISIBLE);
             }
         }
@@ -275,22 +292,7 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
 
     @Override
     public void onReturnBimapFromByte(byte[] image) {
-        if (content != null) {
-            db.addArticle(new Article(title, category, image, processedText.toString()));
-        } else {
-            db.addArticle(new Article(title, category, image, contentTemp));
-        }
-
-    }
-
-    private void shareTextUrl() {
-        Intent share = new Intent(android.content.Intent.ACTION_SEND);
-        share.setType("text/plain");
-        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        share.putExtra(Intent.EXTRA_SUBJECT, title);
-        share.putExtra(Intent.EXTRA_TEXT, Html.fromHtml(content.substring(1, 20)));
-
-        startActivity(Intent.createChooser(share, "Chia sẽ bài viết này"));
+        db.addArticle(new Article(title, category, image, contentTemp));
     }
 
     public void setupFacebookShareIntent() {
@@ -304,7 +306,6 @@ public class ViewingActivity extends BaseActivity implements JsoupParseContent.O
                 .setContentDescription(contentShare)
                 .setImageUrl(Uri.parse(linkImage))
                 .build();
-
         shareDialog.show(linkContent);
     }
 

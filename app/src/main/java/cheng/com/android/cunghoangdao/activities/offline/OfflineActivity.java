@@ -8,16 +8,17 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseActivity;
-import cheng.com.android.cunghoangdao.provider.DataHandlerSaveContent;
 import cheng.com.android.cunghoangdao.activities.viewing.ViewingActivity;
 import cheng.com.android.cunghoangdao.adapters.cunghoangdaotab.RecyclerCunghoangdaoAdapter;
 import cheng.com.android.cunghoangdao.adapters.offline.RecyclerArticleAdapter;
 import cheng.com.android.cunghoangdao.model.Article;
+import cheng.com.android.cunghoangdao.provider.DataHandlerSaveContent;
 
 /**
  * Created by Welcome on 4/8/2016.
@@ -32,6 +33,7 @@ public class OfflineActivity extends BaseActivity implements RecyclerArticleAdap
     private ProgressBar progressBar;
     private ArrayList<Article> arrArticle = new ArrayList<>();
     private DataHandlerSaveContent db;
+    private TextView tvMess;
     @Override
     public void setContentView() {
         overridePendingTransition(R.anim.activity_open_translate, R.anim.activity_close_scale);
@@ -46,6 +48,7 @@ public class OfflineActivity extends BaseActivity implements RecyclerArticleAdap
 
     @Override
     public void init() {
+        tvMess = (TextView) findViewById(R.id.activity_category_tvMess);
         db = new DataHandlerSaveContent(this);
         arrArticle = db.getAllArticle();
         Log.d(TAG, "size: "+arrArticle.size());
@@ -66,6 +69,10 @@ public class OfflineActivity extends BaseActivity implements RecyclerArticleAdap
 
     @Override
     public void setValue(Bundle savedInstanceState) {
+        Log.d(TAG, "setValue: "+arrArticle.size());
+        if(arrArticle.size()<1){
+            tvMess.setVisibility(View.VISIBLE);
+        }
         recyclerArticleAdapter = new RecyclerArticleAdapter(this, arrArticle,this,this);
         rcvArticle.setAdapter(recyclerArticleAdapter);
         progressBar.setVisibility(View.INVISIBLE);

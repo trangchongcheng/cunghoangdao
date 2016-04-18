@@ -16,7 +16,7 @@ import cheng.com.android.cunghoangdao.ultils.SetTimesSharedPreferences;
  */
 public class CheckTimesService extends Service {
     private final String TAG = getClass().getSimpleName();
-    private int times;
+    private int times = 0;
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {

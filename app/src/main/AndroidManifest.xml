@@ -4,12 +4,12 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INSTALL_LOCATION_PROVIDER" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
         android:allowBackup="true"
@@ -19,7 +19,9 @@
         android:largeHeap="true"
         android:theme="@style/AppThemeNoActionBar">
         <meta-data
-            android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id" />
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/app_id" />
+
         <activity
             android:name=".activities.startscreen.StartActivity"
             android:label="@string/app_name">
@@ -35,27 +37,35 @@
         </activity>
         <activity
             android:name=".activities.maincreen.MainActivity"
-            android:label="@string/app_name"></activity>
-        <activity android:name=".activities.maincreen.MainScreenActivity"></activity>
+            android:label="@string/app_name" />
+        <activity android:name=".activities.maincreen.MainScreenActivity" />
         <activity android:name=".activities.viewing.ViewingActivity">
 
         </activity>
-        <activity android:name="com.facebook.FacebookActivity"
-        android:configChanges=
-            "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-        android:theme="@android:style/Theme.Translucent.NoTitleBar"
-        android:label="@string/app_name" />
-        <activity android:name=".activities.category.CategoryActivity"></activity>
-        <activity android:name=".activities.lichngaytot.PhongThuyActivity"></activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".activities.category.CategoryActivity" />
+        <activity android:name=".activities.lichngaytot.DanhmucActivity" />
+        <activity android:name=".activities.offline.OfflineActivity" />
+        <activity android:name=".activities.lichngaytot.TienichActivity" />
+        <activity
+            android:name=".activities.lichngaytot.ClipPhongThuyActivity"
+            android:configChanges="screenSize|orientation|keyboardHidden" />
 
-        <activity android:name=".activities.offline.OfflineActivity"></activity>
-        <provider android:authorities="com.facebook.app.FacebookContentProvider1041345645929173"
+        <provider
             android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1041345645929173"
             android:exported="true" />
-        <service android:name=".services.PushNotifyService"/>
-        <service android:name=".services.CheckTimesService"
-            android:exported="false"/>
-        <receiver android:name=".receiver.CheckNetworkStateReceiver" >
+
+        <service android:name=".services.PushNotifyService" />
+        <service
+            android:name=".services.CheckTimesService"
+            android:exported="false" />
+
+        <receiver android:name=".receiver.CheckNetworkStateReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />

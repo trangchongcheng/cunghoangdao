@@ -206,7 +206,6 @@ public class HomeTabFragment extends BaseFragment implements
     public void OnNewsFeedListSend(ArrayList<NewsFeed> arr) {
         ArrayList<NewsFeed> arrayLastPost = new ArrayList<>();
         ArrayList<NewsFeed> arrayNewsFeed = new ArrayList<>();
-        //   Log.d(TAG, "OnNewsFeedListSend: " + arr.isEmpty());
         if (arr != null) {
             ll.setVisibility(View.INVISIBLE);
             rl.setVisibility(View.VISIBLE);

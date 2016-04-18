@@ -7,7 +7,6 @@
 
     <com.alorma.timeline.RoundTimelineView
         android:clickable="false"
-
         android:id="@+id/item_timeline_timeline"
         android:layout_width="?android:listPreferredItemHeight"
         android:layout_height="?android:listPreferredItemHeight"
@@ -47,7 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_vertical"
-                    android:maxLines="2"
+                    android:maxLines="1"
                     android:text="cheng" />
 
                 <TextView
@@ -57,14 +56,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="clip_vertical"
                     android:maxLines="1"
-                    android:maxLength="200"
-                    android:text="cheng" />
-                <TextView
-                    android:id="@+id/item_timeline_tvPubdate"
-                    style="@style/text_descriptions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="italic"
                     android:maxLength="200"
                     android:text="cheng" />
             </LinearLayout>

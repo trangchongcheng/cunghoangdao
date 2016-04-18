@@ -16,14 +16,14 @@ import cheng.com.android.cunghoangdao.interfaces.OnReturnContent;
 import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
 
 /**
- * Created by Welcome on 4/7/2016.
+ * Created by Welcome on 4/17/2016.
  */
-public class JsoupParseContent extends AsyncTask<String, String, String> {
+public class JsoupParseLichNgayTot extends AsyncTask<String, String, String> {
     private OnReturnContent onReturnContent;
     private Context context;
     private String mLink;
 
-    public JsoupParseContent(Context context, String link, OnReturnContent onReturnContent) {
+    public JsoupParseLichNgayTot(Context context, String link, OnReturnContent onReturnContent) {
         this.context = context;
         this.mLink = link;
         this.onReturnContent = onReturnContent;
@@ -34,18 +34,19 @@ public class JsoupParseContent extends AsyncTask<String, String, String> {
         Elements content = null;
         String data = null;
         if(!ConnectionUltils.isConnected(context)){
-           return null;
+            return null;
         }
         try {
             // Connect to the web site
             Document document = Jsoup.connect(mLink)
                     .timeout(18000)
                     .get();
-            content = document.select("div[class=\"entry-content\"],div[class=\"wp-caption aligncenter\"] img[src]");
+            content = document.select("div[class=\"chitiet-singger\"]");
             content.select("script").remove();
             content.select("script").remove();
             content.select("script").remove();
             content.select("script").remove();
+            content.select("div[class=\"articlerelatepannel\"]").remove();
 
         } catch (HttpStatusException ex) {
             Log.d("Category", "HttpStatusException");
@@ -55,7 +56,9 @@ public class JsoupParseContent extends AsyncTask<String, String, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return content.toString();
+        Log.d("cheng", "doInBackground: "+content.toString());
+        return content.toString().replaceAll("\\n", "")
+                .replaceAll("\\r", "").replaceAll("(Lichngaytot.com)","");
     }
 
     @Override
@@ -64,4 +67,7 @@ public class JsoupParseContent extends AsyncTask<String, String, String> {
         onReturnContent.onReturnContent(s);
     }
 
+//    public interface OnReturnContent {
+//        void onReturnContent(String content);
+//    }
 }

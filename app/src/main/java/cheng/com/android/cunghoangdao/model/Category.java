@@ -32,6 +32,9 @@ public class Category {
         this.mLink = mLink;
         this.mDescription = mDescription;
     }
+    public Category(String mContent) {
+        this.mContent=mContent;
+    }
     public Category(String mTitle, String mImage, String mLink, String mDescription,String mContent) {
         this.mTitle = mTitle;
         this.mImage = mImage;

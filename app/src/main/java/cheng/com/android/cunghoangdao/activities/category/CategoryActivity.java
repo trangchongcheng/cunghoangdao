@@ -13,11 +13,12 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 
 import cheng.com.android.cunghoangdao.R;
-import cheng.com.android.cunghoangdao.activities.BaseActivity;
+import cheng.com.android.cunghoangdao.activities.BaseMainActivity;
 import cheng.com.android.cunghoangdao.activities.viewing.ViewingActivity;
 import cheng.com.android.cunghoangdao.adapters.category.RecyclerCategoryAdapter;
 import cheng.com.android.cunghoangdao.adapters.cunghoangdaotab.RecyclerCunghoangdaoAdapter;
 import cheng.com.android.cunghoangdao.fragments.hometab.HomeTabFragment;
+import cheng.com.android.cunghoangdao.interfaces.OnItemClickRecyclerView;
 import cheng.com.android.cunghoangdao.interfaces.OnLoadMoreListener;
 import cheng.com.android.cunghoangdao.model.Category;
 import cheng.com.android.cunghoangdao.services.JsoupParseCategory;
@@ -25,8 +26,8 @@ import cheng.com.android.cunghoangdao.services.JsoupParseCategory;
 /**
  * Created by Welcome on 3/31/2016.
  */
-public class CategoryActivity extends BaseActivity implements JsoupParseCategory.OnReturnCategoryList,
-        RecyclerCategoryAdapter.OnClickItemCategory{
+public class CategoryActivity extends BaseMainActivity implements JsoupParseCategory.OnReturnCategoryList,
+            OnItemClickRecyclerView{
     private final String TAG = getClass().getSimpleName();
     private Toolbar mToolbar;
     private RecyclerView rcvCategory;
@@ -84,8 +85,6 @@ public class CategoryActivity extends BaseActivity implements JsoupParseCategory
         });
     }
 
-
-
     public ArrayList<Category> updateAdapter(ArrayList<Category> result) {
         if (!result.isEmpty()) {
             array.addAll(result);
@@ -94,7 +93,6 @@ public class CategoryActivity extends BaseActivity implements JsoupParseCategory
     }
 
     public void updateListItem(int page) {
-
 
     }
 
@@ -127,8 +125,6 @@ public class CategoryActivity extends BaseActivity implements JsoupParseCategory
                     @Override
                     public void run() {
                         array.remove(array.size()-1);
-                        //rcvCategory.removeViewAt(rcvCategory.size());
-                        //rcvCategory.getAdapter().notifyItemRemoved(array.size() - 1);
                         categoryAdapter.notifyItemRemoved(array.size());
                         new JsoupParseCategory(getApplicationContext(), mLink + "page/" + page,
                                 CategoryActivity.this).execute();
@@ -143,9 +139,8 @@ public class CategoryActivity extends BaseActivity implements JsoupParseCategory
     }
 
     @Override
-    public void onItemClickListener(View v, int position,String title, String linkArticle,String linkImage) {
-        //new JsoupParseContent(getApplicationContext(),link,this).execute();
-        putIntent(title,linkArticle,linkImage);
+    public void onItemClickListener(View v, int position, String title, String linkArticle, String linkImage) {
+        putIntent(title, linkArticle, linkImage);
     }
     public void putIntent( String title,String linkArticle,String linkImage) {
         Intent intent = new Intent(this, ViewingActivity.class);
@@ -153,7 +148,9 @@ public class CategoryActivity extends BaseActivity implements JsoupParseCategory
         intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, title);
         intent.putExtra(RecyclerCunghoangdaoAdapter.CATEGORY, mCategory);
         intent.putExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE, linkImage);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.TYPE_BOI, "type_boi");
         startActivity(intent);
     }
+
 
 }

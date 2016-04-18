@@ -15,6 +15,7 @@ public class LichngaytotAsyntask extends AsyncTask<String, Void, ArrayList<Categ
     private String mUrl;
     private ApiServiceLichNgayTot.ApiRequestType typeRequest;
     private String params;
+    private int typeGet;
     private OnReturnJsonObject onReturnJsonObject;
 
     public LichngaytotAsyntask(Context context, String mUrl, ApiServiceLichNgayTot.ApiRequestType typeRequest,
@@ -25,18 +26,19 @@ public class LichngaytotAsyntask extends AsyncTask<String, Void, ArrayList<Categ
         this.params = params;
         this.onReturnJsonObject=onReturnJsonObject;
     }
-    public LichngaytotAsyntask(Context context, String mUrl,ApiServiceLichNgayTot.ApiRequestType typeRequest,
+    public LichngaytotAsyntask(Context context, String mUrl,ApiServiceLichNgayTot.ApiRequestType typeRequest,int typeGet,
                               OnReturnJsonObject onReturnJsonObject) {
         this.context = context;
         this.mUrl = mUrl;
         this.typeRequest = typeRequest;
+        this.typeGet=typeGet;
         this.params = params;
         this.onReturnJsonObject=onReturnJsonObject;
     }
 
     @Override
     protected ArrayList<Category> doInBackground(String... param) {
-        ArrayList<Category> arrContent = ApiServiceLichNgayTot.makeHttpRequest(context,mUrl,typeRequest,params);
+        ArrayList<Category> arrContent = ApiServiceLichNgayTot.makeHttpRequest(context,mUrl,typeRequest,params,typeGet);
         return arrContent;
     }
 

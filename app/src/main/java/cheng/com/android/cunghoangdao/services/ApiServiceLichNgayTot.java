@@ -29,15 +29,15 @@ public class ApiServiceLichNgayTot {
         TYPE_GET
     }
 
-    public static ArrayList<Category> makeHttpRequest(Context context, String targetUrl, ApiRequestType typeRequest, String params) {
+    public static ArrayList<Category> makeHttpRequest(Context context, String targetUrl,
+                                                      ApiRequestType typeRequest, String params, int typeGet) {
         ArrayList<Category> arrCategory = new ArrayList<>();
         URL url;
         HttpURLConnection httpURLConnection = null;
         String content = null;
-        if (ConnectionUltils.isConnected(context) == false) {
+        if (!ConnectionUltils.isConnected(context)) {
             return null;
         }
-
         StringBuilder response = null;
         try {
             url = new URL(targetUrl);
@@ -89,18 +89,25 @@ public class ApiServiceLichNgayTot {
             }
             rd.close();
 
-            Document document = null;
-            String s = StringEscapeUtils.unescapeJava(response.toString());
-            document = Jsoup.parse(s);
-            Elements link = document.select("div[class=\"thunal220x140\"] a");
-            Elements image = document.select("div[class=\"thunal220x140\"] a img");
-            Elements title = document.select("span[class=\"h3-seo\"]");
-            Elements decription = document.select("div[class=\"tin_left_1_item\"] p");
 
-            for (int i = 0; i < link.size(); i++) {
-                arrCategory.add(new Category(title.get(i).text(), image.get(i).attr("src"),
-                        link.get(i).attr("href"), decription.get(i).text()));
+            if(typeGet==0){
+                String contentUnicode = StringEscapeUtils.unescapeJava(response.toString());
+                arrCategory.add(new Category(contentUnicode));
+            }else {
+                Document document = null;
+                String contentUnicode = StringEscapeUtils.unescapeJava(response.toString());
+                document = Jsoup.parse(contentUnicode);
+                Elements link = document.select("div[class=\"thunal220x140\"] a");
+                Elements image = document.select("div[class=\"thunal220x140\"] a img");
+                Elements title = document.select("span[class=\"h3-seo\"]");
+                Elements decription = document.select("div[class=\"tin_left_1_item\"] p");
+
+                for (int i = 0; i < link.size(); i++) {
+                    arrCategory.add(new Category(title.get(i).text(), image.get(i).attr("src"),
+                            link.get(i).attr("href"), decription.get(i).text()));
+                }
             }
+
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
             return null;

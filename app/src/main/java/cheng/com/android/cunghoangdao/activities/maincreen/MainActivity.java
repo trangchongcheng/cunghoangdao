@@ -93,21 +93,16 @@ public class MainActivity extends BaseActivity {
 
                 //Check to see which item was being clicked and perform appropriate action
                 switch (menuItem.getItemId()) {
-
-
                     case R.id.itemPhongThuy:
                         Toast.makeText(getApplicationContext(), "Inbox Selected", Toast.LENGTH_SHORT).show();
                         return true;
-
                     // For rest of the options we just show a toast on click
-
-                    case R.id.itemNgayTot:
+                    case R.id.itemXemtuong:
                         Toast.makeText(getApplicationContext(), "Stared Selected", Toast.LENGTH_SHORT).show();
                         return true;
-                    case R.id.itemTuVi:
+                    case R.id.itemClip:
                         Toast.makeText(getApplicationContext(), "Send Selected", Toast.LENGTH_SHORT).show();
                         return true;
-
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
                         return true;
