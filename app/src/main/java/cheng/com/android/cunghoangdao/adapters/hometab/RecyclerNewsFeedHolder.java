@@ -12,7 +12,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by Welcome on 3/24/2016.
  */
 public class RecyclerNewsFeedHolder extends RecyclerView.ViewHolder {
-   // public ImageView imgThumbnail;
     public CircleImageView imgThumbnail;
     public TextView tvTitle, tvDescriptions, tvPubdate;
     public LinearLayout item_listnewsfeed_ll;

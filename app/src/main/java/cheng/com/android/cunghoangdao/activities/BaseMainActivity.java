@@ -1,5 +1,6 @@
 package cheng.com.android.cunghoangdao.activities;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -21,6 +22,7 @@ public abstract class BaseMainActivity extends AppCompatActivity
     private final String TAG = getClass().getSimpleName();
     private Context context;
     private IntentFilter filter;
+    private BroadcastReceiver changeLocaleReceiver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +33,25 @@ public abstract class BaseMainActivity extends AppCompatActivity
         init();
         setValue(savedInstanceState);
         setEvent();
+//        changeLocaleReceiver = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                Locale locale = context.getResources().getConfiguration().locale;
+//                Log.d("TAG", locale.getDisplayLanguage());
+//                if ( MultiLanguage.getInstance().isUseDeviceLanguage() ) {
+//                    MultiLanguage.getInstance().chooseDeviceLanguage();
+//                    updateLanguage();
+//                }
+//            }
+//        };
+//        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
+//        registerReceiver(changeLocaleReceiver, intentFilter);
     }
     public abstract void setContentView();
     public abstract void init();
     public abstract void setValue(Bundle savedInstanceState);
     public abstract void setEvent();
-
+   // public abstract void updateLanguage();
     @Override
     protected void onStop() {
         Log.d(TAG, "onDestroy: ");
@@ -91,17 +106,15 @@ public abstract class BaseMainActivity extends AppCompatActivity
     public void showDialog(Context context) {
         final MaterialDialog dialog;
         dialog = new MaterialDialog(context);
-        dialog.setTitle("Không tìm thấy Network");
-        dialog.setMessage("Vui lòng kiểm tra lại đường truyền");
-        dialog.setNegativeButton("OK", new View.OnClickListener() {
+        dialog.setTitle(getResources().getString(R.string.khong_co_ket_noi));
+        dialog.setMessage(getResources().getString(R.string.kiem_tra_ket_noi));
+        dialog.setNegativeButton(getResources().getString(R.string.dong_y), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "CECK++: ");
                 dialog.dismiss();
-                Log.d(TAG, "onClick: ");
             }
         });
-        dialog.setPositiveButton("Bật mạng", new View.OnClickListener() {
+        dialog.setPositiveButton(getResources().getString(R.string.bat_mang), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);

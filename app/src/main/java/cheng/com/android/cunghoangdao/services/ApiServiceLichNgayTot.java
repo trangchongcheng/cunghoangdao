@@ -30,7 +30,7 @@ public class ApiServiceLichNgayTot {
     }
 
     public static ArrayList<Category> makeHttpRequest(Context context, String targetUrl,
-                                                      ApiRequestType typeRequest, String params, int typeGet) {
+                                                      ApiRequestType typeRequest, String params, int typeGet, int typeCategory) {
         ArrayList<Category> arrCategory = new ArrayList<>();
         URL url;
         HttpURLConnection httpURLConnection = null;
@@ -61,16 +61,11 @@ public class ApiServiceLichNgayTot {
                     httpURLConnection.setDoOutput(false);
                     break;
             }
-
             httpURLConnection.setRequestProperty("Content-type", "application/json;charset=utf-8");
-
             httpURLConnection.setReadTimeout(18000); //60s
             httpURLConnection.setConnectTimeout(18000); //30s
-
             httpURLConnection.setUseCaches(false);
             httpURLConnection.setDoInput(true);
-
-
             httpURLConnection.connect();
 
             if ((params != null) && (!params.equals(""))) {
@@ -79,17 +74,13 @@ public class ApiServiceLichNgayTot {
                 os.flush();
                 os.close();
             }
-
             InputStream is = httpURLConnection.getInputStream();
-
             BufferedReader rd = new BufferedReader(new InputStreamReader(is, "UTF-8"), 8);
             response = new StringBuilder();
             while ((content = rd.readLine()) != null) {
                 response.append(content);
             }
             rd.close();
-
-
             if(typeGet==0){
                 String contentUnicode = StringEscapeUtils.unescapeJava(response.toString());
                 arrCategory.add(new Category(contentUnicode));
@@ -107,7 +98,6 @@ public class ApiServiceLichNgayTot {
                             link.get(i).attr("href"), decription.get(i).text()));
                 }
             }
-
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
             return null;
@@ -120,6 +110,5 @@ public class ApiServiceLichNgayTot {
             }
         }
         return arrCategory;
-
     }
 }

@@ -16,38 +16,39 @@ public class LichngaytotAsyntask extends AsyncTask<String, Void, ArrayList<Categ
     private ApiServiceLichNgayTot.ApiRequestType typeRequest;
     private String params;
     private int typeGet;
+    private int typeCategory;
     private OnReturnJsonObject onReturnJsonObject;
 
     public LichngaytotAsyntask(Context context, String mUrl, ApiServiceLichNgayTot.ApiRequestType typeRequest,
-                               String params,OnReturnJsonObject onReturnJsonObject) {
-        this.context = context;
-        this.mUrl = mUrl;
-        this.typeRequest = typeRequest;
-        this.params = params;
-        this.onReturnJsonObject=onReturnJsonObject;
-    }
-    public LichngaytotAsyntask(Context context, String mUrl,ApiServiceLichNgayTot.ApiRequestType typeRequest,int typeGet,
-                              OnReturnJsonObject onReturnJsonObject) {
+                               int typeGet,OnReturnJsonObject onReturnJsonObject) {
         this.context = context;
         this.mUrl = mUrl;
         this.typeRequest = typeRequest;
         this.typeGet=typeGet;
-        this.params = params;
+        this.onReturnJsonObject=onReturnJsonObject;
+    }
+    public LichngaytotAsyntask(Context context, String mUrl,ApiServiceLichNgayTot.ApiRequestType typeRequest,int typeGet,
+            int typeCategory,OnReturnJsonObject onReturnJsonObject) {
+        this.context = context;
+        this.mUrl = mUrl;
+        this.typeRequest = typeRequest;
+        this.typeGet=typeGet;
+        this.typeCategory = typeCategory;
         this.onReturnJsonObject=onReturnJsonObject;
     }
 
     @Override
     protected ArrayList<Category> doInBackground(String... param) {
-        ArrayList<Category> arrContent = ApiServiceLichNgayTot.makeHttpRequest(context,mUrl,typeRequest,params,typeGet);
+        ArrayList<Category> arrContent = ApiServiceLichNgayTot.makeHttpRequest(context,mUrl,typeRequest,params,typeGet,typeCategory);
         return arrContent;
     }
 
     @Override
     protected void onPostExecute( ArrayList<Category> arrContent) {
         super.onPostExecute(arrContent);
-        onReturnJsonObject.onReturnJsonObject(arrContent);
+        onReturnJsonObject.onReturnJsonObject(arrContent,typeCategory);
     }
     public interface OnReturnJsonObject{
-        void onReturnJsonObject(ArrayList<Category> arrContent);
+        void onReturnJsonObject(ArrayList<Category> arrContent,int type);
     }
 }

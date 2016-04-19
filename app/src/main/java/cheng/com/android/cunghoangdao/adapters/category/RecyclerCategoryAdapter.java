@@ -28,6 +28,7 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     private final String TAG = getClass().getSimpleName();
     public final static String CONTENT = "content";
     public final static String TITLE = "title";
+    public final static int CATEGORY = 0;
     public ArrayList<Category> arrCategory;
     Context context;
     public OnItemClickRecyclerView onItemClickRecyclerView;
@@ -37,11 +38,13 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     private int lastVisibleItem, totalItemCount;
     private boolean loading;
     public OnLoadMoreListener onLoadMoreListener;
+    private int typeCategory;
 
     public RecyclerCategoryAdapter(Context context, ArrayList<Category> arrCategory,
-                                   OnItemClickRecyclerView onItemClickRecyclerView, RecyclerView recyclerView) {
+                                   OnItemClickRecyclerView onItemClickRecyclerView, RecyclerView recyclerView, int typeCategory) {
         this.context = context;
         this.arrCategory = arrCategory;
+        this.typeCategory=typeCategory;
         this.onItemClickRecyclerView = onItemClickRecyclerView;
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
 
@@ -110,7 +113,7 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     onItemClickRecyclerView.onItemClickListener(v, position, category.getmTitle(),
-                            category.getmLink(), category.getmImage());
+                            category.getmLink(), category.getmImage(),typeCategory);
                 }
             });
 
@@ -133,7 +136,6 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     }
 
     public static class CategoryViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
         public TextView tvPubdate, tvTitle, tvDescription;
         public ImageView imgThumbnail, imgFavorite;
         public LinearLayout ll;
@@ -148,10 +150,8 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
             imgThumbnail = (ImageView) v.findViewById(R.id.item_cunghoangdao_imgThumbnail);
             imgFavorite = (ImageView) v.findViewById(R.id.item_cunghoangdao_imgFavorite);
             cardView = (CardView) v.findViewById(R.id.item_cunghoangdao_card_view);
-
         }
     }
-
     public static class ProgressViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
 

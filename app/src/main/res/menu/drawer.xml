@@ -45,6 +45,17 @@
 
             </menu>
         </item>
+        <item
+            android:title="@string/khac">
+            <menu>
+                <item
+                    android:id="@+id/itemLanguage"
+                    android:checked="false"
+                    android:icon="@drawable/ic_inbox_black"
+                    android:title="@string/chang_language" />
+
+            </menu>
+        </item>
 
     </group>
 

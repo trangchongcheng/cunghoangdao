@@ -115,7 +115,7 @@ public class TienichActivity extends BaseMainActivity implements LichngaytotAsyn
     }
 
     @Override
-    public void onReturnJsonObject(ArrayList<Category> arrContent) {
+    public void onReturnJsonObject(ArrayList<Category> arrContent, int type) {
         if(arrContent!=null){
             tvContent.setText(Html.fromHtml(arrContent.get(0).getmContent()));
             progressBar.setVisibility(View.INVISIBLE);
@@ -141,4 +141,5 @@ public class TienichActivity extends BaseMainActivity implements LichngaytotAsyn
         super.onPause();
         overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
     }
+
 }

@@ -25,7 +25,7 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
     public OnLongClickItemListener onLongClickItemListener;
 
     public RecyclerArticleAdapter(Context context, ArrayList<Article> arrayArticle,
-    OnClickItemListener onClickItemListener,OnLongClickItemListener onLongClickItemListener) {
+                                  OnClickItemListener onClickItemListener, OnLongClickItemListener onLongClickItemListener) {
         this.context = context;
         this.arrayArticle = arrayArticle;
         this.onClickItemListener = onClickItemListener;
@@ -45,10 +45,10 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
     public void onBindViewHolder(final RecyclerArticleHolder holder, final int position) {
         final Article model = arrayArticle.get(position);
         holder.tvTitle.setText(model.getmTitle());
-        Log.d(TAG, "onBindViewHolder: "+model.getmTitle());
+        Log.d(TAG, "onBindViewHolder: " + model.getmTitle());
         Log.d(TAG, model.getmImage() + "");
-        if (model.getmImage().length>0) {
-           holder.imgThumbnail.setImageBitmap(getPhoto(model.getmImage()));
+        if (model.getmImage().length > 0) {
+            holder.imgThumbnail.setImageBitmap(getPhoto(model.getmImage()));
         }
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,19 +63,21 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
                 return false;
             }
         });
-
     }
 
     @Override
     public int getItemCount() {
         return (null != arrayArticle ? arrayArticle.size() : 0);
     }
-    public interface OnClickItemListener{
+
+    public interface OnClickItemListener {
         void onSendContentFinish(String content);
     }
-    public interface OnLongClickItemListener{
+
+    public interface OnLongClickItemListener {
         void onSendPositionFinish(int position);
     }
+
     public static Bitmap getPhoto(byte[] image) {
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }

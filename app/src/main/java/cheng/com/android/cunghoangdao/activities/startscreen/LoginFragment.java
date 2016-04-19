@@ -1,5 +1,6 @@
 package cheng.com.android.cunghoangdao.activities.startscreen;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
@@ -72,19 +73,20 @@ public class LoginFragment extends BaseFragment implements DatePickerDialog.OnDa
                         SharedPreferencesUser.getInstance(getActivity()).saveInfo();
                         mOnLoginFragmentListener.onSignUpSuccess();
                     }else {
-                        showMessage("Lỗi thông tin","Vui lòng điền thông tin chính xác");
+                        showMessage(getResources().getString(R.string.loi_thong_tin)
+                                ,getResources().getString(R.string.loi_thong_tin_chi_tiet));
                     }
                 } else{
                     final MaterialDialog dialog = new MaterialDialog(getActivity());
-                    dialog.setTitle("No connection");
-                    dialog.setMessage("Please connect to the internet");
-                    dialog.setNegativeButton("CANCEL", new View.OnClickListener() {
+                    dialog.setTitle(getResources().getString(R.string.khong_co_ket_noi));
+                    dialog.setMessage(getResources().getString(R.string.kiem_tra_ket_noi));
+                    dialog.setNegativeButton(getResources().getString(R.string.huy), new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             dialog.dismiss();
                         }
                     });
-                    dialog.setPositiveButton("OK", new View.OnClickListener() {
+                    dialog.setPositiveButton(getResources().getString(R.string.dong_y), new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             dialog.dismiss();
@@ -110,6 +112,7 @@ public class LoginFragment extends BaseFragment implements DatePickerDialog.OnDa
         return R.layout.fragment_signin;
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onDateSet(DatePickerDialog datePickerDialog, final int year, final int month, final int day) {
 
@@ -120,11 +123,14 @@ public class LoginFragment extends BaseFragment implements DatePickerDialog.OnDa
             if(rlShow.getVisibility()==View.VISIBLE){
                 rlShow.setVisibility(View.GONE);
             }
-            edtName.setError("Tên không hợp lệ! Tên phải ít nhất 3 kí tự và nhỏ hơn 15 kí tự");
+            edtName.setError(getResources().getString(R.string.loi_ten_dang_ky));
         } else {
             rlShow.setVisibility(View.VISIBLE);
-            tvHello.setText("Xin Chào " + edtName.getText() + "! Bạn sinh ngày " + day + "/" +( month + 1) + " thuộc cung "
-                    + Common.checkCungHoangDao(month + 1, day) + " Hãy cùng khám phá những thông tin thú vị về bạn nào!");
+            tvHello.setText(getResources().getString(R.string.xin_chao) + edtName.getText() +
+                    getResources().getString(R.string.ban_sinh_ngay) + day
+                    + "/" +( month + 1) + getResources().getString(R.string.thuoc_cung)
+                    + Common.checkCungHoangDao(month + 1, day)
+                    + getResources().getString(R.string.kham_pha));
         }
 
 
@@ -141,7 +147,7 @@ public class LoginFragment extends BaseFragment implements DatePickerDialog.OnDa
         final MaterialDialog dialog = new MaterialDialog(getActivity());
         dialog.setTitle(title);
         dialog.setMessage(message);
-        dialog.setPositiveButton("OK", new View.OnClickListener() {
+        dialog.setPositiveButton(getResources().getString(R.string.dong_y), new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

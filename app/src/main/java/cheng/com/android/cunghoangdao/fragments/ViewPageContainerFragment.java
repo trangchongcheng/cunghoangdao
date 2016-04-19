@@ -87,10 +87,10 @@ public class ViewPageContainerFragment extends BaseFragment {
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        adapter.addFrag(new HomeContainerFragment(), "Home");
-        adapter.addFrag(new CungHoangDaoContainerFragment(), "Cung Hoàng Đạo");
-        adapter.addFrag(new ConGiapContainerFragment(), "12 Con Giáp");
-        adapter.addFrag(new TuViContainerFragment(), "Tử Vi");
+        adapter.addFrag(new HomeContainerFragment(), getResources().getString(R.string.trang_chu));
+        adapter.addFrag(new CungHoangDaoContainerFragment(), getResources().getString(R.string.app_name));
+        adapter.addFrag(new ConGiapContainerFragment(), getResources().getString(R.string.con_giap));
+        adapter.addFrag(new TuViContainerFragment(), getResources().getString(R.string.tu_vi));
         viewPager.setAdapter(adapter);
     }
 

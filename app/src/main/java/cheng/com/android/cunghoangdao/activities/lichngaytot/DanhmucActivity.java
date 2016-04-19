@@ -73,21 +73,24 @@ public class DanhmucActivity extends BaseMainActivity implements OnItemClickRecy
         progressBar = (ProgressBar) findViewById(R.id.activity_category_progressbar);
         handler = new Handler();
         initCategoryURL(page);
-
     }
 
     @Override
     public void setValue(Bundle savedInstanceState) {
 
     }
-    public void initCategoryURL(int page){
-        Log.d(TAG, "initCategoryURL: "+category +"="+getResources().getString(R.string.phong_thuy));
+
+    public void initCategoryURL(int page) {
+        Log.d(TAG, "initCategoryURL: " + category + "=" + getResources().getString(R.string.phong_thuy));
         if (category.equals(getResources().getString(R.string.phong_thuy))) {
             new LichngaytotAsyntask(this, UrlGetXml.PHONG_THUY + page,
-                    ApiServiceLichNgayTot.ApiRequestType.TYPE_GET,1, this).execute();
-        }else if(category.equals(getResources().getString(R.string.xem_tuong))){
+                    ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, 1,0, this).execute();
+        } else if (category.equals(getResources().getString(R.string.xem_tuong))) {
             new LichngaytotAsyntask(this, UrlGetXml.XEM_TUONG + page,
-                    ApiServiceLichNgayTot.ApiRequestType.TYPE_GET,1, this).execute();
+                    ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, 1,0, this).execute();
+        } else if (category.equals(getResources().getString(R.string.video_phong_thuy))) {
+            new LichngaytotAsyntask(this, UrlGetXml.VIDEO_PHONG_THUY + page,
+                    ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, 1,1, this).execute();
         }
     }
 
@@ -102,12 +105,19 @@ public class DanhmucActivity extends BaseMainActivity implements OnItemClickRecy
     }
 
     @Override
-    public void onItemClickListener(View v, int position, String title, String linkArticle, String linkImage) {
-        putIntent(title, linkArticle, linkImage);
+    public void onItemClickListener(View v, int position, String title, String linkAricle, String linkImage, int typecategory) {
+        putIntent(title, linkAricle, linkImage,typecategory);
     }
 
-    public void putIntent(String title, String linkArticle, String linkImage) {
-        Intent intent = new Intent(this, ViewingActivity.class);
+    public void putIntent(String title, String linkArticle, String linkImage, int type) {
+        Intent intent = null;
+        if(type==0){
+            intent  = new Intent(this, ViewingActivity.class);
+        }else if(type==1){
+            intent = new Intent(this, ClipPhongThuyActivity.class);
+            intent.putExtra(RecyclerCunghoangdaoAdapter.TYPE_VIDEO,"type_video");
+        }
+        assert intent != null;
         intent.putExtra(RecyclerCunghoangdaoAdapter.LINK, linkArticle);
         intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, title);
         intent.putExtra(RecyclerCunghoangdaoAdapter.CATEGORY, mCategory);
@@ -126,11 +136,11 @@ public class DanhmucActivity extends BaseMainActivity implements OnItemClickRecy
     }
 
     @Override
-    public void onReturnJsonObject(ArrayList<Category> arrContent) {
-        if(arrContent!=null){
+    public void onReturnJsonObject(ArrayList<Category> arrContent,int type) {
+        if (arrContent != null) {
             if (isFirt) {
                 updateAdapter(arrContent);
-                categoryAdapter = new RecyclerCategoryAdapter(this, array, this, rcvCategory);
+                categoryAdapter = new RecyclerCategoryAdapter(this, array, this, rcvCategory,type);
                 rcvCategory.setAdapter(categoryAdapter);
                 progressBar.setVisibility(View.INVISIBLE);
             } else {
@@ -152,8 +162,6 @@ public class DanhmucActivity extends BaseMainActivity implements OnItemClickRecy
                         @Override
                         public void run() {
                             array.remove(array.size() - 1);
-                            //rcvCategory.removeViewAt(rcvCategory.size());
-                            //rcvCategory.getAdapter().notifyItemRemoved(array.size() - 1);
                             rcvCategory.getAdapter().notifyItemRemoved(array.size());
                             rcvCategory.getAdapter().notifyDataSetChanged();
                             initCategoryURL(page);
@@ -168,6 +176,8 @@ public class DanhmucActivity extends BaseMainActivity implements OnItemClickRecy
         }
 
     }
+
+
 
 
 }

@@ -16,10 +16,9 @@ public class RecyclerViewIconCungHoangDaoHolder extends RecyclerView.ViewHolder 
     public ImageView imgCunghoangdao;
     public TextView tvDate;
     public LinearLayout ll;
+
     public RecyclerViewIconCungHoangDaoHolder(View view) {
         super(view);
-        // Find all views ids
-
         this.tvName = (TextView) view
                 .findViewById(R.id.item_icon_tvName);
         this.imgCunghoangdao = (ImageView) view

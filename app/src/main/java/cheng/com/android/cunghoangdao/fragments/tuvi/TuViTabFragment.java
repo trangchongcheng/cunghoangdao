@@ -88,7 +88,7 @@ public class TuViTabFragment extends BaseFragment implements
     public void putIntent(String content, String title, String linkImage) {
         Intent intent = new Intent(context, ViewingActivity.class);
         intent.putExtra(RecyclerCunghoangdaoAdapter.CONTENT, content);
-        intent.putExtra(RecyclerCunghoangdaoAdapter.CATEGORY, "Cung Hoàng Đạo");
+        intent.putExtra(RecyclerCunghoangdaoAdapter.CATEGORY, getResources().getString(R.string.app_name));
         intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, title);
         intent.putExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE, linkImage);
         startActivity(intent);

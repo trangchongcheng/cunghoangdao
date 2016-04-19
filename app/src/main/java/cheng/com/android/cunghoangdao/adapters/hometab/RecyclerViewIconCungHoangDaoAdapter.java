@@ -25,12 +25,11 @@ public class RecyclerViewIconCungHoangDaoAdapter extends RecyclerView.Adapter<Re
 
     @Override
     public int getItemViewType(int position) {
-        // return TimelineView.getTimeLineViewType(position, getItemCount());
         return 0;
     }
 
     public RecyclerViewIconCungHoangDaoAdapter(Context context, ArrayList<Cunghoangdao> arrayCunghoangdao,
-    OnItemClickIconCungHoangDao onItemClickIconCungHoangDao) {
+                                               OnItemClickIconCungHoangDao onItemClickIconCungHoangDao) {
         this.context = context;
         this.arrayCunghoangdao = arrayCunghoangdao;
         this.onItemClickIconCungHoangDao = onItemClickIconCungHoangDao;
@@ -38,10 +37,8 @@ public class RecyclerViewIconCungHoangDaoAdapter extends RecyclerView.Adapter<Re
 
     @Override
     public RecyclerViewIconCungHoangDaoHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-//        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_fragment_hometab_icon_cunghoangdao, null);
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         View itemView = inflater.inflate(R.layout.item_fragment_hometab_icon_cunghoangdao, viewGroup, false);
-
         RecyclerViewIconCungHoangDaoHolder viewHolder = new RecyclerViewIconCungHoangDaoHolder(itemView);
         return viewHolder;
     }
@@ -58,7 +55,7 @@ public class RecyclerViewIconCungHoangDaoAdapter extends RecyclerView.Adapter<Re
         recyclerViewHolder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClickIconCungHoangDao.onItemClickIconCungHoangDao(v,position,model.getName());
+                onItemClickIconCungHoangDao.onItemClickIconCungHoangDao(v, position, model.getName());
             }
         });
     }
@@ -68,8 +65,8 @@ public class RecyclerViewIconCungHoangDaoAdapter extends RecyclerView.Adapter<Re
         return (null != arrayCunghoangdao ? arrayCunghoangdao.size() : 0);
     }
 
-    public interface OnItemClickIconCungHoangDao{
-        void onItemClickIconCungHoangDao(View v,int position, String category);
+    public interface OnItemClickIconCungHoangDao {
+        void onItemClickIconCungHoangDao(View v, int position, String category);
     }
 
 }

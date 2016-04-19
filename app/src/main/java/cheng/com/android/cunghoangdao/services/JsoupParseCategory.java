@@ -14,9 +14,11 @@ public class JsoupParseCategory extends AsyncTask<Void,Void,ArrayList<Category>>
     private String mUrl;
     private Context context;
     private OnReturnCategoryList onReturnCategoryList;
-    public JsoupParseCategory(Context context, String mUrl, OnReturnCategoryList onReturnCategoryList) {
+    private int typeCategory;
+    public JsoupParseCategory(Context context, String mUrl, OnReturnCategoryList onReturnCategoryList, int typeCategory) {
         this.context = context;
         this.mUrl = mUrl;
+        this.typeCategory=typeCategory;
         this.onReturnCategoryList = onReturnCategoryList;
     }
 
@@ -28,9 +30,9 @@ public class JsoupParseCategory extends AsyncTask<Void,Void,ArrayList<Category>>
     @Override
     protected void onPostExecute(ArrayList<Category> arrCategory) {
         super.onPostExecute(arrCategory);
-        onReturnCategoryList.onReturnCategoryListFinish(arrCategory);
+        onReturnCategoryList.onReturnCategoryListFinish(arrCategory,typeCategory);
     }
     public interface OnReturnCategoryList{
-        void onReturnCategoryListFinish(ArrayList<Category> arrCategory);
+        void onReturnCategoryListFinish(ArrayList<Category> arrCategory, int typeCategory);
     }
 }

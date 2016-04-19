@@ -46,7 +46,6 @@ public class RecyclerNewsFeedAdapter extends RecyclerView.Adapter<RecyclerNewsFe
 
         holder.tvTitle.setText(newsFeed.getmTitle());
         holder.tvDescriptions.setText(Html.fromHtml(newsFeed.getmDescription()).toString());
-        //Log.d(TAG, formatTime(newsFeed.getmPubdate()));
         holder.tvPubdate.setText(TimeAgoUtils.getDate(TimeAgoUtils.formatTime(newsFeed.getmPubdate()), true));
         if (!newsFeed.getmImageUrl().equals("")) {
             Glide.with(context).load(newsFeed.getmImageUrl()).into(holder.imgThumbnail);
@@ -58,7 +57,6 @@ public class RecyclerNewsFeedAdapter extends RecyclerView.Adapter<RecyclerNewsFe
                         newsFeed.getmTitle(),newsFeed.getmImageUrl());
             }
         });
-
     }
 
     public interface OnClickItemNewsFeed {

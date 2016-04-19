@@ -16,7 +16,6 @@ import android.text.Html;
 import android.text.Spannable;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.URLSpan;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -56,7 +55,7 @@ public class ViewingActivity extends BaseActivity implements OnReturnContent,
     public TextView tvContent;
     private final String TAG = getClass().getSimpleName();
     String content, title, linkArticle, linkImage, category, contentShare,
-            typeOffline, typeNotify, typeBoi, typeLichngaytot;
+            typeOffline, typeNotify, typeBoi, typeLichngaytot, typeVideo;
     private Intent intent;
     private ProgressBar progressBar;
     private FloatingActionButton flbtnSave, flbtnShare;
@@ -84,6 +83,7 @@ public class ViewingActivity extends BaseActivity implements OnReturnContent,
         typeNotify = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_NOTIFY);
         typeBoi = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_BOI);
         typeLichngaytot = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_LICH_NGAY_TOT);
+        typeVideo = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_VIDEO);
         linkArticle = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK);
         title = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TITLE);
         linkImage = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE);
@@ -126,7 +126,7 @@ public class ViewingActivity extends BaseActivity implements OnReturnContent,
             if (typeBoi != null) {
                 new JsoupParseContent(this, linkArticle, this).execute();
             } else {
-                new JsoupParseLichNgayTot(this, "http://lichngaytot.com" + linkArticle, this).execute();
+                new JsoupParseLichNgayTot(this, "http://lichngaytot.com" + linkArticle, this, null).execute();
             }
         } else {
             content = intent.getStringExtra(RecyclerCunghoangdaoAdapter.CONTENT);
@@ -238,9 +238,13 @@ public class ViewingActivity extends BaseActivity implements OnReturnContent,
     }
 
     @Override
-    public void onReturnContent(String contentParsered) {
-        Log.d(TAG, "onReturnContent: " + contentParsered);
-        setContent(contentParsered);
+    public void onReturnContent(String content) {
+        setContent(content);
+    }
+
+    @Override
+    public void onReturnContent(String content, String videoUrl) {
+
     }
 
     public void setContent(final String content) {
@@ -255,7 +259,6 @@ public class ViewingActivity extends BaseActivity implements OnReturnContent,
                 custfont(getApplicationContext(), tvContent);
                 progressBar.setVisibility(View.INVISIBLE);
             } else {
-                Log.d(TAG, "setContent:2 ");
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -276,13 +279,11 @@ public class ViewingActivity extends BaseActivity implements OnReturnContent,
         } else {
             if (typeOffline != null) {
                 flbtnMenu.hideMenu(true);
-                Log.d(TAG, "setContent:3 "+content);
                 tvContent.setText(Html.fromHtml(content));
                 ll.setVisibility(View.GONE);
                 progressBar.setVisibility(View.INVISIBLE);
 
             } else {
-                Log.d(TAG, "setContent:4");
                 ll.setVisibility(View.VISIBLE);
             }
         }
@@ -329,4 +330,6 @@ public class ViewingActivity extends BaseActivity implements OnReturnContent,
             startActivity(intent);
         }
     }
+
+
 }

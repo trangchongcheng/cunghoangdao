@@ -2,6 +2,7 @@ package cheng.com.android.cunghoangdao.activities.maincreen;
 
 import android.animation.ValueAnimator;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -17,9 +18,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,13 +34,13 @@ import java.util.Calendar;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseMainActivity;
-import cheng.com.android.cunghoangdao.activities.lichngaytot.ClipPhongThuyActivity;
 import cheng.com.android.cunghoangdao.activities.lichngaytot.DanhmucActivity;
 import cheng.com.android.cunghoangdao.activities.lichngaytot.TienichActivity;
 import cheng.com.android.cunghoangdao.activities.offline.OfflineActivity;
 import cheng.com.android.cunghoangdao.fragments.ViewPageContainerFragment;
 import cheng.com.android.cunghoangdao.model.Common;
 import cheng.com.android.cunghoangdao.services.CheckTimesService;
+import cheng.com.android.cunghoangdao.ultils.LocaleHelper;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static cheng.com.android.cunghoangdao.R.string.openDrawer;
@@ -69,15 +73,13 @@ public class MainScreenActivity extends BaseMainActivity {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(Gravity.LEFT);
             animationIcon();
-            //CLOSE Nav Drawer!
         } else if (count == 0) {
             super.onBackPressed();
-            //additional code
         } else {
             fragmentManager.popBackStack();
         }
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Snackbar.LENGTH_SHORT).show();
+        Toast.makeText(this, getResources().getString(R.string.onBackPress), Snackbar.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
 
             @Override
@@ -103,11 +105,11 @@ public class MainScreenActivity extends BaseMainActivity {
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
         floatButton = (FloatingActionsMenu) headerView.findViewById(R.id.float_button);
         floatButton_item_edit = new FloatingActionButton(this);
-        floatButton_item_edit.setTitle("Thay đổi thông tin");
+        floatButton_item_edit.setTitle(getResources().getString(R.string.thay_doi_thong_tin));
         floatButton_item_edit.setSize(1);
         floatButton.addButton(floatButton_item_edit);
         floatButton_item_detail = new FloatingActionButton(this);
-        floatButton_item_detail.setTitle("Chi tiết về bạn");
+        floatButton_item_detail.setTitle(getResources().getString(R.string.chi_tiet_ve_ban));
         floatButton_item_detail.setSize(1);
         floatButton.addButton(floatButton_item_detail);
         Log.d(TAG, "oncreate");
@@ -119,7 +121,7 @@ public class MainScreenActivity extends BaseMainActivity {
     public void setValue(Bundle savedInstanceState) {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mCollapsingToolbarLayout.setTitle("Cung Hoàng Đạo");
+        mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
         tvName.setText("Hi " + Common.user.getUserName() + " !");
         // profile_image.setImageResource(Common.getImgAvatar());
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -142,7 +144,9 @@ public class MainScreenActivity extends BaseMainActivity {
                         startActivity(intent);
                         return true;
                     case R.id.itemClip:
-                        intent = new Intent(MainScreenActivity.this, ClipPhongThuyActivity.class);
+                        intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
+                        intent.putExtra(TYPE_CATEGORY,getResources().getString(R.string.video_phong_thuy));
+                        intent.putExtra(TOOLBAR_NAME,getResources().getString(R.string.menu_item_video_phong_thuy));
                         startActivity(intent);
                         return true;
                     case R.id.itemDownload:
@@ -154,7 +158,10 @@ public class MainScreenActivity extends BaseMainActivity {
                         startActivity(intent);
                         return true;
                     case R.id.itemAmDuong:
-                        Toast.makeText(getApplicationContext(), "Send Selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Hihi Selected", Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.itemLanguage:
+                        showChangeLangDialog();
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
@@ -207,7 +214,6 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     public void setEvent() {
-
     }
 
     private void initScreen() {
@@ -244,5 +250,37 @@ public class MainScreenActivity extends BaseMainActivity {
         Log.d(TAG, "onResume: ");
         super.onResume();
     }
+    public void showChangeLangDialog() {
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
+        dialogBuilder.setView(dialogView);
+
+        final Button btnChange = (Button) dialogView.findViewById(R.id.dialog_btnChange);
+        final RadioButton rdbtnVN = (RadioButton) dialogView.findViewById(R.id.dialog_rdbtnVN);
+        final RadioButton rdbtnEN= (RadioButton) dialogView.findViewById(R.id.dialog_rdbtnEN);
+        final AlertDialog b = dialogBuilder.create();
+        btnChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(rdbtnVN.isChecked()){
+                    LocaleHelper.setLocale(getApplicationContext(), LocaleHelper.VIETNAM);
+                }else if (rdbtnEN.isChecked()){
+                    LocaleHelper.setLocale(getApplicationContext(), LocaleHelper.ENGLISH);
+                }
+                b.dismiss();
+                if (android.os.Build.VERSION.SDK_INT >= 11){
+                    recreate();
+                }else{
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                }
+            }
+        });
+
+        b.show();
+    }
+
 
 }

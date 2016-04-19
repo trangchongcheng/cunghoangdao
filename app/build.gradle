@@ -46,4 +46,5 @@ dependencies {
     compile 'com.github.clans:fab:1.6.2'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile files('libs/apache-commons-lang.jar')
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.2'
 }

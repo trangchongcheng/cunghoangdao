@@ -36,6 +36,7 @@ public class UrlGetXml {
     public final static String CUNG_XU_NU = "http://boi.vn/12-cung-hoang-dao/cung-xu-nu/";
 
     public final static String PHONG_THUY = "http://lichngaytot.com/TongHopAjax/Ngam?categoryId=284&pageIndex=";
+    public final static String VIDEO_PHONG_THUY = "http://lichngaytot.com/TongHopAjax/Ngam?categoryId=546&pageIndex=";
     public final static String XEM_TUONG = "http://lichngaytot.com/TongHopAjax/Ngam?categoryId=285&pageIndex=";
     public final static String BOI_CUNG_HOANG_DAO = "http://lichngaytot.com/CungHoangDaoAjax/TracNghiemTinhDuyen?CungHoangDaoNu=";
 

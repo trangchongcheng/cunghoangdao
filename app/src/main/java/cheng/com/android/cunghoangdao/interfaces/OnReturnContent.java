@@ -5,4 +5,5 @@ package cheng.com.android.cunghoangdao.interfaces;
  */
 public interface OnReturnContent {
     void onReturnContent(String content);
+    void onReturnContent(String content, String videoUrl);
 }

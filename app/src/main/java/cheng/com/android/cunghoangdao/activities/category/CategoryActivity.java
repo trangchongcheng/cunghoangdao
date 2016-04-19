@@ -67,7 +67,7 @@ public class CategoryActivity extends BaseMainActivity implements JsoupParseCate
         rcvCategory.setLayoutManager(mLayoutManager);
         progressBar = (ProgressBar) findViewById(R.id.activity_category_progressbar);
         handler = new Handler();
-        new JsoupParseCategory(this, mLink, this).execute();
+        new JsoupParseCategory(this, mLink, this,0).execute();
     }
 
     @Override
@@ -97,11 +97,11 @@ public class CategoryActivity extends BaseMainActivity implements JsoupParseCate
     }
 
     @Override
-    public void onReturnCategoryListFinish(final ArrayList<Category> arrCategory) {
+    public void onReturnCategoryListFinish(final ArrayList<Category> arrCategory, final int type) {
         Log.d(TAG, "onReturnCategoryListFinish: "+arrCategory.size());
         if (isFirt) {
             updateAdapter(arrCategory);
-            categoryAdapter = new RecyclerCategoryAdapter(this, array, this, rcvCategory);
+            categoryAdapter = new RecyclerCategoryAdapter(this, array, this, rcvCategory,type);
             rcvCategory.setAdapter(categoryAdapter);
             progressBar.setVisibility(View.INVISIBLE);
         }else {
@@ -127,7 +127,7 @@ public class CategoryActivity extends BaseMainActivity implements JsoupParseCate
                         array.remove(array.size()-1);
                         categoryAdapter.notifyItemRemoved(array.size());
                         new JsoupParseCategory(getApplicationContext(), mLink + "page/" + page,
-                                CategoryActivity.this).execute();
+                                CategoryActivity.this, type).execute();
                         if (!Category.isLast) {
                             categoryAdapter.setLoaded();
                         }
@@ -138,10 +138,6 @@ public class CategoryActivity extends BaseMainActivity implements JsoupParseCate
         });
     }
 
-    @Override
-    public void onItemClickListener(View v, int position, String title, String linkArticle, String linkImage) {
-        putIntent(title, linkArticle, linkImage);
-    }
     public void putIntent( String title,String linkArticle,String linkImage) {
         Intent intent = new Intent(this, ViewingActivity.class);
         intent.putExtra(RecyclerCunghoangdaoAdapter.LINK, linkArticle);
@@ -152,5 +148,10 @@ public class CategoryActivity extends BaseMainActivity implements JsoupParseCate
         startActivity(intent);
     }
 
+
+    @Override
+    public void onItemClickListener(View v, int position, String title, String linkAricle, String linkImage, int category) {
+        putIntent(title, linkAricle, linkImage);
+    }
 
 }

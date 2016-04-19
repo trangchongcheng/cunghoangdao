@@ -69,7 +69,6 @@ public class HomeTabFragment extends BaseFragment implements
     public void init() {
         Log.d(TAG, "init +");
         lvNews = (ListView) getView().findViewById(R.id.content_main_lvNews);
-        //  mDemoSlider = (SliderLayout) getView().findViewById(R.id.frangment_main_slider);
         mRecyclerViewSlider = (RecyclerView) getView().findViewById(R.id.cunghoangdao_fragment_recyclerSlide);
         rvNewsFeed = (RecyclerView) getView().findViewById(R.id.fragment_hometab_rvNewFeed);
         mRecyclerViewSlider.setHasFixedSize(true);
@@ -274,51 +273,51 @@ public class HomeTabFragment extends BaseFragment implements
         switch (v.getId()) {
             case R.id.fragment_hometab_tlTi:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_TI);
-                intent.putExtra(TITLE_CATEGORY, "Tuổi Tý");
+                intent.putExtra(TITLE_CATEGORY, getResources().getString(R.string.tuoi_ti));
                 break;
             case R.id.fragment_hometab_tlSuu:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_SUU);
-                intent.putExtra(TITLE_CATEGORY, "Tuổi Sửu");
+                intent.putExtra(TITLE_CATEGORY, getResources().getString(R.string.tuoi_suu));
                 break;
             case R.id.fragment_hometab_tlDan:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_DAN);
-                intent.putExtra(TITLE_CATEGORY, "Tuổi Dần");
+                intent.putExtra(TITLE_CATEGORY, getResources().getString(R.string.tuoi_dan));
                 break;
             case R.id.fragment_hometab_tlMeo:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_MAO);
-                intent.putExtra(TITLE_CATEGORY, "Tuổi Mão");
+                intent.putExtra(TITLE_CATEGORY, getResources().getString(R.string.tuoi_mao));
                 break;
             case R.id.fragment_hometab_tlThin:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_THIN);
-                intent.putExtra(TITLE_CATEGORY, "Tuổi Thin");
+                intent.putExtra(TITLE_CATEGORY, getResources().getString(R.string.tuoi_thin));
                 break;
             case R.id.fragment_hometab_tlTy:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_TY);
-                intent.putExtra(TITLE_CATEGORY, "Tuổi Tỵ");
+                intent.putExtra(TITLE_CATEGORY, getResources().getString(R.string.tuoi_ty));
                 break;
             case R.id.fragment_hometab_tlNgo:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_NGO);
-                intent.putExtra(TITLE_CATEGORY, "Tuổi Ngọ");
+                intent.putExtra(TITLE_CATEGORY, getResources().getString(R.string.tuoi_ngo));
                 break;
             case R.id.fragment_hometab_tlMui:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_MUI);
-                intent.putExtra(TITLE_CATEGORY, "Tuổi Mùi");
+                intent.putExtra(TITLE_CATEGORY, getResources().getString(R.string.tuoi_mui));
                 break;
             case R.id.fragment_hometab_tlThan:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_THAN);
-                intent.putExtra(TITLE_CATEGORY, "Tuổi Thân");
+                intent.putExtra(TITLE_CATEGORY, getResources().getString(R.string.tuoi_dau));
                 break;
             case R.id.fragment_hometab_tlDau:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_DAU);
-                intent.putExtra(TITLE_CATEGORY, "Tuổi Dậu");
+                intent.putExtra(TITLE_CATEGORY, getResources().getString(R.string.tuoi_dau));
                 break;
             case R.id.fragment_hometab_tlTuat:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_TUAT);
-                intent.putExtra(TITLE_CATEGORY, "Tuổi Tuất");
+                intent.putExtra(TITLE_CATEGORY, getResources().getString(R.string.tuoi_tuat));
                 break;
             case R.id.fragment_hometab_tlHoi:
                 intent.putExtra(URL_CATEGORY, UrlGetXml.TUOI_HOI);
-                intent.putExtra(TITLE_CATEGORY, "Tuổi Hợi");
+                intent.putExtra(TITLE_CATEGORY, getResources().getString(R.string.tuoi_hoi));
                 break;
             default:
                 break;

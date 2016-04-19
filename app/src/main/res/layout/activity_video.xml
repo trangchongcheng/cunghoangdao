@@ -4,13 +4,24 @@
     android:orientation="vertical">
 
     <VideoView
+        android:visibility="gone"
         android:id="@+id/videoView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center" />
+
     <TextView
-        android:background="#000"
-        android:text="Cheng cheng"
+        android:id="@+id/activity_tvTitle"
+        style="@style/text_categoryes"
+        android:layout_gravity="center"/>
+    <TextView
+        android:textSize="20sp"
+        android:id="@+id/activity_tvContent"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"/>
+    <ProgressBar
+        android:id="@+id/activity_progressBar"
+        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

@@ -33,6 +33,7 @@ public class RecyclerCunghoangdaoAdapter extends RecyclerView.Adapter<RecyclerCu
     public final static String TYPE_BOI = "type_boi";
     public final static String TYPE_LICH_NGAY_TOT = "type_lichngaytot";
     public final static String CATEGORY = "category";
+    public final static String TYPE_VIDEO = "typeVideo";
     public ArrayList<NewsFeed> arrNewsFeed;
     Context context;
     private OnClickItemNewsFeed onClickItemNewsFeed;
