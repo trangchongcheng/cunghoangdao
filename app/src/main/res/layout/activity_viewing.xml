@@ -150,7 +150,7 @@
             app:fab_hideAnimation="@anim/fab_scale_down"
             android:id="@+id/activity_viewing_flbtnShare"
             app:fab_label="@string/share_fb"
-            android:src="@drawable/ic_share"
+            android:src="@drawable/ic_sharefb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_size="mini"

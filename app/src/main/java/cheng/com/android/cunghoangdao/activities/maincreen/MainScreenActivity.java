@@ -202,10 +202,8 @@ public class MainScreenActivity extends BaseMainActivity {
         actionBarDrawerToggle.syncState();
         if (savedInstanceState == null) {
             initScreen();
-            Log.d(TAG, "savedInstanceState == null");
         } else {
             homeFragment = (ViewPageContainerFragment) getSupportFragmentManager().findFragmentByTag("home");
-            Log.d(TAG, "savedInstanceState # null");
         }
 
     }
