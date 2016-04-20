@@ -134,6 +134,21 @@
     <string name="kham_pha"> Hãy cùng khám phá những thông tin thú vị về bạn nào</string>
     <string name="tu_vi">TỬ VI</string>
     <string name="trang_chu">Home</string>
+    <string name="mo_rong">Mở rộng</string>
+
+    <string name="nam_truoc">&#160;Năm trước</string>
+    <string name="thang_truoc">&#160;Tháng trước</string>
+    <string name="tuan_truoc">&#160;Tuần trước</string>
+    <string name="ngay_truoc">&#160;Ngày trước</string>
+    <string name="hom_qua">&#160;Hôm qua</string>
+    <string name="mot_gio">&#160;giờ trước</string>
+    <string name="mot_gio_truoc">&#160;1 hour ago</string>
+    <string name="mot_phut_truoc">&#160;1 phút trước</string>
+    <string name="phut_truoc">&#160;phút trước</string>
+    <string name="giay_truoc">&#160;giây trước</string>
+    <string name="moi_day">&#160;Mới đây</string>
+
+    <string name="thay_doi_ngon_ngu">Thay đổi ngôn ngữ</string>
 
     <string name="app_id">1041345645929173</string>
 </resources>

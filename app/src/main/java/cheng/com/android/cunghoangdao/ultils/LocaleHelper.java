@@ -17,30 +17,30 @@ public class LocaleHelper {
     public static final String VIETNAM = "vi";
 
     public static void onCreate(Context context) {
-        String lang = getPersistedData(context, Locale.getDefault().getLanguage());
+        String lang = getLanguageFromPreferences(context, Locale.getDefault().getLanguage());
         setLocale(context, lang);
     }
 
     public static void onCreate(Context context, String defaultLanguage) {
-        String lang = getPersistedData(context, defaultLanguage);
+        String lang = getLanguageFromPreferences(context, defaultLanguage);
         setLocale(context, lang);
     }
 
     public static String getLanguage(Context context) {
-        return getPersistedData(context, Locale.getDefault().getLanguage());
+        return getLanguageFromPreferences(context, Locale.getDefault().getLanguage());
     }
 
     public static void setLocale(Context context, String language) {
-        persist(context, language);
+        editLanguageFromPreferences(context, language);
         updateResources(context, language);
     }
 
-    private static String getPersistedData(Context context, String defaultLanguage) {
+    private static String getLanguageFromPreferences(Context context, String defaultLanguage) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(SELECTED_LANGUAGE, defaultLanguage);
     }
 
-    private static void persist(Context context, String language) {
+    private static void editLanguageFromPreferences(Context context, String language) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
 

@@ -61,16 +61,17 @@ public class DataNewfeeds extends SQLiteOpenHelper {
     }
 
     public void addArticle(Article article) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(KEY_TITLE, article.getmTitle());
-        values.put(KEY_DESCRIPTION, article.getmDescription());
-        values.put(KEY_CONTENT, article.getmContent());
-        values.put(HAS_READ, 0);
-        // Inserting Row
-        db.insert(TABLE_ARTICLE, null, values);
-        db.close(); // Closing database connection
-        Toast.makeText(context, "Đã lưu thành công", Toast.LENGTH_SHORT).show();
+        if (article != null) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(KEY_TITLE, article.getmTitle());
+            values.put(KEY_DESCRIPTION, article.getmDescription());
+            values.put(KEY_CONTENT, article.getmContent());
+            values.put(HAS_READ, 0);
+            db.insert(TABLE_ARTICLE, null, values);
+            db.close(); // Closing database connection
+            Toast.makeText(context, "Đã lưu thành công", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public int setHasRead() {

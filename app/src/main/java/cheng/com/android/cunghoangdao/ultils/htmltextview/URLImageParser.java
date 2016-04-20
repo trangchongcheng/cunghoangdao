@@ -35,14 +35,12 @@ public class URLImageParser implements ImageGetter {
             byte[] data = Base64.decode(base_64_source, Base64.DEFAULT);
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
             Drawable image = new BitmapDrawable(context.getResources(), bitmap);
-            image.setBounds(0, 0, 0 + image.getIntrinsicWidth(), 0 + image.getIntrinsicHeight());
-            Log.d("URLImageParser", "image: " + image);
+            image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
             return image;
         } else {
             URLDrawable urlDrawable = new URLDrawable();
             ImageGetterAsyncTask asyncTask = new ImageGetterAsyncTask(urlDrawable);
             asyncTask.execute(source);
-            Log.d("URLImageParser", "urlDrawable: " + urlDrawable);
             return urlDrawable; //return reference to URLDrawable where We will change with actual image from the src tag
         }
     }
@@ -74,15 +72,12 @@ public class URLImageParser implements ImageGetter {
                     height = (int) (result.getIntrinsicHeight() * scale);
                 }
 
-                urlDrawable.setBounds(0, 0, 0 + width, 0 + height);
+                urlDrawable.setBounds(0, 0, width, height);
                 urlDrawable.drawable = result;
             }
-            // Change to downloaded image
-
 
             // Invalidate TextView to redraw image
             URLImageParser.this.container.invalidate();
-
 
             // Resize TextView height to accommodate for image
             // 4.0+ devices

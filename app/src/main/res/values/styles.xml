@@ -46,6 +46,12 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textAllCaps">false</item>
     </style>
+    <style name="text_20sp">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
 
     <style name="menu_labels_style">
         <item name="android:background">@drawable/fab_label_background</item>
@@ -96,7 +102,7 @@
     </style>
 
     <style name="text_descriptions">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">10sp</item>
     </style>
 
     <style name="icon_12_con_giap">

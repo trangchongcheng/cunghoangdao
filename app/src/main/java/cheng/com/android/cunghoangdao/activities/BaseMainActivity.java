@@ -23,6 +23,7 @@ public abstract class BaseMainActivity extends AppCompatActivity
     private Context context;
     private IntentFilter filter;
     private BroadcastReceiver changeLocaleReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,25 +34,16 @@ public abstract class BaseMainActivity extends AppCompatActivity
         init();
         setValue(savedInstanceState);
         setEvent();
-//        changeLocaleReceiver = new BroadcastReceiver() {
-//            @Override
-//            public void onReceive(Context context, Intent intent) {
-//                Locale locale = context.getResources().getConfiguration().locale;
-//                Log.d("TAG", locale.getDisplayLanguage());
-//                if ( MultiLanguage.getInstance().isUseDeviceLanguage() ) {
-//                    MultiLanguage.getInstance().chooseDeviceLanguage();
-//                    updateLanguage();
-//                }
-//            }
-//        };
-//        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
-//        registerReceiver(changeLocaleReceiver, intentFilter);
     }
+
     public abstract void setContentView();
+
     public abstract void init();
+
     public abstract void setValue(Bundle savedInstanceState);
+
     public abstract void setEvent();
-   // public abstract void updateLanguage();
+
     @Override
     protected void onStop() {
         Log.d(TAG, "onDestroy: ");
@@ -61,10 +53,11 @@ public abstract class BaseMainActivity extends AppCompatActivity
         } catch (IllegalArgumentException e) {
         }
     }
+
     @Override
     public void onConnectivityChanged(boolean isConnected) {
         int times = 0;
-        if(!isConnected && times<1){
+        if (!isConnected && times < 1) {
             showDialog(this);
         }
         times++;
@@ -103,6 +96,7 @@ public abstract class BaseMainActivity extends AppCompatActivity
         super.onStart();
         Log.d(TAG, "onStart: ");
     }
+
     public void showDialog(Context context) {
         final MaterialDialog dialog;
         dialog = new MaterialDialog(context);

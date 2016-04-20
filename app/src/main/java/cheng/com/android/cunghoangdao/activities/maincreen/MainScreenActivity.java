@@ -30,6 +30,9 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Calendar;
 
 import cheng.com.android.cunghoangdao.R;
@@ -96,6 +99,15 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     public void init() {
+        Process exec = null;
+        String locale = null;
+        try {
+            exec = Runtime.getRuntime().exec(new String[]{"getprop", "persist.sys.locale"});
+            locale = new BufferedReader(new InputStreamReader(exec.getInputStream())).readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.d(TAG, "init: "+ locale);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView) findViewById(R.id.navigationview);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);

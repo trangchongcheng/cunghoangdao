@@ -13,7 +13,6 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -40,7 +39,6 @@ public class PushNotifyService extends Service {
     public static boolean serviceState=false;
 
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;

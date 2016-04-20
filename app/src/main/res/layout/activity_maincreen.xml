@@ -43,13 +43,15 @@
         </android.support.design.widget.AppBarLayout>
 
         <FrameLayout
+            android:background="#ffffff"
             android:id="@+id/activity_maincree_frame_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
+        android:scrollbarSize="50dip"
         app:theme="@style/AppThemeDrawer"
         app:itemBackground="@color/windowBackground"
         app:itemTextColor="@color/drawer_item"

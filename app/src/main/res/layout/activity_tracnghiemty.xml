@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/windowBackground"
         android:orientation="vertical">
 
@@ -87,7 +87,7 @@
         <TextView
             android:id="@+id/activity_tnty_tvContent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:scrollbars="vertical"
             android:textSize="23sp" />
@@ -97,9 +97,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:layout_marginBottom="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:visibility="visible"
             app:menu_animationDelayPerItem="100"
             app:menu_backgroundColor="@android:color/transparent"
@@ -107,7 +104,7 @@
             app:menu_colorNormal="@color/colorPrimary"
             app:menu_colorPressed="@color/grayish_lime_green"
             app:menu_colorRipple="#99FFFFFF"
-            app:menu_fab_label="Mở rộng"
+            app:menu_fab_label="@string/mo_rong"
             app:menu_fab_size="normal"
             app:menu_icon="@drawable/ic_floatbutton_24dp"
             app:menu_labels_colorNormal="#333333"
@@ -140,8 +137,8 @@
                 android:id="@+id/activity_tnty_flbtnShare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_save_sqlite_18dp"
-                app:fab_colorNormal="@color/colorAccent"
+                android:src="@drawable/ic_share"
+                app:fab_colorNormal="@color/colorPrimary"
                 app:fab_colorPressed="@color/blue_semi_transparent"
                 app:fab_colorRipple="#99FFFFFF"
                 app:fab_hideAnimation="@anim/fab_scale_down"

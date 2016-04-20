@@ -144,6 +144,7 @@
                 android:visibility="visible" />
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/fragment_hometab_ll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

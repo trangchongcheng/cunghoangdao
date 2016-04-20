@@ -83,7 +83,7 @@ public class ApiServiceLichNgayTot {
             rd.close();
             if(typeGet==0){
                 String contentUnicode = StringEscapeUtils.unescapeJava(response.toString());
-                arrCategory.add(new Category(contentUnicode));
+                arrCategory.add(new Category(contentUnicode.replace("\"","").replace("\n","")));
             }else {
                 Document document = null;
                 String contentUnicode = StringEscapeUtils.unescapeJava(response.toString());
