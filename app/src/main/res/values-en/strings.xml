@@ -133,7 +133,7 @@
     <string name="tu_vi">HOROSCOPE</string>
     <string name="trang_chu">Home</string>
     <string name="mo_rong">Extend</string>
-
+    <string name="menu">Menu</string>
     <string name="nam_truoc">&#160;Last year</string>
     <string name="thang_truoc">&#160;Last month</string>
     <string name="tuan_truoc">&#160;Last week</string>
@@ -152,5 +152,8 @@
     <string name="khoi_dong">Applications is launching…</string>
     <string name="sologan">Apps For Divination, Horoscopes, Daily Zodiac </string>
 
+    <string name="mota_home">Updated articles on divination, astrology, zodiac … this according to the latest.</string>
+    <string name="mota_menu">Catalog content related to astrology, divination …</string>
+    <string name="mota_tienich">The attractive divination gadget …</string>
     <string name="app_id">1041345645929173</string>
 </resources>

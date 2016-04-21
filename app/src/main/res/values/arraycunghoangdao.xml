@@ -44,6 +44,21 @@
         <item>@string/chd_songngu_date</item>
     </string-array>
 
+    <array name="color_background_lauching">
+        <item>@color/textColorPrimary</item>
+        <item>@color/textColorPrimary</item>
+        <item>@color/textColorPrimary</item>
+        <item>@color/textColorPrimary</item>
+        <item>@color/textColorPrimary</item>
+        <item>@color/textColorPrimary</item>
+    </array>
+    <string-array name="intro">
+        <item>@string/trang_chu</item>
+        <item>@string/menu</item>
+        <item>@string/tien_ich</item>
+    </string-array>
+
+
 
 
 </resources>

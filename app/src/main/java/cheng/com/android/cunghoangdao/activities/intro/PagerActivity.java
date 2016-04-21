@@ -215,7 +215,7 @@ public class PagerActivity extends AppCompatActivity {
 
         ImageView img;
 
-        int[] bgs = new int[]{R.drawable.ic_flight_24dp, R.drawable.ic_mail_24dp, R.drawable.ic_explore_24dp};
+        int[] bgs = new int[]{R.drawable.intro1, R.drawable.intro2, R.drawable.intro3};
 
         public PlaceholderFragment() {
         }
@@ -231,13 +231,23 @@ public class PagerActivity extends AppCompatActivity {
             fragment.setArguments(args);
             return fragment;
         }
-
+        String[] title = new String[]{
+                getResources().getStringArray(R.array.intro)[0],
+                getResources().getStringArray(R.array.intro)[1],
+                getResources().getStringArray(R.array.intro)[2]};
+      //  String[] decription = new String[]{getResources().getString(R.string.mota_home)
+      //          ,getResources().getString(R.string.mota_menu),getResources().getString(R.string.mota_tienich)};
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_pager, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            TextView tvTitle = (TextView) rootView.findViewById(R.id.section_label);
+           // TextView tvDescription = (TextView) rootView.findViewById(R.id.section_decription);
+
+            //textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
+            tvTitle.setText(title[getArguments().getInt(ARG_SECTION_NUMBER)-1]);
+          //  tvDescription.setText(decription[getArguments().getInt(ARG_SECTION_NUMBER)-1]);
+
 
             img = (ImageView) rootView.findViewById(R.id.section_img);
             img.setBackgroundResource(bgs[getArguments().getInt(ARG_SECTION_NUMBER) - 1]);

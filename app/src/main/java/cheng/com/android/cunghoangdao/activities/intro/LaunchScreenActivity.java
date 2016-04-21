@@ -11,9 +11,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jpardogo.android.googleprogressbar.library.FoldingCirclesDrawable;
+
+import java.util.Random;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.maincreen.MainScreenActivity;
@@ -22,9 +25,13 @@ import cheng.com.android.cunghoangdao.ultils.CustomFont;
 
 public class LaunchScreenActivity extends AppCompatActivity {
 
-    private static final int SPLASH_TIME = 10000;
+    private static final int SPLASH_TIME = 1000;
     private ProgressBar google_progress;
     private TextView tvDecription, tvSologan;
+    private RelativeLayout rl;
+    Random r = new Random();
+    int random;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +42,10 @@ public class LaunchScreenActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
         setContentView(R.layout.activity_launch_screen);
+        rl = (RelativeLayout) findViewById(R.id.rl);
+        random = r.nextInt(4);
+        int[] color = getProgressDrawableColors();
+        rl.setBackgroundColor(color[random]);
         tvDecription = (TextView) findViewById(R.id.tvDecription);
         tvSologan = (TextView) findViewById(R.id.tvSologan);
         CustomFont.custfont(getApplicationContext(), tvDecription,"fonts/Nabila.ttf");

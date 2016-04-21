@@ -33,7 +33,6 @@ import java.util.Calendar;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseMainActivity;
-import cheng.com.android.cunghoangdao.activities.intro.PagerActivity;
 import cheng.com.android.cunghoangdao.activities.lichngaytot.DanhmucActivity;
 import cheng.com.android.cunghoangdao.activities.lichngaytot.TienichActivity;
 import cheng.com.android.cunghoangdao.activities.offline.OfflineActivity;
@@ -42,7 +41,6 @@ import cheng.com.android.cunghoangdao.model.Common;
 import cheng.com.android.cunghoangdao.services.CheckTimesService;
 import cheng.com.android.cunghoangdao.ultils.CustomToast;
 import cheng.com.android.cunghoangdao.ultils.LocaleHelper;
-import cheng.com.android.cunghoangdao.ultils.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static cheng.com.android.cunghoangdao.R.string.openDrawer;
@@ -57,7 +55,6 @@ public class MainScreenActivity extends BaseMainActivity {
     public static final String PREF_USER_FIRST_TIME = "user_first_time";
     boolean isUserFirstTime;
     Intent intent;
-    String[] colors = {"#96CC7A", "#EA705D", "#66BBCC"};
     private Toolbar mToolbar;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -96,14 +93,11 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     public void setContentView() {
-
-        isUserFirstTime = Boolean.valueOf(Utils.readSharedSetting(MainScreenActivity.this, PREF_USER_FIRST_TIME, "true"));
-
-        Intent introIntent = new Intent(MainScreenActivity.this, PagerActivity.class);
-        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
-        if (isUserFirstTime)
-            startActivity(introIntent);
-
+//        isUserFirstTime = Boolean.valueOf(Utils.readSharedSetting(MainScreenActivity.this, PREF_USER_FIRST_TIME, "true"));
+//        Intent introIntent = new Intent(MainScreenActivity.this, PagerActivity.class);
+//        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
+//        if (isUserFirstTime)
+//            startActivity(introIntent);
         setContentView(R.layout.activity_maincreen);
     }
 
@@ -126,7 +120,7 @@ public class MainScreenActivity extends BaseMainActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
-        tvName.setText("Hi " + Common.user.getUserName() + " !");
+        tvName.setText(getResources().getString(R.string.xin_chao) + Common.user.getUserName() + " !");
         // profile_image.setImageResource(Common.getImgAvatar());
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

@@ -3,7 +3,7 @@
     android:id="@+id/rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/flash">
+    android:background="@color/colorPrimary">
     <ImageView
         android:id="@+id/imgLogo"
         android:src="@drawable/ic_add_black"
@@ -41,25 +41,25 @@
             android:layout_weight="1"
             android:background="@color/colorAccent"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="5dp" />
 
         <TextView
             android:layout_weight="1"
             android:background="@color/vivid_yellow"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="5dp" />
 
         <TextView
             android:layout_weight="1"
             android:background="@color/dark_moderate_blue"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="5dp" />
 
         <TextView
             android:layout_weight="1"
             android:background="@color/bright_blue"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="5dp" />
     </LinearLayout>
 
 </RelativeLayout>
