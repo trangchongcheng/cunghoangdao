@@ -65,6 +65,7 @@
             </LinearLayout>
 
             <Button
+                android:layout_margin="16dp"
                 style="@style/btn_check_result"
                 android:id="@+id/dialog_btnChange"
                 android:layout_width="wrap_content"

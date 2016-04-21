@@ -51,17 +51,5 @@
             android:textColor="#fff"
             android:textSize="14sp" />
 
-        <com.getbase.floatingactionbutton.FloatingActionsMenu
-            android:id="@+id/float_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            fab:fab_addButtonColorNormal="@color/colorAccent"
-            fab:fab_addButtonColorPressed="@color/colorPrimary"
-            fab:fab_addButtonPlusIconColor="@color/half_black"
-            fab:fab_addButtonSize="mini"
-            fab:fab_expandDirection="up"
-            fab:fab_labelStyle="@style/menu_labels_style"></com.getbase.floatingactionbutton.FloatingActionsMenu>
     </RelativeLayout>
 </RelativeLayout>

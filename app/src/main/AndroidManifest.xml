@@ -3,7 +3,7 @@
     package="cheng.com.android.cunghoangdao">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,35 +14,29 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:largeHeap="true"
         android:theme="@style/AppThemeNoActionBar">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/app_id" />
 
         <activity
-            android:name=".activities.startscreen.StartActivity"
+            android:name=".activities.intro.LaunchScreenActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SEND" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="image/*" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".activities.maincreen.MainActivity"
             android:label="@string/app_name" />
         <activity android:name=".activities.maincreen.MainScreenActivity" />
-        <activity android:name=".activities.viewing.ViewingActivity">
-
-        </activity>
+        <activity android:name=".activities.viewing.ViewingActivity"></activity>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -52,6 +46,7 @@
         <activity android:name=".activities.lichngaytot.DanhmucActivity" />
         <activity android:name=".activities.offline.OfflineActivity" />
         <activity android:name=".activities.lichngaytot.TienichActivity" />
+        <activity android:name=".activities.intro.PagerActivity" />
         <activity
             android:name=".activities.lichngaytot.ClipPhongThuyActivity"
             android:configChanges="screenSize|orientation|keyboardHidden" />
@@ -72,6 +67,11 @@
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".activities.intro.TabIntroActivity"
+            android:label="@string/title_activity_tab_intro"
+            android:theme="@style/AppThemeNoActionBar"></activity>
     </application>
 
 </manifest>

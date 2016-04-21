@@ -72,7 +72,7 @@ public class TienichActivity extends BaseMainActivity implements LichngaytotAsyn
         progressBar = (ProgressBar) findViewById(R.id.activity_tnty_progressBar);
         flbtnShare = (FloatingActionButton) findViewById(R.id.activity_tnty_flbtnShare);
         flbtnMenu = (FloatingActionMenu) findViewById(R.id.activity_tnty_flbtn_menu);
-        CustomFont.custfont(this,tvContent);
+        CustomFont.custfont(getApplicationContext(), tvContent,"fonts/Roboto-Regular.ttf");
         flbtnMenu.hideMenu(true);
 
     }

@@ -140,7 +140,8 @@
     <string name="tuan_truoc">Tuần trước</string>
     <string name="ngay_truoc">Ngày trước</string>
     <string name="hom_qua">Hôm qua</string>
-    <string name="mot_gio">1 giờ trước</string>
+    <string name="mot_gio">giờ trước</string>
+    <string name="mot_gio_truoc">1 giờ trước</string>
     <string name="phut_truoc">phút trước</string>
     <string name="giay_truoc">giây trước</string>
     <string name="moi_day">Mới đây</string>
@@ -148,4 +149,11 @@
 
     <string name="mo_rong">Mở rộng</string>
     <string name="app_id">1041345645929173</string>
+    <string name="title_activity_tab_intro">TabIntroActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="toast_exit">Bấm quay lại lần nữa để thoát ứng dụng!</string>
+    <string name="luu_thanh_cong">Đã lưu thành công!</string>
+    <string name="khoi_dong">Ứng dụng đang khởi chạy…</string>
+    <string name="sologan">Ứng dụng bói toán, xem tử vi, cung hoàng đạo hằng ngày</string>
+
 </resources>

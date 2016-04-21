@@ -1,16 +1,18 @@
 package cheng.com.android.cunghoangdao.provider;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.model.Article;
+import cheng.com.android.cunghoangdao.ultils.CustomToast;
 
 /**
  * Created by Welcome on 4/8/2016.
@@ -40,13 +42,6 @@ public class DataHandlerSaveContent extends SQLiteOpenHelper {
         this.context=context;
     }
 
-    //    @Override
-//    public void onCreate(SQLiteDatabase db) {
-//        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_ARTICLE + "("
-//                + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + KEY_TITLE + " TEXT,"
-//                + KEY_LINK + " TEXT," + KEY_PUBDATE + " TEXT" + KEY_CATEGORY + " TEXT,"+ KEY_CONTENT + " TEXT,"+ ")";
-//        db.execSQL(CREATE_CONTACTS_TABLE);
-//    }
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_ARTICLE + "("
@@ -76,7 +71,8 @@ public class DataHandlerSaveContent extends SQLiteOpenHelper {
         // Inserting Row
         db.insert(TABLE_ARTICLE, null, values);
         db.close(); // Closing database connection
-        Toast.makeText(context, "Đã lưu thành công", Toast.LENGTH_SHORT).show();
+        CustomToast.show((Activity) context,context.getResources().getString(R.string.luu_thanh_cong));
+        //Toast.makeText(context, "Đã lưu thành công", Toast.LENGTH_SHORT).show();
     }
 
     public Article getArticleById(int id) {

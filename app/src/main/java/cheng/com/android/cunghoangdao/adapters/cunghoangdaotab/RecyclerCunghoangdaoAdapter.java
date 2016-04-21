@@ -69,7 +69,7 @@ public class RecyclerCunghoangdaoAdapter extends RecyclerView.Adapter<RecyclerCu
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickItemNewsFeed.onItemClickListener(v, position, newsFeed.getmContent(), newsFeed.getmTitle(), newsFeed.getmLink());
+                onClickItemNewsFeed.onItemClickListener(v, position, newsFeed.getmContent(), newsFeed.getmTitle(), newsFeed.getmImageUrl());
             }
         });
     }

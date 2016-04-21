@@ -25,6 +25,7 @@
     <color name="vivid_red">#ec1c4b</color>
     <color name="bright_blue">#3498db</color>
     <color name="slightly_desaturated_pink">#c06c84</color>
-
+    <color name="vivid_yellow">#F9D423</color>
+    <color name="dark_moderate_blue">#355C7D</color>
 
 </resources>

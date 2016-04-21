@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +16,6 @@ import android.text.Spannable;
 import android.text.method.ScrollingMovementMethod;
 import android.text.style.URLSpan;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -30,7 +28,7 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
 import cheng.com.android.cunghoangdao.R;
-import cheng.com.android.cunghoangdao.activities.BaseActivity;
+import cheng.com.android.cunghoangdao.activities.BaseMainActivity;
 import cheng.com.android.cunghoangdao.activities.maincreen.MainScreenActivity;
 import cheng.com.android.cunghoangdao.adapters.cunghoangdaotab.RecyclerCunghoangdaoAdapter;
 import cheng.com.android.cunghoangdao.interfaces.OnReturnContent;
@@ -41,13 +39,14 @@ import cheng.com.android.cunghoangdao.services.CovertBitmapToByte;
 import cheng.com.android.cunghoangdao.services.JsoupParseContent;
 import cheng.com.android.cunghoangdao.services.JsoupParseLichNgayTot;
 import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
+import cheng.com.android.cunghoangdao.ultils.CustomFont;
 import cheng.com.android.cunghoangdao.ultils.htmltextview.URLImageParser;
 import cheng.com.android.cunghoangdao.ultils.removelink.URLSpanNoUnderline;
 
 /**
  * Created by Welcome on 3/28/2016.
  */
-public class ViewingActivity extends BaseActivity implements OnReturnContent,
+public class ViewingActivity extends BaseMainActivity implements OnReturnContent,
         CovertBitmapToByte.OnReturnBimapFromByte {
     private Toolbar mToolbar;
     private CollapsingToolbarLayout mClsToolbar;
@@ -102,7 +101,9 @@ public class ViewingActivity extends BaseActivity implements OnReturnContent,
         btnConnect = (Button) findViewById(R.id.activity_viewing_btnConnect);
         nestscv = (NestedScrollView) findViewById(R.id.activity_viewing_nestscv);
         flbtnMenu = (FloatingActionMenu) findViewById(R.id.activity_viewing_flbtn_menu);
-
+        if(typeOffline!=null){
+            flbtnMenu.hideMenu(true);
+        }
         handler = new Handler();
         db = new DataHandlerSaveContent(this);
         dbNewFeeds = new DataNewfeeds(this);
@@ -217,22 +218,6 @@ public class ViewingActivity extends BaseActivity implements OnReturnContent,
         overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
     }
 
-    private void custfont(final Context context, View v) {
-        try {
-            if (v instanceof ViewGroup) {
-                ViewGroup vg = (ViewGroup) v;
-
-                for (int i = 0; i < vg.getChildCount(); i++) {
-                    View child = vg.getChildAt(i);
-                    overrideFonts(context, child);
-                }
-            } else if (v instanceof TextView) {
-                ((TextView) v).setTypeface(Typeface.createFromAsset(
-                        context.getAssets(), "fonts/Roboto-Regular.ttf"));
-            }
-        } catch (Exception e) {
-        }
-    }
 
     private void overrideFonts(Context context, View child) {
     }
@@ -256,7 +241,7 @@ public class ViewingActivity extends BaseActivity implements OnReturnContent,
                 processedText = removeUnderlines(htmlSpan);
                 tvContent.setText(processedText);
                 contentShare = htmlSpan.toString().substring(0, 150);
-                custfont(getApplicationContext(), tvContent);
+                CustomFont.custfont(getApplicationContext(), tvContent,"fonts/Roboto-Regular.ttf");
                 progressBar.setVisibility(View.INVISIBLE);
             } else {
                 handler.postDelayed(new Runnable() {
@@ -268,7 +253,7 @@ public class ViewingActivity extends BaseActivity implements OnReturnContent,
                         processedText = removeUnderlines(htmlSpan);
                         tvContent.setText(processedText);
                         contentShare = htmlSpan.toString().substring(0, 150);
-                        custfont(getApplicationContext(), tvContent);
+                        CustomFont.custfont(getApplicationContext(), tvContent,"fonts/Roboto-Regular.ttf");
                         progressBar.setVisibility(View.INVISIBLE);
                         contentTemp = content;
                     }

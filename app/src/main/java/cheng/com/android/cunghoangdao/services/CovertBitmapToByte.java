@@ -44,7 +44,6 @@ public class CovertBitmapToByte extends AsyncTask<String, String, Bitmap> {
         return bitmap;
     }
 
-
     @Override
     protected void onPostExecute(Bitmap bitmap) {
         super.onPostExecute(bitmap);

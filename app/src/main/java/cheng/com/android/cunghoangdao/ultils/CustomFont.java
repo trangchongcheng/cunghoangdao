@@ -11,7 +11,7 @@ import android.widget.TextView;
  */
 public class CustomFont {
 
-    public static void custfont(final Context context, View v) {
+    public static void custfont(final Context context, View v, String patch) {
         try {
             if (v instanceof ViewGroup) {
                 ViewGroup vg = (ViewGroup) v;
@@ -22,7 +22,7 @@ public class CustomFont {
                 }
             } else if (v instanceof TextView) {
                 ((TextView) v).setTypeface(Typeface.createFromAsset(
-                        context.getAssets(), "fonts/Roboto-Regular.ttf"));
+                        context.getAssets(), patch));
             }
         } catch (Exception e) {
         }

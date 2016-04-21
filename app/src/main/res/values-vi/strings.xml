@@ -142,13 +142,17 @@
     <string name="ngay_truoc">&#160;Ngày trước</string>
     <string name="hom_qua">&#160;Hôm qua</string>
     <string name="mot_gio">&#160;giờ trước</string>
-    <string name="mot_gio_truoc">&#160;1 hour ago</string>
+    <string name="mot_gio_truoc">&#160;1 giờ trước</string>
     <string name="mot_phut_truoc">&#160;1 phút trước</string>
     <string name="phut_truoc">&#160;phút trước</string>
     <string name="giay_truoc">&#160;giây trước</string>
     <string name="moi_day">&#160;Mới đây</string>
 
     <string name="thay_doi_ngon_ngu">Thay đổi ngôn ngữ</string>
+    <string name="toast_exit">Bấm quay lại lần nữa để thoát ứng dụng!</string>
+    <string name="luu_thanh_cong">Đã lưu thành công!</string>
+    <string name="khoi_dong">Ứng dụng đang khởi chạy…</string>
+    <string name="sologan">Ứng dụng bói toán, xem tử vi, cung hoàng đạo hằng ngày</string>
 
     <string name="app_id">1041345645929173</string>
 </resources>

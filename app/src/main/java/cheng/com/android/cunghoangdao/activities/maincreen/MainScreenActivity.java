@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -30,20 +29,20 @@ import android.widget.Toast;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Calendar;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseMainActivity;
+import cheng.com.android.cunghoangdao.activities.intro.PagerActivity;
 import cheng.com.android.cunghoangdao.activities.lichngaytot.DanhmucActivity;
 import cheng.com.android.cunghoangdao.activities.lichngaytot.TienichActivity;
 import cheng.com.android.cunghoangdao.activities.offline.OfflineActivity;
 import cheng.com.android.cunghoangdao.fragments.ViewPageContainerFragment;
 import cheng.com.android.cunghoangdao.model.Common;
 import cheng.com.android.cunghoangdao.services.CheckTimesService;
+import cheng.com.android.cunghoangdao.ultils.CustomToast;
 import cheng.com.android.cunghoangdao.ultils.LocaleHelper;
+import cheng.com.android.cunghoangdao.ultils.Utils;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static cheng.com.android.cunghoangdao.R.string.openDrawer;
@@ -53,8 +52,12 @@ import static cheng.com.android.cunghoangdao.R.string.openDrawer;
  */
 public class MainScreenActivity extends BaseMainActivity {
     private final String TAG = getClass().getSimpleName();
-    public static final String TYPE_CATEGORY ="type_category";
-    public static final String TOOLBAR_NAME ="toolbar_name";
+    public static final String TYPE_CATEGORY = "type_category";
+    public static final String TOOLBAR_NAME = "toolbar_name";
+    public static final String PREF_USER_FIRST_TIME = "user_first_time";
+    boolean isUserFirstTime;
+    Intent intent;
+    String[] colors = {"#96CC7A", "#EA705D", "#66BBCC"};
     private Toolbar mToolbar;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
@@ -72,17 +75,16 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     public void onBackPressed() {
-        int count = fragmentManager.getBackStackEntryCount();
+//        int count = fragmentManager.getBackStackEntryCount();
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(Gravity.LEFT);
             animationIcon();
-        } else if (count == 0) {
+        } else if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
-        } else {
-            fragmentManager.popBackStack();
+            return;
         }
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, getResources().getString(R.string.onBackPress), Snackbar.LENGTH_SHORT).show();
+        CustomToast.show(this,getResources().getString(R.string.toast_exit));
         new Handler().postDelayed(new Runnable() {
 
             @Override
@@ -94,20 +96,19 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     public void setContentView() {
+
+        isUserFirstTime = Boolean.valueOf(Utils.readSharedSetting(MainScreenActivity.this, PREF_USER_FIRST_TIME, "true"));
+
+        Intent introIntent = new Intent(MainScreenActivity.this, PagerActivity.class);
+        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
+        if (isUserFirstTime)
+            startActivity(introIntent);
+
         setContentView(R.layout.activity_maincreen);
     }
 
     @Override
     public void init() {
-        Process exec = null;
-        String locale = null;
-        try {
-            exec = Runtime.getRuntime().exec(new String[]{"getprop", "persist.sys.locale"});
-            locale = new BufferedReader(new InputStreamReader(exec.getInputStream())).readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Log.d(TAG, "init: "+ locale);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView) findViewById(R.id.navigationview);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
@@ -115,16 +116,7 @@ public class MainScreenActivity extends BaseMainActivity {
         tvName = (TextView) headerView.findViewById(R.id.tvName);
         profile_image = (CircleImageView) headerView.findViewById(R.id.profile_image);
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
-        floatButton = (FloatingActionsMenu) headerView.findViewById(R.id.float_button);
-        floatButton_item_edit = new FloatingActionButton(this);
-        floatButton_item_edit.setTitle(getResources().getString(R.string.thay_doi_thong_tin));
-        floatButton_item_edit.setSize(1);
-        floatButton.addButton(floatButton_item_edit);
-        floatButton_item_detail = new FloatingActionButton(this);
-        floatButton_item_detail.setTitle(getResources().getString(R.string.chi_tiet_ve_ban));
-        floatButton_item_detail.setSize(1);
-        floatButton.addButton(floatButton_item_detail);
-        Log.d(TAG, "oncreate");
+        Log.d(TAG, "oncreateMainScreenActivity");
         Intent i = new Intent(this, CheckTimesService.class);
         this.startService(i);
     }
@@ -145,20 +137,20 @@ public class MainScreenActivity extends BaseMainActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.itemPhongThuy:
                         intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
-                        intent.putExtra(TYPE_CATEGORY,getResources().getString(R.string.phong_thuy));
-                        intent.putExtra(TOOLBAR_NAME,getResources().getString(R.string.menu_item_phong_thuy));
+                        intent.putExtra(TYPE_CATEGORY, getResources().getString(R.string.phong_thuy));
+                        intent.putExtra(TOOLBAR_NAME, getResources().getString(R.string.menu_item_phong_thuy));
                         startActivity(intent);
                         return true;
                     case R.id.itemXemtuong:
                         intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
-                        intent.putExtra(TYPE_CATEGORY,getResources().getString(R.string.xem_tuong));
-                        intent.putExtra(TOOLBAR_NAME,getResources().getString(R.string.menu_item_xem_tuong));
+                        intent.putExtra(TYPE_CATEGORY, getResources().getString(R.string.xem_tuong));
+                        intent.putExtra(TOOLBAR_NAME, getResources().getString(R.string.menu_item_xem_tuong));
                         startActivity(intent);
                         return true;
                     case R.id.itemClip:
                         intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
-                        intent.putExtra(TYPE_CATEGORY,getResources().getString(R.string.video_phong_thuy));
-                        intent.putExtra(TOOLBAR_NAME,getResources().getString(R.string.menu_item_video_phong_thuy));
+                        intent.putExtra(TYPE_CATEGORY, getResources().getString(R.string.video_phong_thuy));
+                        intent.putExtra(TOOLBAR_NAME, getResources().getString(R.string.menu_item_video_phong_thuy));
                         startActivity(intent);
                         return true;
                     case R.id.itemDownload:
@@ -187,13 +179,11 @@ public class MainScreenActivity extends BaseMainActivity {
                 drawerLayout, mToolbar, openDrawer, R.string.closeDrawer) {
             @Override
             public void onDrawerClosed(View drawerView) {
-                // Code here will be triggered once the drawer closes as we dont want anything to happen so we leave this blank
                 super.onDrawerClosed(drawerView);
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
-                // Code here will be triggered once the drawer open as we dont want anything to happen so we leave this blank
                 super.onDrawerOpened(drawerView);
             }
         };
@@ -227,7 +217,6 @@ public class MainScreenActivity extends BaseMainActivity {
     }
 
     private void initScreen() {
-        // Creating the ViewPager container fragment once
         homeFragment = new ViewPageContainerFragment();
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
@@ -243,7 +232,7 @@ public class MainScreenActivity extends BaseMainActivity {
         super.onStart();
     }
 
-    public void setTimeAlarm(){
+    public void setTimeAlarm() {
         Calendar cal = Calendar.getInstance();
         Intent intent = new Intent(this, CheckTimesService.class);
         PendingIntent pintent = PendingIntent
@@ -255,11 +244,8 @@ public class MainScreenActivity extends BaseMainActivity {
                 5 * 1000, pintent);
     }
 
-    @Override
-    protected void onResume() {
-        Log.d(TAG, "onResume: ");
-        super.onResume();
-    }
+
+
     public void showChangeLangDialog() {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -268,29 +254,51 @@ public class MainScreenActivity extends BaseMainActivity {
 
         final Button btnChange = (Button) dialogView.findViewById(R.id.dialog_btnChange);
         final RadioButton rdbtnVN = (RadioButton) dialogView.findViewById(R.id.dialog_rdbtnVN);
-        final RadioButton rdbtnEN= (RadioButton) dialogView.findViewById(R.id.dialog_rdbtnEN);
+        final RadioButton rdbtnEN = (RadioButton) dialogView.findViewById(R.id.dialog_rdbtnEN);
         final AlertDialog b = dialogBuilder.create();
         btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(rdbtnVN.isChecked()){
+                if (rdbtnVN.isChecked()) {
                     LocaleHelper.setLocale(getApplicationContext(), LocaleHelper.VIETNAM);
-                }else if (rdbtnEN.isChecked()){
+                } else if (rdbtnEN.isChecked()) {
                     LocaleHelper.setLocale(getApplicationContext(), LocaleHelper.ENGLISH);
                 }
                 b.dismiss();
-                if (android.os.Build.VERSION.SDK_INT >= 11){
+                if (android.os.Build.VERSION.SDK_INT >= 11) {
                     recreate();
-                }else{
-                    Intent intent = getIntent();
+                } else {
                     finish();
+                    Intent intent = getIntent();
                     startActivity(intent);
+
                 }
             }
         });
 
         b.show();
     }
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResumeMainCreen: ");
+        super.onResume();
+    }
 
+    @Override
+    protected void onStop() {
+        Log.d(TAG, "onStopMainCreen: ");
+        super.onStop();
+    }
 
+    @Override
+    protected void onDestroy() {
+        Log.d(TAG, "onDestroyMainCreen: ");
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(TAG, "onPauseMainCreen: ");
+        super.onPause();
+    }
 }

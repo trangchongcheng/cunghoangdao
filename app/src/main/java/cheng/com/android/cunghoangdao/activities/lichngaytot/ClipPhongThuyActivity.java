@@ -42,7 +42,7 @@ public class ClipPhongThuyActivity extends BaseMainActivity implements OnReturnC
         videoView = (VideoView) findViewById(R.id.videoView);
         tvTitle = (TextView) findViewById(R.id.activity_tvTitle);
         tvContent = (TextView) findViewById(R.id.activity_tvContent);
-        CustomFont.custfont(this,tvContent);
+        CustomFont.custfont(getApplicationContext(), tvContent,"fonts/Roboto-Regular.ttf");
         activity_progressBar = (ProgressBar) findViewById(R.id.activity_progressBar);
         intent = getIntent();
         linkArticle = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK);

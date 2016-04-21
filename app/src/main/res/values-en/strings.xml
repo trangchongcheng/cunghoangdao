@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Zodilac</string>
+    <string name="app_name">Zodiac</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -31,7 +31,7 @@
 
     <string name="con_giap">12 ANIMAL</string>
     <string name="moi_nhat">RECENT</string>
-    <string name="cung_hoang_dao">12 ZODILAC</string>
+    <string name="cung_hoang_dao">12 ZODIAC</string>
     <string name="new_feed">POST POPULAR</string>
 
     <string name="home">Home</string>
@@ -137,7 +137,7 @@
     <string name="nam_truoc">&#160;Last year</string>
     <string name="thang_truoc">&#160;Last month</string>
     <string name="tuan_truoc">&#160;Last week</string>
-    <string name="ngay_truoc">&#160;Yesterday</string>
+    <string name="ngay_truoc">&#160;day ago</string>
     <string name="hom_qua">&#160;Yesterday</string>
     <string name="mot_gio">&#160;hour ago</string>
     <string name="mot_gio_truoc">&#160;1 hour ago</string>
@@ -147,6 +147,10 @@
     <string name="moi_day">&#160;Recently</string>
 
     <string name="thay_doi_ngon_ngu">Change Language</string>
+    <string name="toast_exit">Press back again to exit Application!</string>
+    <string name="luu_thanh_cong">Save successfully!</string>
+    <string name="khoi_dong">Applications is launching…</string>
+    <string name="sologan">Apps For Divination, Horoscopes, Daily Zodiac </string>
 
     <string name="app_id">1041345645929173</string>
 </resources>
