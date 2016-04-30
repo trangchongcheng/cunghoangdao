@@ -101,20 +101,21 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
         btnConnect = (Button) findViewById(R.id.activity_viewing_btnConnect);
         nestscv = (NestedScrollView) findViewById(R.id.activity_viewing_nestscv);
         flbtnMenu = (FloatingActionMenu) findViewById(R.id.activity_viewing_flbtn_menu);
-        if(typeOffline!=null){
-            flbtnMenu.hideMenu(true);
-        }
+
         handler = new Handler();
         db = new DataHandlerSaveContent(this);
         dbNewFeeds = new DataNewfeeds(this);
-        setDynamicColor();
+        if(typeOffline!=null){
+            flbtnMenu.hideMenu(true);
+        }else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    flbtnMenu.showMenu(true);
+                }
+            }, 300);
+        }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                flbtnMenu.showMenu(true);
-            }
-        }, 300);
     }
 
     @Override
@@ -185,7 +186,7 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
 
     public void setDynamicColor() {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                R.drawable.background);
+                R.drawable.background_material);
 
         // It will generate colors based on the image in an AsyncTask.
         Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {

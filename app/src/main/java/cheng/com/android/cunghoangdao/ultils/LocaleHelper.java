@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import java.util.Locale;
 
@@ -33,6 +34,7 @@ public class LocaleHelper {
     public static void setLocale(Context context, String language) {
         editLanguageFromPreferences(context, language);
         updateResources(context, language);
+        Log.d("setLocale", "setLocale"+getLanguageFromPreferences(context,language));
     }
 
     private static String getLanguageFromPreferences(Context context, String defaultLanguage) {
@@ -59,4 +61,5 @@ public class LocaleHelper {
 
         resources.updateConfiguration(configuration, resources.getDisplayMetrics());
     }
+
 }

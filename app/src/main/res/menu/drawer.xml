@@ -8,22 +8,22 @@
             <item
                 android:id="@+id/itemPhongThuy"
                 android:checked="false"
-                android:icon="@drawable/ic_star_black"
+                android:icon="@drawable/ic_phongthuy"
                 android:title="@string/menu_item_phong_thuy" />
             <item
                 android:id="@+id/itemXemtuong"
                 android:checked="false"
-                android:icon="@drawable/ic_star_black"
+                android:icon="@drawable/ic_boi"
                 android:title="@string/menu_item_xem_tuong" />
             <item
                 android:id="@+id/itemClip"
                 android:checked="false"
-                android:icon="@drawable/ic_star_black"
+                android:icon="@drawable/ic_video"
                 android:title="@string/menu_item_clip_phongthuy" />
             <item
                 android:id="@+id/itemDownload"
                 android:checked="false"
-                android:icon="@drawable/ic_star_black"
+                android:icon="@drawable/ic_download"
                 android:title="@string/menu_item_download" />
 
         </menu>
@@ -34,13 +34,13 @@
                 <item
                     android:id="@+id/itemTracNghiem"
                     android:checked="false"
-                    android:icon="@drawable/ic_inbox_black"
+                    android:icon="@drawable/ic_heart"
                     android:title="@string/menu_item_trac_nghiem" />
 
                 <item
                     android:id="@+id/itemAmDuong"
                     android:checked="false"
-                    android:icon="@drawable/ic_star_black"
+                    android:icon="@drawable/ic_amduong"
                     android:title="@string/menu_item_am_duong" />
 
             </menu>
@@ -51,7 +51,7 @@
                 <item
                     android:id="@+id/itemLanguage"
                     android:checked="false"
-                    android:icon="@drawable/ic_inbox_black"
+                    android:icon="@drawable/ic_language"
                     android:title="@string/chang_language" />
 
             </menu>

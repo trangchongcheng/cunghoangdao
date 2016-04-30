@@ -35,9 +35,12 @@ public class CheckTimesService extends Service {
         int hour = c.get(Calendar.HOUR_OF_DAY);
         int min = c.get(Calendar.MINUTE);
         int ds = c.get(Calendar.AM_PM);
+//        if(hour==0){
+//            times=0;
+//            Log.d(TAG, "onStartCommandTimes "+times);
+//        }
         Log.d(TAG, "onStartCommand: " + hour);
         if (hour > 22 && hour < 25 && times < 1) {
-            Log.d(TAG, "onStartCommand: "+times);
             SetTimesSharedPreferences.getInstance(getApplicationContext()).setIsTimesFalse();
             times = times + 1;
         }

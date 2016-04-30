@@ -92,7 +92,7 @@ public class PushNotifyService extends Service {
                 .setAutoCancel(true)
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setContentText(article.getmDescription())
-                .setSmallIcon(R.drawable.chipi);
+                .setSmallIcon(R.drawable.icon_notify);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(alarmSound);
         Intent mainIntent = new Intent(getApplicationContext(), ViewingActivity.class);

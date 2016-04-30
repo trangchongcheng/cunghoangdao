@@ -47,7 +47,7 @@
             android:layout_alignStart="@+id/tvName"
             android:layout_marginBottom="8dp"
             android:gravity="left"
-            android:text="Akash.bangad93@gmail.com"
+            android:text="gmail@gmail.com"
             android:textColor="#fff"
             android:textSize="14sp" />
 

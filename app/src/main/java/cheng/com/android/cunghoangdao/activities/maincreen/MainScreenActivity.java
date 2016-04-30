@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -98,9 +99,15 @@ public class MainScreenActivity extends BaseMainActivity {
 //        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
 //        if (isUserFirstTime)
 //            startActivity(introIntent);
-        setContentView(R.layout.activity_maincreen);
+        setContentView(R.layout.activity_main);
     }
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+        super.onConfigurationChanged(newConfig);
+    }
     @Override
     public void init() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -113,13 +120,14 @@ public class MainScreenActivity extends BaseMainActivity {
         Log.d(TAG, "oncreateMainScreenActivity");
         Intent i = new Intent(this, CheckTimesService.class);
         this.startService(i);
+       // setTimeAlarm();
     }
 
     @Override
     public void setValue(Bundle savedInstanceState) {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
+//        mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
         tvName.setText(getResources().getString(R.string.xin_chao) + Common.user.getUserName() + " !");
         // profile_image.setImageResource(Common.getImgAvatar());
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -222,7 +230,7 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     protected void onStart() {
-        setTimeAlarm();
+       setTimeAlarm();
         super.onStart();
     }
 
@@ -262,8 +270,8 @@ public class MainScreenActivity extends BaseMainActivity {
                 if (android.os.Build.VERSION.SDK_INT >= 11) {
                     recreate();
                 } else {
-                    finish();
                     Intent intent = getIntent();
+                    finish();
                     startActivity(intent);
 
                 }
@@ -292,6 +300,7 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     protected void onPause() {
+        //setTimeAlarm();
         Log.d(TAG, "onPauseMainCreen: ");
         super.onPause();
     }

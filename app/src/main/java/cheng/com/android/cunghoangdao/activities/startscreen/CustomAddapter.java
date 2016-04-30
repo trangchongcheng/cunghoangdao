@@ -16,11 +16,11 @@ import cheng.com.android.cunghoangdao.model.Cunghoangdao;
 /**
  * Created by Welcome on 1/24/2016.
  */
-public class Custom_Addapter extends BaseAdapter{
+public class CustomAddapter extends BaseAdapter{
     Context context;
     ArrayList<Cunghoangdao> cunghoangdao;
     LayoutInflater inflater;
-    public Custom_Addapter(Context context,ArrayList<Cunghoangdao> cunghoangdao) {
+    public CustomAddapter(Context context, ArrayList<Cunghoangdao> cunghoangdao) {
         this.context=context;
         this.cunghoangdao=cunghoangdao;
         this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

@@ -2,6 +2,7 @@ package cheng.com.android.cunghoangdao;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class MyApplication extends Application {
             LocaleHelper.onCreate(this,LocaleHelper.VIETNAM);
         }
         LocaleHelper.onCreate(this,locale);
+        Log.d(TAG, "onCreate: "+"cheng");
     }
     public static Context getContext(){
         return mContext;

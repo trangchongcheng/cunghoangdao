@@ -75,7 +75,6 @@ public class ViewPageContainerFragment extends BaseFragment {
         });
     }
 
-
     @Override
     public void setValue() {
 
