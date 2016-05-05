@@ -14,7 +14,6 @@ import cheng.com.android.cunghoangdao.R;
 public class RecyclerViewIconCungHoangDaoHolder extends RecyclerView.ViewHolder {
     public TextView tvName;
     public ImageView imgCunghoangdao;
-    public TextView tvDate;
     public LinearLayout ll;
 
     public RecyclerViewIconCungHoangDaoHolder(View view) {
@@ -23,8 +22,6 @@ public class RecyclerViewIconCungHoangDaoHolder extends RecyclerView.ViewHolder 
                 .findViewById(R.id.item_icon_tvName);
         this.imgCunghoangdao = (ImageView) view
                 .findViewById(R.id.item_icon_imgSlider);
-        this.tvDate = (TextView) view
-                .findViewById(R.id.item_icon_tvDate);
         this.ll = (LinearLayout) view.findViewById(R.id.item_icon_ll);
 
     }

@@ -37,7 +37,6 @@ public class JsoupParseLichNgayTot extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... params) {
         Elements content = null;
-
         String data = null;
         if(!ConnectionUltils.isConnected(context)){
             return null;
@@ -48,11 +47,8 @@ public class JsoupParseLichNgayTot extends AsyncTask<String, String, String> {
                     .timeout(18000)
                     .get();
             content = document.select("div[class=\"chitiet-singger\"]");
-            content.select("script").remove();
-            content.select("script").remove();
-            content.select("script").remove();
-            content.select("script").remove();
             content.select("div[class=\"articlerelatepannel\"]").remove();
+            content.select("td[class=\"insert-content\"]").remove();
             videoUrl = document.select("div[class=\"mediaplayercontent\"]").attr("data-href");
         } catch (HttpStatusException ex) {
             Log.d("Category", "HttpStatusException");
@@ -62,7 +58,8 @@ public class JsoupParseLichNgayTot extends AsyncTask<String, String, String> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return content.toString().replace("(Lichngaytot.com)","").replace("Lichngaytot.com","").replace("h3","h5").replace("&nbsp;","");
+        return content.toString().replace("<img src=\"/images/","<img src=\"http://lichngaytot.com/images/")
+                .replace("(Lichngaytot.com)","").replace("Lichngaytot.com","");
     }
 
     @Override

@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -18,23 +17,19 @@ import cheng.com.android.cunghoangdao.activities.viewing.ViewingActivity;
 import cheng.com.android.cunghoangdao.adapters.category.RecyclerCategoryAdapter;
 import cheng.com.android.cunghoangdao.adapters.cunghoangdaotab.RecyclerCunghoangdaoAdapter;
 import cheng.com.android.cunghoangdao.fragments.hometab.HomeTabFragment;
-import cheng.com.android.cunghoangdao.interfaces.OnItemClickRecyclerView;
-import cheng.com.android.cunghoangdao.interfaces.OnLoadMoreListener;
 import cheng.com.android.cunghoangdao.model.Category;
-import cheng.com.android.cunghoangdao.services.JsoupParseCategory;
 
 /**
  * Created by Welcome on 3/31/2016.
  */
-public class CategoryActivity extends BaseMainActivity implements JsoupParseCategory.OnReturnCategoryList,
-            OnItemClickRecyclerView{
+public class CategoryActivity extends BaseMainActivity {
     private final String TAG = getClass().getSimpleName();
     private Toolbar mToolbar;
     private RecyclerView rcvCategory;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerCategoryAdapter categoryAdapter;
     private ProgressBar progressBar;
-    private String mLink,mCategory,mContent;
+    private String mLink, mCategory, mContent;
     protected Handler handler;
     public int page = 1;
     private boolean isFirt = true;
@@ -67,7 +62,7 @@ public class CategoryActivity extends BaseMainActivity implements JsoupParseCate
         rcvCategory.setLayoutManager(mLayoutManager);
         progressBar = (ProgressBar) findViewById(R.id.activity_category_progressbar);
         handler = new Handler();
-        new JsoupParseCategory(this, mLink, this,0).execute();
+
     }
 
     @Override
@@ -96,49 +91,49 @@ public class CategoryActivity extends BaseMainActivity implements JsoupParseCate
 
     }
 
-    @Override
-    public void onReturnCategoryListFinish(final ArrayList<Category> arrCategory, final int type) {
-        Log.d(TAG, "onReturnCategoryListFinish: "+arrCategory.size());
-        if (isFirt) {
-            updateAdapter(arrCategory);
-            categoryAdapter = new RecyclerCategoryAdapter(this, array, this, rcvCategory,type);
-            rcvCategory.setAdapter(categoryAdapter);
-            progressBar.setVisibility(View.INVISIBLE);
-        }else {
-            for (int i =0;i<arrCategory.size();i++){
-                array.add(arrCategory.get(i));
-                Log.d(TAG, "onReturnJsonObject: "+array.get(i).getmTitle());
-                rcvCategory.getAdapter().notifyItemInserted(array.size());
-            }
-        }
-        rcvCategory.getAdapter().notifyDataSetChanged();
-        progressBar.setVisibility(View.INVISIBLE);
+//    @Override
+//    public void onReturnCategoryListFinish(final ArrayList<Category> arrCategory, final int type, String categoryName) {
+//        Log.d(TAG, "onReturnCategoryListFinish: " + arrCategory.size());
+//        if (isFirt) {
+//            updateAdapter(arrCategory);
+//            categoryAdapter = new RecyclerCategoryAdapter(this, array, this, rcvCategory, type, categoryName);
+//            rcvCategory.setAdapter(categoryAdapter);
+//            progressBar.setVisibility(View.INVISIBLE);
+//        } else {
+//            for (int i = 0; i < arrCategory.size(); i++) {
+//                array.add(arrCategory.get(i));
+//                Log.d(TAG, "onReturnJsonObject: " + array.get(i).getmTitle());
+//                rcvCategory.getAdapter().notifyItemInserted(array.size());
+//            }
+//        }
+//        rcvCategory.getAdapter().notifyDataSetChanged();
+//        progressBar.setVisibility(View.INVISIBLE);
+//
+//        categoryAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+//            @Override
+//            public void onLoadMore() {
+//                isFirt = false;
+//                page = page + 1;
+//                array.add(null);
+//                rcvCategory.getAdapter().notifyItemInserted(array.size() - 1);
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        array.remove(array.size() - 1);
+//                        categoryAdapter.notifyItemRemoved(array.size());
+//                        new JsoupParseCategory(getApplicationContext(), mLink + "page/" + page,
+//                                CategoryActivity.this, type).execute();
+//                        if (!Category.isLast) {
+//                            categoryAdapter.setLoaded();
+//                        }
+//                    }
+//                }, 2500);
+//
+//            }
+//        });
+//    }
 
-        categoryAdapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                isFirt = false;
-                page = page + 1;
-                array.add(null);
-                rcvCategory.getAdapter().notifyItemInserted(array.size() - 1);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        array.remove(array.size()-1);
-                        categoryAdapter.notifyItemRemoved(array.size());
-                        new JsoupParseCategory(getApplicationContext(), mLink + "page/" + page,
-                                CategoryActivity.this, type).execute();
-                        if (!Category.isLast) {
-                            categoryAdapter.setLoaded();
-                        }
-                    }
-                }, 2500);
-
-            }
-        });
-    }
-
-    public void putIntent( String title,String linkArticle,String linkImage) {
+    public void putIntent(String title, String linkArticle, String linkImage) {
         Intent intent = new Intent(this, ViewingActivity.class);
         intent.putExtra(RecyclerCunghoangdaoAdapter.LINK, linkArticle);
         intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, title);
@@ -148,10 +143,5 @@ public class CategoryActivity extends BaseMainActivity implements JsoupParseCate
         startActivity(intent);
     }
 
-
-    @Override
-    public void onItemClickListener(View v, int position, String title, String linkAricle, String linkImage, int category) {
-        putIntent(title, linkAricle, linkImage);
-    }
 
 }

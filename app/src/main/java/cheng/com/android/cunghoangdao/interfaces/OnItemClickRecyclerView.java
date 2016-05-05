@@ -6,5 +6,7 @@ import android.view.View;
  * Created by Welcome on 4/17/2016.
  */
 public interface OnItemClickRecyclerView {
-    void onItemClickListener(View v, int position, String title, String linkAricle, String linkImage,int category);
+    void onItemClickListener(View v, int position, String title, String linkAricle,
+                             String linkImage,int category,String categoryName);
+    void onDaybydayitemClickLintener(View v, int position,String category,String title,String content);
 }

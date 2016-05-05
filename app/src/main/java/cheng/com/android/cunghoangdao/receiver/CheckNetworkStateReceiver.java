@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import java.util.Calendar;
+
 import cheng.com.android.cunghoangdao.services.PushNotifyService;
 import cheng.com.android.cunghoangdao.ultils.NetworkBroadcastUtil;
 import cheng.com.android.cunghoangdao.ultils.SetTimesSharedPreferences;
@@ -17,11 +19,16 @@ public class CheckNetworkStateReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         boolean status = NetworkBroadcastUtil.getConnectivityStatusString(context);
+        Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
         Log.d("TAG", "onReceive: "+status + SetTimesSharedPreferences.getInstance(context).getIsTimes());
         if(status && !SetTimesSharedPreferences.getInstance(context).getIsTimes()){
-            Intent i = new Intent(context, PushNotifyService.class);
-            context.startService(i);
-            SetTimesSharedPreferences.getInstance(context).setIsTimesTrue();
+            if(7<hour && hour<23){
+                Intent i = new Intent(context, PushNotifyService.class);
+                context.startService(i);
+                SetTimesSharedPreferences.getInstance(context).setIsTimesTrue();
+            }
+
         }
     }
 }

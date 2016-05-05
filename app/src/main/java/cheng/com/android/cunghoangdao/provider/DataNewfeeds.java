@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -61,6 +60,7 @@ public class DataNewfeeds extends SQLiteOpenHelper {
     }
 
     public void addArticle(Article article) {
+        delete(0);
         if (article != null) {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues values = new ContentValues();
@@ -70,7 +70,7 @@ public class DataNewfeeds extends SQLiteOpenHelper {
             values.put(HAS_READ, 0);
             db.insert(TABLE_ARTICLE, null, values);
             db.close(); // Closing database connection
-            Toast.makeText(context, "Đã lưu thành công", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Đã lưu thành công", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -95,7 +95,7 @@ public class DataNewfeeds extends SQLiteOpenHelper {
                 cursor.getString(3), Integer.parseInt(cursor.getString(4)));
         cursor.close();
         db.close();
-        Toast.makeText(context, "Lấy thành công", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(context, "Lấy thành công", Toast.LENGTH_SHORT).show();
         return article;
     }
 

@@ -93,7 +93,6 @@ public class RecyclerCunghoangdaoAdapter extends RecyclerView.Adapter<RecyclerCu
             tvTitle = (TextView) v.findViewById(R.id.item_cunghoangdao_tvTitle);
             tvDescription = (TextView) v.findViewById(R.id.item_cunghoangdao_tvDescription);
             imgThumbnail = (ImageView) v.findViewById(R.id.item_cunghoangdao_imgThumbnail);
-            imgFavorite = (ImageView) v.findViewById(R.id.item_cunghoangdao_imgFavorite);
             cardView = (CardView) v.findViewById(R.id.item_cunghoangdao_card_view);
 
         }

@@ -24,10 +24,9 @@ public class Cunghoangdao {
         this.image = image;
     }
 
-    public Cunghoangdao(String name, int image, String date) {
+    public Cunghoangdao(String name, int image) {
         this.name = name;
         this.image = image;
-        this.date = date;
     }
 
     public String getDate() {

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/textColorPrimary"
+    android:orientation="vertical">
+    <include layout="@layout/toolbar"/>
+    <ScrollView
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/srv"
+        android:layout_below="@+id/toolbar"
+        android:scrollbarSize="10dp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/text_categoryes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/chon_not_rui" />
+
+        <Spinner
+            android:id="@+id/activity_boinotrui_spnType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/config_spinner"
+            android:spinnerMode="dropdown" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/activity_boinotrui_tp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true"
+            android:layout_marginTop="8dp">
+            <EditText
+                android:maxLength="3"
+                android:id="@+id/activity_boinotrui_edtVitri"
+                android:background="@null"
+                android:textColor="@color/navigationBarColor"
+                android:inputType="numberDecimal"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:hint="@string/chon_vi_tri" />
+        </android.support.design.widget.TextInputLayout>
+
+        <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+            android:id="@+id/activity_boinotrui_imgNotrui"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/config_spinner"
+            android:scaleType="matrix"
+            app:src="@drawable/img_not_rui_tren_mat_nam" />
+        <TextView
+            style="@style/text_categoryes"
+            android:textStyle="bold|italic"
+            android:text="@string/phong_to"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/activity_boinotrui_btnKetQua"
+            style="@style/btn_check_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@string/btn_ketqua" />
+        <ProgressBar
+            android:id="@+id/activity_boinotrui_progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone" />
+        <TextView
+            android:textColor="@color/navigationBarColor"
+            android:textSize="23sp"
+            android:id="@+id/activity_boinotrui_tvContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>

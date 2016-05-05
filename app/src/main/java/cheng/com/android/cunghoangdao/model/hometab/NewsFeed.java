@@ -3,7 +3,6 @@ package cheng.com.android.cunghoangdao.model.hometab;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.alorma.timeline.TimelineView;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -170,25 +169,6 @@ public class NewsFeed {
     }
 
 
-    public
-    @TimelineView.TimelineType
-    int getType() {
-        return type;
-    }
-
-    public void setType(@TimelineView.TimelineType int type) {
-        this.type = type;
-    }
-
-    public
-    @TimelineView.TimelineAlignment
-    int getAlignment() {
-        return alignment;
-    }
-
-    public void setAlignment(@TimelineView.TimelineAlignment int alignment) {
-        this.alignment = alignment;
-    }
 
 
     public static List<NewsFeed> parse(String url, Context context) {
@@ -250,18 +230,18 @@ public class NewsFeed {
                             if (mNumberLastPost < 4) {
                                 if (mNumberLastPost == 0) {
                                     newsFeed = new NewsFeed(mTitle, mLink, mPubdate, mCategory,
-                                            mDescription, formatContent(mContent), mImageUrl, TimelineView.TYPE_START);
+                                            mDescription, formatContent(mContent), mImageUrl);
                                 } else if (mNumberLastPost == 3) {
                                     newsFeed = new NewsFeed(mTitle, mLink, mPubdate, mCategory,
-                                            mDescription, formatContent(mContent), mImageUrl, TimelineView.TYPE_END);
+                                            mDescription, formatContent(mContent), mImageUrl);
                                 } else {
                                     newsFeed = new NewsFeed(mTitle, mLink, mPubdate, mCategory,
-                                            mDescription, formatContent(mContent), mImageUrl, TimelineView.TYPE_DEFAULT);
+                                            mDescription, formatContent(mContent), mImageUrl);
                                 }
 
                             } else {
                                 newsFeed = new NewsFeed(mTitle, mLink, mPubdate, mCategory,
-                                        mDescription, formatContent(mContent), mImageUrl, TimelineView.TYPE_START);
+                                        mDescription, formatContent(mContent), mImageUrl);
                             }
                             rssFeedList.add(newsFeed);
                             ++mNumberLastPost;

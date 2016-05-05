@@ -8,10 +8,8 @@ import android.util.Log;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.maincreen.ViewPagerAdapter;
-import cheng.com.android.cunghoangdao.fragments.congiap.ConGiapContainerFragment;
-import cheng.com.android.cunghoangdao.fragments.cunghoangdaotab.CungHoangDaoContainerFragment;
 import cheng.com.android.cunghoangdao.fragments.hometab.HomeContainerFragment;
-import cheng.com.android.cunghoangdao.fragments.tuvi.TuViContainerFragment;
+import cheng.com.android.cunghoangdao.fragments.tienich.TienichContainerFragment;
 
 /**
  * Created by Welcome on 3/29/2016.
@@ -75,7 +73,6 @@ public class ViewPageContainerFragment extends BaseFragment {
         });
     }
 
-
     @Override
     public void setValue() {
 
@@ -88,9 +85,9 @@ public class ViewPageContainerFragment extends BaseFragment {
 
     private void setupViewPager(ViewPager viewPager) {
         adapter.addFrag(new HomeContainerFragment(), getResources().getString(R.string.trang_chu));
-        adapter.addFrag(new CungHoangDaoContainerFragment(), getResources().getString(R.string.app_name));
-        adapter.addFrag(new ConGiapContainerFragment(), getResources().getString(R.string.con_giap));
-        adapter.addFrag(new TuViContainerFragment(), getResources().getString(R.string.tu_vi));
+        adapter.addFrag(new TienichContainerFragment(), getResources().getString(R.string.tien_ich));
+//        adapter.addFrag(new TienichContainerFragment(), getResources().getString(R.string.con_giap));
+//        adapter.addFrag(new TuViContainerFragment(), getResources().getString(R.string.tu_vi));
         viewPager.setAdapter(adapter);
     }
 

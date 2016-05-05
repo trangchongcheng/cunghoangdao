@@ -105,7 +105,7 @@ public class DataHandlerSaveContent extends SQLiteOpenHelper {
                     Article article = new Article();
                     article.setId(Integer.parseInt(cursor.getString(0)));
                     article.setmTitle(cursor.getString(1));
-                    article.setmLink(cursor.getString(2));
+                    article.setmCategory(cursor.getString(2));
                     article.setmImage(cursor.getBlob(3));
                     article.setmContent(cursor.getString(4));
                     content_list.add(article);
@@ -128,6 +128,16 @@ public class DataHandlerSaveContent extends SQLiteOpenHelper {
         db.delete(TABLE_ARTICLE, KEY_ID + " = ?",
                 new String[] { String.valueOf(id) });
         db.close();
+    }
+    public int GetCount() {
+        String countQuery = "SELECT  * FROM " + TABLE_ARTICLE;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+        db.close();
+        // return count
+        return count;
     }
 
 }

@@ -11,6 +11,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import cheng.com.android.cunghoangdao.R;
+
 /**
  * Created by Welcome on 4/8/2016.
  */
@@ -25,21 +27,26 @@ public class CovertBitmapToByte extends AsyncTask<String, String, Bitmap> {
     @Override
     protected Bitmap doInBackground(String... params) {
         Bitmap bitmap = null;
-        try {
-            // Download the image
-            URL url = new URL(params[0]);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream is = connection.getInputStream();
-            // Decode image to get smaller image to save memory
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inJustDecodeBounds = false;
-            options.inSampleSize = 4;
-            bitmap = BitmapFactory.decodeStream(is, null, options);
-            is.close();
-        } catch (IOException e) {
+        if(params[0]==null){
+            bitmap =  BitmapFactory.decodeResource(context.getResources(), R.drawable.tuvihangngay);
+        }else {
 
+            try {
+                // Download the image
+                URL url = new URL(params[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+                InputStream is = connection.getInputStream();
+                // Decode image to get smaller image to save memory
+                final BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inJustDecodeBounds = false;
+                options.inSampleSize = 4;
+                bitmap = BitmapFactory.decodeStream(is, null, options);
+                is.close();
+            } catch (IOException e) {
+
+            }
         }
         return bitmap;
     }

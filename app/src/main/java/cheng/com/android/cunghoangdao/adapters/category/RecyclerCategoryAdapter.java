@@ -30,7 +30,7 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     public final static String TITLE = "title";
     public final static int CATEGORY = 0;
     public ArrayList<Category> arrCategory;
-    Context context;
+    private Context context;
     public OnItemClickRecyclerView onItemClickRecyclerView;
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
@@ -39,12 +39,16 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     private boolean loading;
     public OnLoadMoreListener onLoadMoreListener;
     private int typeCategory;
+    private String categoryName;
 
+    //typeCategory : type 1 is video or 0 is article
     public RecyclerCategoryAdapter(Context context, ArrayList<Category> arrCategory,
-                                   OnItemClickRecyclerView onItemClickRecyclerView, RecyclerView recyclerView, int typeCategory) {
+                                   OnItemClickRecyclerView onItemClickRecyclerView,
+                                   RecyclerView recyclerView, int typeCategory, String categoryName) {
         this.context = context;
         this.arrCategory = arrCategory;
-        this.typeCategory=typeCategory;
+        this.typeCategory = typeCategory;
+        this.categoryName = categoryName;
         this.onItemClickRecyclerView = onItemClickRecyclerView;
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
 
@@ -98,9 +102,9 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
         if (holder instanceof CategoryViewHolder) {
 
             final Category category = (Category) arrCategory.get(position);
-
             ((CategoryViewHolder) holder).tvTitle.setText(category.getmTitle());
-
+            ((CategoryViewHolder) holder).tvDescription.setText(category.getmDescription());
+            ((CategoryViewHolder) holder).tvCategory.setText(category.getCategory());
             if (!category.getmImage().equals("")) {
                 Glide.with(context)
                         .load(category.getmImage())
@@ -113,7 +117,7 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     onItemClickRecyclerView.onItemClickListener(v, position, category.getmTitle(),
-                            category.getmLink(), category.getmImage(),typeCategory);
+                            category.getmLink(), category.getmImage(), typeCategory, category.getCategory());
                 }
             });
 
@@ -136,8 +140,8 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     }
 
     public static class CategoryViewHolder extends RecyclerView.ViewHolder {
-        public TextView tvPubdate, tvTitle, tvDescription;
-        public ImageView imgThumbnail, imgFavorite;
+        public TextView tvPubdate, tvTitle, tvDescription, tvCategory;
+        public ImageView imgThumbnail;
         public LinearLayout ll;
         public CardView cardView;
 
@@ -148,10 +152,11 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
             tvTitle = (TextView) v.findViewById(R.id.item_cunghoangdao_tvTitle);
             tvDescription = (TextView) v.findViewById(R.id.item_cunghoangdao_tvDescription);
             imgThumbnail = (ImageView) v.findViewById(R.id.item_cunghoangdao_imgThumbnail);
-            imgFavorite = (ImageView) v.findViewById(R.id.item_cunghoangdao_imgFavorite);
             cardView = (CardView) v.findViewById(R.id.item_cunghoangdao_card_view);
+            tvCategory = (TextView) v.findViewById(R.id.item_cunghoangdao_tvCategorye);
         }
     }
+
     public static class ProgressViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
 

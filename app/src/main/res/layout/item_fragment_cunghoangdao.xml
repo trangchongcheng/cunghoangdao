@@ -1,7 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -17,22 +15,22 @@
             android:background="@drawable/ripple_item_listview"
             android:clickable="true"
             android:id="@+id/item_cunghoangdao_ll"
-            android:layout_margin="8dp"
             android:weightSum="10"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
+                android:src="@drawable/ic_waiting"
                 android:scaleType="fitXY"
                 android:id="@+id/item_cunghoangdao_imgThumbnail"
-                android:layout_weight="2"
-                android:layout_width="180dp"
-                android:layout_height="80dp" />
+                android:layout_weight="6"
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
             <LinearLayout
                 android:paddingLeft="8dp"
-                android:layout_weight="8"
+                android:layout_weight="4"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -46,22 +44,27 @@
                         style="@style/text_title_categorye"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
                         android:paddingBottom="8dp"
-                        android:maxLines="3"
+                        android:maxLines="2"
                         android:text="Cheng" />
 
-                    <TextView
-                        android:layout_marginLeft="8dp"
-                        style="@style/text_descriptions"
-                        android:id="@+id/item_cunghoangdao_tvPubdate"
-                        android:maxLines="1"
-                        android:text="@string/time_default"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="7" />
+
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/item_cunghoangdao_tvDescription"
+                        style="@style/text_descriptions_medium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:maxLines="1"/>
+
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -69,22 +72,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/item_cunghoangdao_tvDescription"
-                        style="@style/text_descriptions"
+                        android:id="@+id/item_cunghoangdao_tvCategorye"
+                        style="@style/text_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:paddingBottom="8dp"
-                        android:maxLines="1"
-                        android:text="Cheng" />
+                        android:maxLines="1"/>
 
-                    <ImageView
+                    <TextView
                         android:layout_marginLeft="8dp"
-                        android:id="@+id/item_cunghoangdao_imgFavorite"
+                        style="@style/text_descriptions"
+                        android:id="@+id/item_cunghoangdao_tvPubdate"
+                        android:maxLines="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="8"
-                        android:src="@drawable/ic_star_border_grey_500_18dp" />
+                        android:layout_weight="8" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

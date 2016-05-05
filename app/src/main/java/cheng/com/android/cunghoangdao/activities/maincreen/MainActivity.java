@@ -52,8 +52,6 @@ public class MainActivity extends BaseActivity {
         navigationView = (NavigationView) findViewById(R.id.navigationview);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         headerView = navigationView.getHeaderView(0);
-        tvName = (TextView) headerView.findViewById(R.id.tvName);
-        profile_image = (CircleImageView)headerView.findViewById(R.id.profile_image);
         viewPager =  (ViewPager) findViewById(R.id.view_pager);
         tabLayout =  (TabLayout) findViewById(R.id.tab_layout);
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);

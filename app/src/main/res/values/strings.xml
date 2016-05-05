@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">Cung Hoàng Đạo</string>
-
+    <string name="app_name">Cung Hoàng Đạo Offical</string>
+    <string name="danh_gia">Hoàng Đạo Offical]Xin hãy giúp chúng tôi đóng góp ý kiến cho ứng dụng. </string>
+    <string name="gmail">Bạn không có ứng dụng Gmail.Vui lòng tải hoặc gửi email tới gmail: cheng.cit@gmail.com</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Cài đặt</string>
     <string name="menu">Menu</string>
@@ -48,18 +49,18 @@
     <string name="connection">Không thể tải dữ liệu.\nVui lòng kiểm tra lại kết nối và thử lại!</string>
     <string name="thulai">Thử lại</string>
 
-    <string name="chd_bachduong">Cung Bạch Dương</string>
-    <string name="chd_kimnguu">Cung Kim Ngưu</string>
-    <string name="chd_songtu">Cung Song Tử</string>
-    <string name="chd_cugiai">Cung Cự Giả</string>
-    <string name="chd_sutu">Cung Sử Tử</string>
-    <string name="chd_xunu">Cung Xử Nữ</string>
-    <string name="chd_thienbinh">Cung Thiên Bình</string>
-    <string name="chd_bocap">Cung Bò Cạp</string>
-    <string name="chd_nhanma">Cung Nhân Mã</string>
-    <string name="chd_maket">Cung Ma Kết</string>
-    <string name="chd_baobinh">Cung Bảo Bình</string>
-    <string name="chd_songngu">Cung Song Ngư</string>
+    <string name="chd_bachduong">Cung Bạch Dương (21/03–19/04)</string>
+    <string name="chd_kimnguu">Cung Kim Ngưu (20/04–20/05)</string>
+    <string name="chd_songtu">Cung Song Tử (21/05–21/06)</string>
+    <string name="chd_cugiai">Cung Cự Giải (22/06–22/07)</string>
+    <string name="chd_sutu">Cung Sử Tử (23/07–22/08)</string>
+    <string name="chd_xunu">Cung Xử Nữ (23/08–22/09)</string>
+    <string name="chd_thienbinh">Cung Thiên Bình (23/09–23/10)</string>
+    <string name="chd_bocap">Cung Bò Cạp (24/10–21/11)</string>
+    <string name="chd_nhanma">Cung Nhân Mã (22/11–21/12)</string>
+    <string name="chd_maket">Cung Ma Kết (22/12–19/01)</string>
+    <string name="chd_baobinh">Cung Bảo Bình (20/01–18/02)</string>
+    <string name="chd_songngu">Cung Song Ngư (19/02–20/03)</string>
 
     <string name="tuoi_ty">Tuổi Tí</string>
     <string name="tuoi_suu">Tuổi Sửu</string>
@@ -89,27 +90,35 @@
     <string name="chd_baobinh_date">(20/01-18/02)</string>
     <string name="chd_songngu_date">(19/02-20/03)</string>
 
-    <string name="danh_muc">Danh Mục</string>
+    <string name="danh_muc">Danh mục</string>
+    <string name="tien_ich_hay">Tiện ích hay</string>
     <string name="tien_ich">Tiện ích</string>
+    <string name="san_pham">Sản phẩm</string>
+    <string name="xem_gi">HOT</string>
 
-    <string name="menu_item_tu_vi">Tử vi hàng ngày</string>
+    <string name="menu_item_tu_vi">Tử vi</string>
     <string name="menu_item_phong_thuy">Phong thủy</string>
     <string name="menu_item_ngay_tot">Ngày tốt</string>
     <string name="menu_item_xem_tuong">Xem tướng</string>
+    <string name="menu_item_tam_linh">Tâm linh</string>
     <string name="menu_item_video_phong_thuy">Video phong thủy</string>
+    <string name="menu_item_chi_tiet_ve_bạn">Chi tiết về bạn</string>
     <string name="menu_item_download">Tải xuống</string>
 
-    <string name="menu_item_trac_nghiem">Trắc nghiệm tình yêu</string>
-    <string name="menu_item_am_duong">Lịch âm dương</string>
+    <string name="menu_item_trac_nghiem">Bói cung hoàng đạo</string>
+    <string name="menu_item_tu_vi_tron_doi">Tử vi trọn đời</string>
+    <string name="menu_item_am_duong">Đổi lịch âm dương</string>
     <string name="menu_item_clip_phongthuy">Clip phong thủy</string>
+    <string name="menu_item_thongbao">Nhận thông báo</string>
+    <string name="menu_item_binh_chon">Bình chọn cho ứng dụng</string>
+    <string name="menu_item_goy_y">Gửi email góp ý</string>
 
-    <string name="phong_thuy">phong_thuy</string>
-    <string name="xem_tuong">xem_tuong</string>
-    <string name="video_phong_thuy">video_phong_thuy</string>
+
 
     <string name="cung_nu">Cung Nữ</string>
+    <string name="chon_cung">Bạn thuộc cung hoàng đạo nào?</string>
     <string name="cung_nam">Cung Nam</string>
-    <string name="btn_ketqua">Kết quả</string>
+    <string name="btn_ketqua">Xem kết quả</string>
     <string name="text_null">vs</string>
     <string name="share_fb">Chia sẽ lên Facebook</string>
     <string name="save_offline">Lưu lại đọc Offline</string>
@@ -143,6 +152,7 @@
     <string name="hom_qua">Hôm qua</string>
     <string name="mot_gio">giờ trước</string>
     <string name="mot_gio_truoc">1 giờ trước</string>
+    <string name="mot_phut_truoc">1 phút trước</string>
     <string name="phut_truoc">phút trước</string>
     <string name="giay_truoc">giây trước</string>
     <string name="moi_day">Mới đây</string>
@@ -161,4 +171,104 @@
     <string name="mota_home">Cập nhật các bài viết về bói toán, tử vi, cung hoàng đạo… mới nhất theo này.</string>
     <string name="mota_menu">Danh mục những nội dung liên quan đến tử vi, bói toán…</string>
     <string name="mota_tienich">Những tiện ích bói toán hấp dẫn…</string>
+
+
+    <string name="tu_vi_hom_nay">Xem tử vi 12 cung hoàng đạo hôm nay nào?</string>
+    <string name="category_tuvi">Tử vi</string>
+    <string name="category_cunghoangdao">Cung hoàng đạo</string>
+    <string name="category_video_phongthuy">Video phong thủy</string>
+    <string name="category_phongthuy">Phong thủy</string>
+    <string name="category_tuongso">Tướng số</string>
+    <string name="menu_item_cunghoangdao">Cung hoàng đạo</string>
+    <string name="menu_item_tuvi">Tử vi</string>
+
+    <string name="phong_thuy">phong_thuy</string>
+    <string name="type_cung_hoang_dao">cung_hoang_dao</string>
+    <string name="type_tu_vi">tu_vi</string>
+    <string name="xem_tuong">xem_tuong</string>
+    <string name="tam_linh">tam_linh</string>
+    <string name="video_phong_thuy">video_phong_thuy</string>
+    <string name="type_tuoi_ti">tuoi_ti</string>
+    <string name="type_tuoi_suu">tuoi_suu</string>
+    <string name="type_tuoi_dan">tuoi_dan</string>
+    <string name="type_tuoi_mao">tuoi_mao</string>
+    <string name="type_tuoi_thin">tuoi_thin</string>
+    <string name="type_tuoi_ty">tuoi_ty</string>
+    <string name="type_tuoi_ngo">tuoi_ngo</string>
+    <string name="type_tuoi_mui">tuoi_mui</string>
+    <string name="type_tuoi_than">tuoi_than</string>
+    <string name="type_tuoi_dau">tuoi_dau</string>
+    <string name="type_tuoi_tuat">tuoi_tuat</string>
+    <string name="type_tuoi_hoi">tuoi_hoi</string>
+
+    <string name="loading">Đang tải...</string>
+
+    <string name="tienich_boicunghoangdao">Bói cung hoàng đạo</string>
+    <string name="tienich_boingaysinh">Bói tình duyên</string>
+    <string name="tienich_boinotruinam">Bói nốt rùi</string>
+    <string name="tienich_tuvingaysinh">Tử vi theo ngày sinh</string>
+    <string name="tienich_tuvitheothang">Tử vi theo tháng</string>
+    <string name="tienich_xemsaohan">Xem sao hạn</string>
+    <string name="tienich_tuoisinhcon">Xem tuổi sinh con</string>
+    <string name="tienich_doilichamduong">Đổi lịch âm dương</string>
+    <string name="tienich_tuvitrondoi">Tử vi trọn đời</string>
+
+    <string name="mota_boicunghoangdao">Bói tình yêu nam nữ theo cung hoàng đạo</string>
+    <string name="mota_boingaysinh">Bói tình yêu nam nữ theo ngày sinh (Dương lịch)...</string>
+    <string name="mota_boinotruinam">Bói nốt rùi trên khuôn mặt, cơ thể, chân... </string>
+    <string name="mota_tuvingaysinh">Xem tử vi theo ngày tháng năm sinh của bạn về tình duyên, sức khỏe...</string>
+    <string name="mota_tuvitheothang">Xem tử vi theo tháng về sức khỏe, công danh, tình duyên...</string>
+    <string name="mota_xemsaohan">Xem sao chiếu mệnh, sao hạn cho các tuổi </string>
+    <string name="mota_tuoisinhcon">Xem bói chọn năm sinh con hợp tuổi với bố mẹ...</string>
+    <string name="mota_doilichamduong">Đổi lịch âm dương, đổi ngày sinh sang âm dương...</string>
+    <string name="ngay_sinh_nam">Ngày sinh Nam (DL)</string>
+    <string name="ngay_sinh_nu">Ngày sinh Nữ (DL)</string>
+    <string name="thu_lai">Không tìm thấy kết quả do đường truyền kém hoặc lỗi ở hệ thống! Vui lòng thử lại sau.</string>
+    <string name="chon_not_rui">Chọn nốt rùi tra cứu</string>
+    <string name="chon_vi_tri">Chọn vị trí nốt rùi</string>
+    <string name="chon_nam">Nhập năm cần xem</string>
+    <string name="chon_ten">Nhập ho tên của bạn</string>
+    <string name="loi_nhap_not_rui_tren_mat_nam">Xin hãy vị trí nốt rùi từ 1 đến 78</string>
+    <string name="loi_nhap_not_rui_tren_mat_nu">Xin hãy vị trí nốt rùi từ 1 đến 62</string>
+    <string name="loi_nhap_not_rui_tren_co_the_nam">Xin hãy vị trí nốt rùi từ 1 đến 20</string>
+    <string name="loi_nhap_not_rui_tren_co_the_nu">Xin hãy vị trí nốt rùi từ 1 đến 31</string>
+    <string name="loi_nhap_not_rui_tren_ban_tay">Xin hãy vị trí nốt rùi từ 1 đến 28</string>
+    <string name="loi_nhap_not_rui_tren_ban_chan">Xin hãy vị trí nốt rùi từ 1 đến 11</string>
+    <string name="loi_nhap_nam">Năm bạn nhập không hợp lệ</string>
+    <string name="loi_nhap_ten">Tên không được để trống hoặc dưới 5 kí tự</string>
+    <string name="phong_to">* Dùng tay để phóng to ảnh lên.</string>
+    <string name="ngay_sinh">Ngày sinh (Dương lịch)</string>
+    <string name="ho_ten">Họ tên</string>
+    <string name="chon_ngay">Chọn ngày</string>
+    <string name="hinh_thuc">Chuyển sang:</string>
+    <string name="thang_can_xem">Tháng cần xem (Âm lịch)</string>
+    <string name="gioi_tinh">Giới</string>
+    <string name="nam">Nam</string>
+    <string name="nu">Nữ</string>
+    <string name="duong_lich">Dương lịch</string>
+    <string name="am_lich">Âm lịch</string>
+    <string name="bai_viet_lien_quan">Bài viết liên quan</string>
+
+    <string name="not_rui_tren_mat_nam">Nốt rùi trên mặt Nam</string>
+    <string name="not_rui_tren_mat_nu">Nốt rùi trên mặt Nữ</string>
+    <string name="not_rui_tren_co_the_nam">Nốt rùi trên cơ thể Nam</string>
+    <string name="not_rui_tren_co_the_nu">Nốt rùi trên cơ thể Nữ</string>
+    <string name="not_rui_tren_ban_tay">Nốt rùi trên bàn tay</string>
+    <string name="not_rui_tren_ban_chan">Nốt rùi trên bàn chân</string>
+    <string name="ngay_sinh_bo">Ngày sinh Bố (DL)</string>
+    <string name="ngay_sinh_me">Ngày sinh Mẹ (DL)</string>
+    <string name="nam_sinh">Năm sinh dự kiến</string>
+
+    <string name="thang1">Tháng giêng</string>
+    <string name="thang2">Tháng hai</string>
+    <string name="thang3">Tháng ba</string>
+    <string name="thang4">Tháng tư</string>
+    <string name="thang5">Tháng năm</string>
+    <string name="thang6">Tháng sáu</string>
+    <string name="thang7">Tháng bảy</string>
+    <string name="thang8">Tháng tám</string>
+    <string name="thang9">Tháng chín</string>
+    <string name="thang10">Tháng mười</string>
+    <string name="thang11">Tháng mười một</string>
+    <string name="thang12">Tháng chạp</string>
 </resources>

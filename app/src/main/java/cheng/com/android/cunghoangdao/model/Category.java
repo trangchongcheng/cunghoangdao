@@ -22,6 +22,7 @@ public class Category {
     private String mLink;
     private String mDescription;
     private String mContent;
+    private String category;
 
     public Category() {
     }
@@ -35,12 +36,12 @@ public class Category {
     public Category(String mContent) {
         this.mContent=mContent;
     }
-    public Category(String mTitle, String mImage, String mLink, String mDescription,String mContent) {
+    public Category(String mTitle, String mImage, String mLink, String mDescription,String category) {
         this.mTitle = mTitle;
         this.mImage = mImage;
         this.mLink = mLink;
         this.mDescription = mDescription;
-        this.mContent = mContent;
+        this.category = category;
     }
 
     public Category(String mTitle, String mImage, String mLink) {
@@ -138,4 +139,11 @@ public class Category {
         return document.toString();
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

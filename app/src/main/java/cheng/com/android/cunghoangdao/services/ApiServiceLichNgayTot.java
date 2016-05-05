@@ -2,6 +2,7 @@ package cheng.com.android.cunghoangdao.services;
 
 
 import android.content.Context;
+import android.util.Log;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jsoup.Jsoup;
@@ -10,6 +11,7 @@ import org.jsoup.select.Elements;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -29,8 +31,12 @@ public class ApiServiceLichNgayTot {
         TYPE_GET
     }
 
+
+    private static int temp = 1;
+
     public static ArrayList<Category> makeHttpRequest(Context context, String targetUrl,
-                                                      ApiRequestType typeRequest, String params, int typeGet, int typeCategory) {
+                                                      ApiRequestType typeRequest, String params,
+                                                      int typeGet, int typeCategory, String categoryName) {
         ArrayList<Category> arrCategory = new ArrayList<>();
         URL url;
         HttpURLConnection httpURLConnection = null;
@@ -62,8 +68,8 @@ public class ApiServiceLichNgayTot {
                     break;
             }
             httpURLConnection.setRequestProperty("Content-type", "application/json;charset=utf-8");
-            httpURLConnection.setReadTimeout(18000); //60s
-            httpURLConnection.setConnectTimeout(18000); //30s
+            httpURLConnection.setReadTimeout(15000); //15s
+            httpURLConnection.setConnectTimeout(15000); //15s
             httpURLConnection.setUseCaches(false);
             httpURLConnection.setDoInput(true);
             httpURLConnection.connect();
@@ -81,24 +87,35 @@ public class ApiServiceLichNgayTot {
                 response.append(content);
             }
             rd.close();
-            if(typeGet==0){
+            if (typeGet == 0) {
                 String contentUnicode = StringEscapeUtils.unescapeJava(response.toString());
-                arrCategory.add(new Category(contentUnicode.replace("\"","").replace("\n","")));
-            }else {
+                arrCategory.add(new Category(contentUnicode.replace("\"", "").replace("\n", "")
+                        .replace("[adv]","").replace("tuoi dan ok.jpg","tuoi%20dan%20ok.jpg")));
+            } else if (typeGet == 2) {
+                arrCategory.add(new Category(response.toString()));
+            } else {
+                Elements title = null;
                 Document document = null;
                 String contentUnicode = StringEscapeUtils.unescapeJava(response.toString());
                 document = Jsoup.parse(contentUnicode);
                 Elements link = document.select("div[class=\"thunal220x140\"] a");
                 Elements image = document.select("div[class=\"thunal220x140\"] a img");
-                Elements title = document.select("span[class=\"h3-seo\"]");
-                Elements decription = document.select("div[class=\"tin_left_1_item\"] p");
-
+                if(typeGet==3){
+                    title= document.select("h3[class=\"h3-seo\"]");
+                }else {
+                    title = document.select("span[class=\"h3-seo\"]");
+                }
+                Elements decription = document.select("p[style=\"color:#777; font-size:13px;\"]");
                 for (int i = 0; i < link.size(); i++) {
                     arrCategory.add(new Category(title.get(i).text(), image.get(i).attr("src"),
-                            link.get(i).attr("href"), decription.get(i).text()));
+                            link.get(i).attr("href"), decription.get(i).text().replace("(Lichngaytot.com)", ""), categoryName));
                 }
             }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
         } catch (SocketTimeoutException e) {
+            Log.d("SocketTimeoutException", "SocketTimeoutException: ");
             e.printStackTrace();
             return null;
         } catch (Exception e) {
@@ -109,6 +126,7 @@ public class ApiServiceLichNgayTot {
                 httpURLConnection.disconnect();
             }
         }
+        Log.d("Cheng", "makeHttpRequest: "+arrCategory.size());
         return arrCategory;
     }
 }

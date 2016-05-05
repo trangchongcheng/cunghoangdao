@@ -1,21 +1,24 @@
 package cheng.com.android.cunghoangdao.activities.viewing;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.graphics.Palette;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.Spannable;
-import android.text.method.ScrollingMovementMethod;
-import android.text.style.URLSpan;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -27,35 +30,40 @@ import com.facebook.share.widget.ShareDialog;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
+import java.util.ArrayList;
+
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseMainActivity;
+import cheng.com.android.cunghoangdao.activities.lichngaytot.ChitietActivity;
+import cheng.com.android.cunghoangdao.activities.lichngaytot.ClipPhongThuyActivity;
 import cheng.com.android.cunghoangdao.activities.maincreen.MainScreenActivity;
+import cheng.com.android.cunghoangdao.adapters.category.RecyclerCategoryAdapter;
 import cheng.com.android.cunghoangdao.adapters.cunghoangdaotab.RecyclerCunghoangdaoAdapter;
+import cheng.com.android.cunghoangdao.common.UrlGetXml;
+import cheng.com.android.cunghoangdao.interfaces.OnItemClickRecyclerView;
 import cheng.com.android.cunghoangdao.interfaces.OnReturnContent;
 import cheng.com.android.cunghoangdao.model.Article;
+import cheng.com.android.cunghoangdao.model.Category;
 import cheng.com.android.cunghoangdao.provider.DataHandlerSaveContent;
 import cheng.com.android.cunghoangdao.provider.DataNewfeeds;
+import cheng.com.android.cunghoangdao.services.ApiServiceLichNgayTot;
 import cheng.com.android.cunghoangdao.services.CovertBitmapToByte;
-import cheng.com.android.cunghoangdao.services.JsoupParseContent;
 import cheng.com.android.cunghoangdao.services.JsoupParseLichNgayTot;
+import cheng.com.android.cunghoangdao.services.LichngaytotAsyntask;
 import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
-import cheng.com.android.cunghoangdao.ultils.CustomFont;
-import cheng.com.android.cunghoangdao.ultils.htmltextview.URLImageParser;
-import cheng.com.android.cunghoangdao.ultils.removelink.URLSpanNoUnderline;
 
 /**
  * Created by Welcome on 3/28/2016.
  */
 public class ViewingActivity extends BaseMainActivity implements OnReturnContent,
-        CovertBitmapToByte.OnReturnBimapFromByte {
+        CovertBitmapToByte.OnReturnBimapFromByte, LichngaytotAsyntask.OnReturnJsonObject, OnItemClickRecyclerView {
     private Toolbar mToolbar;
-    private CollapsingToolbarLayout mClsToolbar;
     private int mutedColor = R.attr.colorPrimary;
-    public TextView tvContent;
     private final String TAG = getClass().getSimpleName();
-    String content, title, linkArticle, linkImage, category, contentShare,
+    String content, title, linkArticle,typeCategory, linkImage, category, contentShare,
             typeOffline, typeNotify, typeBoi, typeLichngaytot, typeVideo;
     private Intent intent;
+    private TextView tvMore;
     private ProgressBar progressBar;
     private FloatingActionButton flbtnSave, flbtnShare;
     private DataHandlerSaveContent db;
@@ -68,6 +76,25 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
     private Spannable processedText;
     private Handler handler;
     private DataNewfeeds dbNewFeeds;
+    private WebView webview;
+    private RecyclerView rvMore;
+    private RecyclerCategoryAdapter categoryAdapter;
+    public static final String styleCss = "<meta charset=\"UTF-8\"><style>img{max-width: 100%; width:auto; height: auto;}" +
+            "               a{color:#374046; text-decoration:none}" +
+            "               h3{font-size: 25px;color:#374046;}" +
+            "               .title_tvi h2{font-size: 1.0em;color:#374046;}" +
+            "               u, ins {text-decoration: none;} " +
+
+            "               p{color:#374046;font-family:Helvetica, Arial," +
+            "               sans-serif;font-size: 25px;font-weight: 500;line-height: 1.251429em;}" +
+
+            "               div{color:#374046;font-family:Helvetica, Arial," +
+            "               sans-serif;font-size: 25px;font-weight: 500;line-height: 1.251429em;}" +
+
+            "               .title2_left div{color:#374046;font-family:Helvetica, Arial," +
+            "               sans-serif;font-size: 0.9em;font-weight: 500;line-height: 1.251429em;}" +
+            "               .licht-tam-tat-col1 p{color:#374046;font-size: 25px;font-weight: 500;line-height: 1.251429em;}" +
+            "               </style>";
 
     @Override
     public void setContentView() {
@@ -83,17 +110,25 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
         typeBoi = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_BOI);
         typeLichngaytot = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_LICH_NGAY_TOT);
         typeVideo = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_VIDEO);
+        typeCategory =intent.getStringExtra(MainScreenActivity.TYPE_CATEGORY);
         linkArticle = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK);
-        title = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TITLE);
+        title = "<h1>" + intent.getStringExtra(RecyclerCunghoangdaoAdapter.TITLE) + "</h1>";
         linkImage = intent.getStringExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE);
         category = intent.getStringExtra(RecyclerCunghoangdaoAdapter.CATEGORY);
-        mToolbar = (Toolbar) findViewById(R.id.activity_viewing_toolbar);
-        mToolbar.setTitle(title);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle(category);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        tvMore = (TextView) findViewById(R.id.activity_viewing_tvMore);
+        rvMore = (RecyclerView) findViewById(R.id.fragment_viewing_rvMore);
+        rvMore.setHasFixedSize(true);
+        //Set  has to Scroll on RecyclerView
+        rvMore.setNestedScrollingEnabled(false);
+        // mRecyclerViewSlider = (RecyclerView) getView().findViewById(R.id.cunghoangdao_fragment_recyclerSlide);
+        // mRecyclerViewSlider.setHasFixedSize(true);
+        //  mRecyclerViewSlider.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        rvMore.setLayoutManager(new LinearLayoutManager(this));
         progressBar = (ProgressBar) findViewById(R.id.activity_viewing_progress);
-        tvContent = (TextView) findViewById(R.id.activity_viewing_tvContent);
-        mClsToolbar = (CollapsingToolbarLayout) findViewById(R.id.activity_viewing_cls_toolbar);
         flbtnSave = (FloatingActionButton) findViewById(R.id.activity_viewing_flbtnSave);
         flbtnShare = (FloatingActionButton) findViewById(R.id.activity_viewing_flbtnShare);
         progressBar.setVisibility(View.VISIBLE);
@@ -101,20 +136,24 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
         btnConnect = (Button) findViewById(R.id.activity_viewing_btnConnect);
         nestscv = (NestedScrollView) findViewById(R.id.activity_viewing_nestscv);
         flbtnMenu = (FloatingActionMenu) findViewById(R.id.activity_viewing_flbtn_menu);
-        if(typeOffline!=null){
-            flbtnMenu.hideMenu(true);
+        webview = (WebView) findViewById(R.id.activity_viewing_webview);
+        webview.setWebViewClient(new WebViewClient());
+        webview.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return true;
+            }
+        });
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
+        } else {
+            webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
         }
+        assert flbtnMenu != null;
+        flbtnMenu.hideMenu(true);
         handler = new Handler();
         db = new DataHandlerSaveContent(this);
         dbNewFeeds = new DataNewfeeds(this);
-        setDynamicColor();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                flbtnMenu.showMenu(true);
-            }
-        }, 300);
     }
 
     @Override
@@ -124,17 +163,16 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
 
     public void setContent() {
         if (linkArticle != null) {
-            if (typeBoi != null) {
-                new JsoupParseContent(this, linkArticle, this).execute();
-            } else {
-                new JsoupParseLichNgayTot(this, "http://lichngaytot.com" + linkArticle, this, null).execute();
-            }
+            new JsoupParseLichNgayTot(this, "http://lichngaytot.com" + linkArticle, this, null).execute();
         } else {
             content = intent.getStringExtra(RecyclerCunghoangdaoAdapter.CONTENT);
-            setContent(content);
+            Log.d(TAG, "setContent: " + content);
+            setContent(ChitietActivity.styleCss + content);
         }
-
     }
+
+    @SuppressLint("NewApi")
+
 
     @Override
     public void setEvent() {
@@ -183,34 +221,7 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
         });
     }
 
-    public void setDynamicColor() {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-                R.drawable.background);
 
-        // It will generate colors based on the image in an AsyncTask.
-        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-            @SuppressWarnings("ResourceType")
-            @Override
-            public void onGenerated(Palette palette) {
-
-                mutedColor = palette.getMutedColor(R.color.colorPrimary);
-                mClsToolbar.setContentScrimColor(mutedColor);
-                mClsToolbar.setStatusBarScrimColor(R.color.blue_semi_transparent);
-            }
-        });
-    }
-
-    public static Spannable removeUnderlines(Spannable p_Text) {
-        URLSpan[] spans = p_Text.getSpans(0, p_Text.length(), URLSpan.class);
-        for (URLSpan span : spans) {
-            int start = p_Text.getSpanStart(span);
-            int end = p_Text.getSpanEnd(span);
-            p_Text.removeSpan(span);
-            span = new URLSpanNoUnderline(span.getURL());
-            p_Text.setSpan(span, start, end, 0);
-        }
-        return p_Text;
-    }
 
     @Override
     protected void onPause() {
@@ -224,7 +235,9 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
 
     @Override
     public void onReturnContent(String content) {
-        setContent(content);
+        Log.d(TAG, "onReturnContent: " + styleCss + content);
+        setContent(styleCss + content);
+
     }
 
     @Override
@@ -233,40 +246,50 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
     }
 
     public void setContent(final String content) {
+        Log.d(TAG, "setContent: " + typeOffline);
         if (ConnectionUltils.isConnected(this)) {
             if (typeOffline != null) {
-                URLImageParser p = new URLImageParser(tvContent, getApplicationContext());
-                htmlSpan = (Spannable) Html.fromHtml(content, p, null);
-                tvContent.setMovementMethod(new ScrollingMovementMethod());
-                processedText = removeUnderlines(htmlSpan);
-                tvContent.setText(processedText);
-                contentShare = htmlSpan.toString().substring(0, 150);
-                CustomFont.custfont(getApplicationContext(), tvContent,"fonts/Roboto-Regular.ttf");
-                progressBar.setVisibility(View.INVISIBLE);
+                Log.d(TAG, "setContent: 1");
+                webview.loadData(title + content, "text/html; charset=UTF-8", null);
+                contentShare = Html.fromHtml(content).toString().substring(0, 150);
+                progressBar.setVisibility(View.GONE);
             } else {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        URLImageParser p = new URLImageParser(tvContent, getApplicationContext());
-                        htmlSpan = (Spannable) Html.fromHtml(content, p, null);
-                        tvContent.setMovementMethod(new ScrollingMovementMethod());
-                        processedText = removeUnderlines(htmlSpan);
-                        tvContent.setText(processedText);
-                        contentShare = htmlSpan.toString().substring(0, 150);
-                        CustomFont.custfont(getApplicationContext(), tvContent,"fonts/Roboto-Regular.ttf");
-                        progressBar.setVisibility(View.INVISIBLE);
-                        contentTemp = content;
-                    }
-                }, 1000);
+                webview.loadData(title + content, "text/html; charset=UTF-8", null);
+                contentShare = Html.fromHtml(content).toString().substring(0, 150);
+                progressBar.setVisibility(View.INVISIBLE);
+                contentTemp = content;
+                if(category.equals(getString(R.string.menu_item_phong_thuy))){
+                    new LichngaytotAsyntask(this, UrlGetXml.PHONG_THUY + 0,
+                            ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, 1, 0,
+                            getResources().getString(R.string.category_phongthuy), this).execute();
+                }else if(category.equals(getString(R.string.menu_item_cunghoangdao))){
+                    new LichngaytotAsyntask(this, UrlGetXml.LICH_CUNG_HOANG_DAO + 0,
+                            ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, 1, 0,
+                            getResources().getString(R.string.category_cunghoangdao), this).execute();
+                } else if(category.equals(getString(R.string.menu_item_tu_vi))){
+                    new LichngaytotAsyntask(this, UrlGetXml.LICH_TU_VI + 0,
+                            ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, 1, 0,
+                            getResources().getString(R.string.category_tuvi), this).execute();
+                } else if(category.equals(getString(R.string.menu_item_xem_tuong))){
+                    new LichngaytotAsyntask(this, UrlGetXml.XEM_TUONG + 0,
+                            ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, 1, 0,
+                            getResources().getString(R.string.category_tuongso), this).execute();
+                }
+                else if(category.equals(getString(R.string.menu_item_tam_linh))){
+                    new LichngaytotAsyntask(this, UrlGetXml.TAM_LINH + 0,
+                            ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, 1, 0,
+                            getResources().getString(R.string.menu_item_tam_linh), this).execute();
+                }
 
             }
 
         } else {
             if (typeOffline != null) {
                 flbtnMenu.hideMenu(true);
-                tvContent.setText(Html.fromHtml(content));
+                webview.loadData(title + content, "text/html; charset=UTF-8", null);
                 ll.setVisibility(View.GONE);
                 progressBar.setVisibility(View.INVISIBLE);
+                tvMore.setVisibility(View.GONE);
 
             } else {
                 ll.setVisibility(View.VISIBLE);
@@ -298,9 +321,6 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (typeNotify != null) {
-            dbNewFeeds.delete(0);
-        }
     }
 
     @Override
@@ -316,5 +336,45 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
         }
     }
 
+    @Override
+    public void onReturnJsonObject(ArrayList<Category> arrContent, int type, String categoryName) {
+        for (int i = 0;i<arrContent.size();i++){
+            if(arrContent.get(i).getmTitle().substring(0,5).equals("Tử vi")){
+                Log.d(TAG, "onReturnJsonObject: "+arrContent.get(i).getmTitle());
+                arrContent.remove(i);
+            }
+        }
+        categoryAdapter = new RecyclerCategoryAdapter(this, arrContent, this, rvMore, type, categoryName);
+        rvMore.setAdapter(categoryAdapter);
+        categoryAdapter.notifyDataSetChanged();
+        tvMore.setVisibility(View.VISIBLE);
+        rvMore.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void onItemClickListener(View v, int position, String title, String linkAricle, String linkImage, int category, String categoryName) {
+        putIntent(title, linkAricle, linkImage, category);
+    }
+
+    @Override
+    public void onDaybydayitemClickLintener(View v, int position, String category, String title, String content) {
+
+    }
+    public void putIntent(String title, String linkArticle, String linkImage, int type) {
+        Intent intent = null;
+        if (type == 0) {
+            intent = new Intent(this, ViewingActivity.class);
+        } else if (type == 1) {
+            intent = new Intent(this, ClipPhongThuyActivity.class);
+            intent.putExtra(RecyclerCunghoangdaoAdapter.TYPE_VIDEO, "type_video");
+        }
+        assert intent != null;
+        intent.putExtra(RecyclerCunghoangdaoAdapter.LINK, linkArticle);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, title);
+        intent.putExtra(MainScreenActivity.TYPE_CATEGORY,typeCategory);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.CATEGORY, category);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE, linkImage);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.TYPE_LICH_NGAY_TOT, "type_lichngaytot");
+        startActivity(intent);
+    }
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?><!--<android.support.v7.widget.CardView --><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--app:cardElevation="4dp"--><!--app:cardUseCompatPadding="true">-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_tienichtab_ll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="1dp"
+    android:background="@drawable/ripple_item_gridview"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:id="@+id/item_tienichtab_imgType"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_12_con_giap_dan" />
+
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/item_tienichtab_tvTitle"
+        style="@style/text_tienich_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:maxLines="1"
+        android:text="@string/action_settings" />
+
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/item_tienichtab_tvDescription"
+        style="@style/text_tienich_descriptions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:maxLines="2"
+        android:text="@string/action_settings" />
+</LinearLayout><!--</android.support.v7.widget.CardView>-->

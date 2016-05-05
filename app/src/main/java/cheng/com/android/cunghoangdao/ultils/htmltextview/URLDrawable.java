@@ -3,7 +3,6 @@ package cheng.com.android.cunghoangdao.ultils.htmltextview;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-
 /**
  * Created by Welcome on 3/28/2016.
  */

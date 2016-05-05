@@ -80,7 +80,7 @@
                 </LinearLayout>
                 <ImageView
                     android:id="@+id/fragment_signin_ivcunghoangdao"
-                    android:src="@drawable/chipi"
+                    android:src="@drawable/ic_12_con_giap_dan"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
                     android:layout_below="@+id/lnlHello"/>

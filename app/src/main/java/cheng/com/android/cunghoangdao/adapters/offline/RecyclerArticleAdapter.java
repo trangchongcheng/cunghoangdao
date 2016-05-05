@@ -44,16 +44,20 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
     @Override
     public void onBindViewHolder(final RecyclerArticleHolder holder, final int position) {
         final Article model = arrayArticle.get(position);
-        holder.tvTitle.setText(model.getmTitle());
-        Log.d(TAG, "onBindViewHolder: " + model.getmTitle());
-        Log.d(TAG, model.getmImage() + "");
+        if(model.getmTitle()!=null){
+            holder.tvTitle.setText(model.getmTitle().replace("<h1>","").replace("</h1>",""));
+        }
+        Log.d(TAG, "onBindViewHolder: "+model.getmCategory());
+        if(model.getmCategory()!=null){
+            holder.tvCategory.setText(model.getmCategory());
+        }
         if (model.getmImage().length > 0) {
             holder.imgThumbnail.setImageBitmap(getPhoto(model.getmImage()));
         }
         holder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onClickItemListener.onSendContentFinish(model.getmContent());
+                onClickItemListener.onSendContentFinish(model.getmTitle(),model.getmContent(),model.getmCategory());
             }
         });
         holder.ll.setOnLongClickListener(new View.OnLongClickListener() {
@@ -71,7 +75,7 @@ public class RecyclerArticleAdapter extends RecyclerView.Adapter<RecyclerArticle
     }
 
     public interface OnClickItemListener {
-        void onSendContentFinish(String content);
+        void onSendContentFinish(String title,String content,String category);
     }
 
     public interface OnLongClickItemListener {

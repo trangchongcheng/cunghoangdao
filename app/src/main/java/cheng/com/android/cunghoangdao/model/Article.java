@@ -1,15 +1,18 @@
 package cheng.com.android.cunghoangdao.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.net.SocketTimeoutException;
+
+import cheng.com.android.cunghoangdao.R;
+import cheng.com.android.cunghoangdao.ultils.ConnectionUltils;
 
 /**
  * Created by Welcome on 4/7/2016.
@@ -128,28 +131,28 @@ public class Article {
     }
 
 
-    public static Article paserJsoupCategory(String url) {
+    public static Article paserJsoupCategory(String url, Context context) {
+        if(!ConnectionUltils.isConnected(context)){
+            return null;
+        }
         try {
+
             // Connect to the web site
             Document document = Jsoup.connect(url)
                     .timeout(18000)
                     .get();
-            String title =("Thông báo tử vi hàng ngày");
-            Elements content = document.select("div[class=\"chitiet-singger\"] div[class=\"kconten_item\"]");
-           // content.select("div[class=\"qc-660x60\"]").remove();
-           // content.select("div[class=\"qc-320x100\"]").remove();
-            for (Element script : content) {
-                Elements scripts = script.select("script");
-                scripts.remove();
-            }
-            arrArticle = new Article(title,content.text().substring(0,150),content.toString());
+            String title = context.getString(R.string.tu_vi_hom_nay);
+            Elements content = document.select("div[class=\"chitiet-singger\"]");
+            content.select("div[class=\"list_anchor_neo\"]").remove();
+            arrArticle = new Article(title,content.text().substring(0,150),content.toString()
+                    .replace("<img src=\"","<img src=\"http://lichngaytot.com"));
 
         }catch (HttpStatusException ex){
             Log.d("Category", "HttpStatusException");
-            return arrArticle;
+            return null;
         }
         catch (SocketTimeoutException e) {
-            Log.d("Category", "Socket Timeout: ");
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
         }

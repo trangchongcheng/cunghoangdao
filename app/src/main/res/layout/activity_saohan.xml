@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/textColorPrimary"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:id="@+id/srv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        android:scrollbarSize="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/text_categoryes"
+                android:text="@string/ngay_sinh" />
+
+            <TextView
+                android:id="@+id/activity_saohan_tvDate"
+                style="@style/text_boi"
+                android:background="@drawable/config_spinner"
+                android:text="20-10-1994" />
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:text="@string/gioi_tinh">
+
+                <RadioButton
+                    android:id="@+id/rdoNam"
+                    style="@style/text_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/nam" />
+
+                <RadioButton
+                    android:id="@+id/rdoNu"
+                    style="@style/text_radio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nu" />
+            </RadioGroup>
+
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="wrap_content" />
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/activity_saohan_tp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:descendantFocusability="beforeDescendants"
+                android:focusableInTouchMode="true">
+
+                <EditText
+                    android:id="@+id/activity_saohan_edtVitri"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@null"
+                    android:hint="@string/chon_nam"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:textColor="@color/navigationBarColor" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/activity_saohan_btnKetqua"
+                style="@style/btn_check_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/btn_ketqua" />
+
+            <ProgressBar
+                android:id="@+id/activity_saohan_progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+            <WebView
+                android:id="@+id/activity_saohan_webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="23sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

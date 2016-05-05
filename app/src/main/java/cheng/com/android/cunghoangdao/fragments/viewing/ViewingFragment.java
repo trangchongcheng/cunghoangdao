@@ -1,5 +1,6 @@
 package cheng.com.android.cunghoangdao.fragments.viewing;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.text.Html;
@@ -18,6 +19,7 @@ import cheng.com.android.cunghoangdao.ultils.removelink.URLSpanNoUnderline;
 /**
  * Created by Welcome on 3/28/2016.
  */
+@SuppressLint("ValidFragment")
 public class ViewingFragment extends BaseFragment {
     private String mContent;
     private TextView tvContent;

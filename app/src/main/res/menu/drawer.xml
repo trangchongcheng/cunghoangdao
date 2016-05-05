@@ -1,62 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/itemHot"
+            android:checked="true"
+            app:actionViewClass="android.widget.TextView"
+            android:title="@string/xem_gi">
+        <menu>
+        <item
+            android:id="@+id/itemXemgi"
+            android:checked="false"
+            android:icon="@drawable/ic_person"
+            android:title="@string/menu_item_chi_tiet_ve_bạn" />
+        </menu>
+        </item>
         <item
             android:title="@string/danh_muc">
         <menu>
             <item
+                android:id="@+id/itemCunghoangdao"
+                android:checked="false"
+                android:icon="@drawable/ic_item_cunghoangdao"
+                android:title="@string/menu_item_cunghoangdao" />
+            <item
+                android:id="@+id/itemTuvi"
+                android:checked="false"
+                android:icon="@drawable/ic_item_tuvi"
+                android:title="@string/menu_item_tu_vi" />
+            <item
                 android:id="@+id/itemPhongThuy"
                 android:checked="false"
-                android:icon="@drawable/ic_star_black"
+                android:icon="@drawable/ic_item_phongthuy"
                 android:title="@string/menu_item_phong_thuy" />
             <item
                 android:id="@+id/itemXemtuong"
                 android:checked="false"
-                android:icon="@drawable/ic_star_black"
+                android:icon="@drawable/ic_boi"
                 android:title="@string/menu_item_xem_tuong" />
+            <item
+                android:id="@+id/itemTamlinh"
+                android:checked="false"
+                android:icon="@drawable/ic_item_tamlinh"
+                android:title="@string/menu_item_tam_linh" />
             <item
                 android:id="@+id/itemClip"
                 android:checked="false"
-                android:icon="@drawable/ic_star_black"
+                android:icon="@drawable/ic_video"
                 android:title="@string/menu_item_clip_phongthuy" />
             <item
                 android:id="@+id/itemDownload"
+                app:actionViewClass="android.widget.TextView"
                 android:checked="false"
-                android:icon="@drawable/ic_star_black"
+                android:icon="@drawable/ic_download"
                 android:title="@string/menu_item_download" />
 
         </menu>
         </item>
         <item
-            android:title="@string/tien_ich">
+            android:title="@string/tien_ich_hay">
             <menu>
+                <item
+                    android:id="@+id/itemThongbao"
+                    android:checked="false"
+                    app:actionLayout="@layout/action_view_switch"
+                    android:icon="@drawable/ic_item_thongbao"
+                    android:title="@string/menu_item_thongbao" />
                 <item
                     android:id="@+id/itemTracNghiem"
                     android:checked="false"
-                    android:icon="@drawable/ic_inbox_black"
+                    android:icon="@drawable/ic_heart"
                     android:title="@string/menu_item_trac_nghiem" />
+                <item
+                    android:id="@+id/itemTuvitrondoi"
+                    android:checked="false"
+                    android:icon="@drawable/ic_item_trondoi"
+                    android:title="@string/menu_item_tu_vi_tron_doi" />
 
                 <item
                     android:id="@+id/itemAmDuong"
                     android:checked="false"
-                    android:icon="@drawable/ic_star_black"
+                    android:icon="@drawable/ic_amduong"
                     android:title="@string/menu_item_am_duong" />
 
             </menu>
         </item>
         <item
-            android:title="@string/khac">
+            android:title="@string/san_pham">
             <menu>
                 <item
-                    android:id="@+id/itemLanguage"
+                    android:id="@+id/itemBinhchon"
                     android:checked="false"
-                    android:icon="@drawable/ic_inbox_black"
-                    android:title="@string/chang_language" />
-
+                    android:icon="@drawable/ic_item_rate"
+                    android:title="@string/menu_item_binh_chon" />
+                <item
+                    android:id="@+id/itemGopy"
+                    android:checked="false"
+                    android:icon="@drawable/ic_item_email"
+                    android:title="@string/menu_item_goy_y" />
             </menu>
         </item>
-
     </group>
 
 </menu>

@@ -2,27 +2,33 @@ package cheng.com.android.cunghoangdao.activities.maincreen;
 
 import android.animation.ValueAnimator;
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Typeface;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,14 +39,17 @@ import java.util.Calendar;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseMainActivity;
+import cheng.com.android.cunghoangdao.activities.lichngaytot.AmDuongActivity;
+import cheng.com.android.cunghoangdao.activities.lichngaytot.BoiCunghoangdaoActivity;
+import cheng.com.android.cunghoangdao.activities.lichngaytot.ChitietActivity;
 import cheng.com.android.cunghoangdao.activities.lichngaytot.DanhmucActivity;
-import cheng.com.android.cunghoangdao.activities.lichngaytot.TienichActivity;
+import cheng.com.android.cunghoangdao.activities.lichngaytot.TuvitrondoiActivity;
 import cheng.com.android.cunghoangdao.activities.offline.OfflineActivity;
 import cheng.com.android.cunghoangdao.fragments.ViewPageContainerFragment;
-import cheng.com.android.cunghoangdao.model.Common;
+import cheng.com.android.cunghoangdao.provider.DataHandlerSaveContent;
 import cheng.com.android.cunghoangdao.services.CheckTimesService;
 import cheng.com.android.cunghoangdao.ultils.CustomToast;
-import cheng.com.android.cunghoangdao.ultils.LocaleHelper;
+import cheng.com.android.cunghoangdao.ultils.SharedPreferencesNotify;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static cheng.com.android.cunghoangdao.R.string.openDrawer;
@@ -69,6 +78,10 @@ public class MainScreenActivity extends BaseMainActivity {
     boolean doubleBackToExitPressedOnce = false;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private int state = 0;
+    private Menu menu;
+    private TextView slideshow,gallery,tvHot;
+    private SwitchCompat switchCompat;
+    private DataHandlerSaveContent db;
 
     @Override
     public void onBackPressed() {
@@ -98,74 +111,160 @@ public class MainScreenActivity extends BaseMainActivity {
 //        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
 //        if (isUserFirstTime)
 //            startActivity(introIntent);
-        setContentView(R.layout.activity_maincreen);
+        setContentView(R.layout.activity_main);
     }
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+        super.onConfigurationChanged(newConfig);
+    }
     @Override
     public void init() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView) findViewById(R.id.navigationview);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         headerView = navigationView.getHeaderView(0);
-        tvName = (TextView) headerView.findViewById(R.id.tvName);
-        profile_image = (CircleImageView) headerView.findViewById(R.id.profile_image);
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
         Log.d(TAG, "oncreateMainScreenActivity");
-        Intent i = new Intent(this, CheckTimesService.class);
-        this.startService(i);
+        db = new DataHandlerSaveContent(this);
+
+        gallery=(TextView) MenuItemCompat.getActionView(navigationView.getMenu().
+                findItem(R.id.itemDownload));
+        switchCompat=(SwitchCompat) MenuItemCompat.getActionView(navigationView.getMenu().
+                findItem(R.id.itemThongbao));
+        if(SharedPreferencesNotify.getInstance(this).getIsNotify()){
+            switchCompat.setChecked(true);
+        }else {
+            switchCompat.setChecked(false);
+        }
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    setTimeAlarm();
+                    SharedPreferencesNotify.getInstance(getApplicationContext()).setNotifyTrue();
+                }else {
+                    stopService(new Intent(MainScreenActivity.this,CheckTimesService.class));
+                    SharedPreferencesNotify.getInstance(getApplicationContext()).setNotifyFalse();
+                }
+
+            }
+        });
+        initializeCountDrawer();
     }
+    private void initializeCountDrawer(){
+        gallery.setGravity(Gravity.CENTER_VERTICAL);
+        gallery.setTypeface(null, Typeface.BOLD);
+        gallery.setTextColor(ContextCompat.getColor(this, R.color.colorPrimary));
+        gallery.setText(db.GetCount()+"");
+    }
+
 
     @Override
     public void setValue(Bundle savedInstanceState) {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mCollapsingToolbarLayout.setTitle(getResources().getString(R.string.app_name));
-        tvName.setText(getResources().getString(R.string.xin_chao) + Common.user.getUserName() + " !");
-        // profile_image.setImageResource(Common.getImgAvatar());
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                Intent intent;
                 if (menuItem.isChecked()) menuItem.setChecked(false);
                 drawerLayout.closeDrawers();
+                Intent intent =null;
                 switch (menuItem.getItemId()) {
-                    case R.id.itemPhongThuy:
+                    case R.id.itemXemgi:
+                        intent = new Intent(MainScreenActivity.this, ChitietActivity.class);
+                        intent.putExtra(TOOLBAR_NAME, getResources().getString(R.string.menu_item_chi_tiet_ve_bạn));
+                        startActivity(intent);
+                        return true;
+                    case R.id.itemCunghoangdao:
                         intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
+                        intent.putExtra(TYPE_CATEGORY, getResources().getString(R.string.type_cung_hoang_dao));
+                        intent.putExtra(TOOLBAR_NAME, getResources().getString(R.string.menu_item_cunghoangdao));
+                        startActivity(intent);
+                        return true;
+                    case R.id.itemTuvi:
+                        intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
+                        intent.putExtra(TYPE_CATEGORY, getResources().getString(R.string.type_tu_vi));
+                        intent.putExtra(TOOLBAR_NAME, getResources().getString(R.string.menu_item_tu_vi));
+                        startActivity(intent);
+                        return true;
+                    case R.id.itemPhongThuy:
+                         intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
                         intent.putExtra(TYPE_CATEGORY, getResources().getString(R.string.phong_thuy));
                         intent.putExtra(TOOLBAR_NAME, getResources().getString(R.string.menu_item_phong_thuy));
                         startActivity(intent);
                         return true;
                     case R.id.itemXemtuong:
-                        intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
+                         intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
                         intent.putExtra(TYPE_CATEGORY, getResources().getString(R.string.xem_tuong));
                         intent.putExtra(TOOLBAR_NAME, getResources().getString(R.string.menu_item_xem_tuong));
+                          startActivity(intent);
+                        return true;
+                    case R.id.itemTamlinh:
+                         intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
+                        intent.putExtra(TYPE_CATEGORY, getResources().getString(R.string.tam_linh));
+                        intent.putExtra(TOOLBAR_NAME, getResources().getString(R.string.menu_item_tam_linh));
                         startActivity(intent);
                         return true;
                     case R.id.itemClip:
                         intent = new Intent(MainScreenActivity.this, DanhmucActivity.class);
                         intent.putExtra(TYPE_CATEGORY, getResources().getString(R.string.video_phong_thuy));
                         intent.putExtra(TOOLBAR_NAME, getResources().getString(R.string.menu_item_video_phong_thuy));
-                        startActivity(intent);
+                          startActivity(intent);
                         return true;
                     case R.id.itemDownload:
                         intent = new Intent(MainScreenActivity.this, OfflineActivity.class);
                         startActivity(intent);
                         return true;
                     case R.id.itemTracNghiem:
-                        intent = new Intent(MainScreenActivity.this, TienichActivity.class);
-                        startActivity(intent);
+                        intent = new Intent(MainScreenActivity.this, BoiCunghoangdaoActivity.class);
+                        intent.putExtra(MainScreenActivity.TOOLBAR_NAME, getResources().getString(R.string.tienich_boingaysinh));
+                         startActivity(intent);
+                        return true;
+                    case R.id.itemTuvitrondoi:
+                        intent = new Intent(MainScreenActivity.this, TuvitrondoiActivity.class);
+                        intent.putExtra(MainScreenActivity.TOOLBAR_NAME, getResources().getString(R.string.tienich_tuvitrondoi));
+                         startActivity(intent);
                         return true;
                     case R.id.itemAmDuong:
-                        Toast.makeText(getApplicationContext(), "Hihi Selected", Toast.LENGTH_SHORT).show();
+                        intent = new Intent(MainScreenActivity.this, AmDuongActivity.class);
+                        intent.putExtra(MainScreenActivity.TOOLBAR_NAME, getResources().getString(R.string.tienich_doilichamduong));
+                         startActivity(intent);
                         return true;
-                    case R.id.itemLanguage:
-                        showChangeLangDialog();
+                    case R.id.itemBinhchon:
+                        Uri uri = Uri.parse("market://details?id=" + getPackageName());
+                        Intent myAppLinkToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                        try {
+                            startActivity(myAppLinkToMarket);
+                        } catch (ActivityNotFoundException e) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + getPackageName())));
+                        }
+                        return true;
+                    case R.id.itemGopy:
+                        intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","cheng.cit@gmail.com", null));
+                        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.danh_gia)+"("+android.os.Build.MODEL+",Android "+ Build.VERSION.RELEASE+")");
+                        try {
+                            startActivity(Intent.createChooser(intent, "Không tìm thấy ứng dụng Email."));
+                        } catch (android.content.ActivityNotFoundException ex) {
+                            Toast.makeText(getApplicationContext(), getString(R.string.gmail), Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    case R.id.itemThongbao:
+                        if (switchCompat.isChecked()) {
+                            switchCompat.setChecked(false);
+                        } else {
+                            switchCompat.setChecked(true);
+                        }
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(), "Somethings Wrong", Toast.LENGTH_SHORT).show();
                         return true;
                 }
+
             }
+
         });
 
 
@@ -222,7 +321,6 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     protected void onStart() {
-        setTimeAlarm();
         super.onStart();
     }
 
@@ -238,43 +336,10 @@ public class MainScreenActivity extends BaseMainActivity {
                 5 * 1000, pintent);
     }
 
-
-
-    public void showChangeLangDialog() {
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = this.getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.custom_dialog, null);
-        dialogBuilder.setView(dialogView);
-
-        final Button btnChange = (Button) dialogView.findViewById(R.id.dialog_btnChange);
-        final RadioButton rdbtnVN = (RadioButton) dialogView.findViewById(R.id.dialog_rdbtnVN);
-        final RadioButton rdbtnEN = (RadioButton) dialogView.findViewById(R.id.dialog_rdbtnEN);
-        final AlertDialog b = dialogBuilder.create();
-        btnChange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (rdbtnVN.isChecked()) {
-                    LocaleHelper.setLocale(getApplicationContext(), LocaleHelper.VIETNAM);
-                } else if (rdbtnEN.isChecked()) {
-                    LocaleHelper.setLocale(getApplicationContext(), LocaleHelper.ENGLISH);
-                }
-                b.dismiss();
-                if (android.os.Build.VERSION.SDK_INT >= 11) {
-                    recreate();
-                } else {
-                    finish();
-                    Intent intent = getIntent();
-                    startActivity(intent);
-
-                }
-            }
-        });
-
-        b.show();
-    }
     @Override
     protected void onResume() {
         Log.d(TAG, "onResumeMainCreen: ");
+        gallery.setText(db.GetCount()+"");
         super.onResume();
     }
 
@@ -292,6 +357,7 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     protected void onPause() {
+        //setTimeAlarm();
         Log.d(TAG, "onPauseMainCreen: ");
         super.onPause();
     }

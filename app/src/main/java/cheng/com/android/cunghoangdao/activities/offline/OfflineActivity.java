@@ -51,7 +51,6 @@ public class OfflineActivity extends BaseActivity implements RecyclerArticleAdap
         tvMess = (TextView) findViewById(R.id.activity_category_tvMess);
         db = new DataHandlerSaveContent(this);
         arrArticle = db.getAllArticle();
-        Log.d(TAG, "size: "+arrArticle.size());
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle("Bài viết yêu thích");
         setSupportActionBar(mToolbar);
@@ -90,9 +89,11 @@ public class OfflineActivity extends BaseActivity implements RecyclerArticleAdap
     }
 
     @Override
-    public void onSendContentFinish(String content) {
+    public void onSendContentFinish(String title,String content,String category) {
         Intent intent = new Intent(OfflineActivity.this, ViewingActivity.class);
         intent.putExtra(RecyclerCunghoangdaoAdapter.CONTENT,content);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.CATEGORY,category);
+        intent.putExtra(RecyclerCunghoangdaoAdapter.TITLE,title);
         intent.putExtra(RecyclerCunghoangdaoAdapter.TYPE_OFFLINE,"type_offline");
         startActivity(intent);
     }

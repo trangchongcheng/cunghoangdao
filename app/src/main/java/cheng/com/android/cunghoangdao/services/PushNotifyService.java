@@ -28,7 +28,7 @@ import cheng.com.android.cunghoangdao.provider.DataNewfeeds;
  */
 public class PushNotifyService extends Service {
     SharedPreferences preferences;
-    Context content;
+    Context context;
     private static final String DOCUMENT_VIEW_STATE_PREFERENCES = "DjvuDocumentViewState";
 
     private Looper mServiceLooper;
@@ -78,7 +78,7 @@ public class PushNotifyService extends Service {
         }
         @Override
         public void handleMessage(Message msg) {
-            db.addArticle(Article.paserJsoupCategory("http://lichngaytot.com/tu-vi-12-cung-hoang-dao.html"));
+            db.addArticle(Article.paserJsoupCategory("http://lichngaytot.com/tu-vi-12-cung-hoang-dao.html",getApplicationContext()));
             showNotification();
             stopSelf(msg.arg1);
         }
@@ -92,7 +92,7 @@ public class PushNotifyService extends Service {
                 .setAutoCancel(true)
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setContentText(article.getmDescription())
-                .setSmallIcon(R.drawable.chipi);
+                .setSmallIcon(R.drawable.icon_notify);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(alarmSound);
         Intent mainIntent = new Intent(getApplicationContext(), ViewingActivity.class);

@@ -2,163 +2,42 @@
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scroll"
+    android:background="@color/textColorPrimary"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="fill_vertical"
-    android:layout_marginBottom="?attr/actionBarSize"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:scrollbars="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
-            style="@style/text_categoryes"
-            android:text="@string/con_giap" />
-
-        <HorizontalScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="?android:listPreferredItemHeight">
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fragment_hometab_rvCongiap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-                <com.alorma.timeline.RoundTimelineView
-                    android:id="@+id/fragment_hometab_tlTi"
-                    style="@style/icon_12_con_giap"
-                    android:layout_width="?android:listPreferredItemHeight"
-                    android:layout_height="?android:listPreferredItemHeight"
-                    app:timeline_type="end" />
-
-                <com.alorma.timeline.RoundTimelineView
-                    android:id="@+id/fragment_hometab_tlSuu"
-                    style="@style/icon_12_con_giap"
-                    android:layout_width="?android:listPreferredItemHeight"
-                    android:layout_height="?android:listPreferredItemHeight"
-                    app:timeline_type="start" />
-
-                <com.alorma.timeline.RoundTimelineView
-                    android:id="@+id/fragment_hometab_tlDan"
-                    style="@style/icon_12_con_giap"
-                    android:layout_width="?android:listPreferredItemHeight"
-                    android:layout_height="?android:listPreferredItemHeight"
-                    app:timeline_type="end" />
-
-                <com.alorma.timeline.RoundTimelineView
-                    android:id="@+id/fragment_hometab_tlMeo"
-                    style="@style/icon_12_con_giap"
-                    android:layout_width="?android:listPreferredItemHeight"
-                    android:layout_height="?android:listPreferredItemHeight"
-                    app:timeline_type="start" />
-
-
-                <com.alorma.timeline.RoundTimelineView
-                    android:id="@+id/fragment_hometab_tlThin"
-                    style="@style/icon_12_con_giap"
-                    android:layout_width="?android:listPreferredItemHeight"
-                    android:layout_height="?android:listPreferredItemHeight"
-                    app:timeline_type="end" />
-
-                <com.alorma.timeline.RoundTimelineView
-                    android:id="@+id/fragment_hometab_tlTy"
-                    style="@style/icon_12_con_giap"
-                    android:layout_width="?android:listPreferredItemHeight"
-                    android:layout_height="?android:listPreferredItemHeight"
-                    app:timeline_type="start" />
-
-                <com.alorma.timeline.RoundTimelineView
-                    android:id="@+id/fragment_hometab_tlNgo"
-                    style="@style/icon_12_con_giap"
-                    android:layout_width="?android:listPreferredItemHeight"
-                    android:layout_height="?android:listPreferredItemHeight"
-                    app:timeline_type="end" />
-
-                <com.alorma.timeline.RoundTimelineView
-                    android:id="@+id/fragment_hometab_tlMui"
-                    style="@style/icon_12_con_giap"
-                    android:layout_width="?android:listPreferredItemHeight"
-                    android:layout_height="?android:listPreferredItemHeight"
-                    app:timeline_type="start" />
-
-                <com.alorma.timeline.RoundTimelineView
-                    android:id="@+id/fragment_hometab_tlThan"
-                    style="@style/icon_12_con_giap"
-                    android:layout_width="?android:listPreferredItemHeight"
-                    android:layout_height="?android:listPreferredItemHeight"
-                    app:timeline_type="end" />
-
-                <com.alorma.timeline.RoundTimelineView
-                    android:id="@+id/fragment_hometab_tlDau"
-                    style="@style/icon_12_con_giap"
-                    android:layout_width="?android:listPreferredItemHeight"
-                    android:layout_height="?android:listPreferredItemHeight"
-                    app:timeline_type="start" />
-
-                <com.alorma.timeline.RoundTimelineView
-                    android:id="@+id/fragment_hometab_tlTuat"
-                    style="@style/icon_12_con_giap"
-                    android:layout_width="?android:listPreferredItemHeight"
-                    android:layout_height="?android:listPreferredItemHeight"
-                    android:onClick="category"
-                    app:timeline_type="end" />
-
-                <com.alorma.timeline.RoundTimelineView
-                    android:id="@+id/fragment_hometab_tlHoi"
-                    style="@style/icon_12_con_giap"
-                    android:layout_width="?android:listPreferredItemHeight"
-                    android:layout_height="?android:listPreferredItemHeight"
-                    app:timeline_type="start" />
-
-            </LinearLayout>
-
-        </HorizontalScrollView>
-
-        <TextView
-            style="@style/text_categoryes"
-            android:onClick="Category"
-            android:text="@string/moi_nhat" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ListView
-                android:id="@+id/content_main_lvNews"
-                android:layout_width="match_parent"
-                android:layout_height="255dp"
-                android:cacheColorHint="@android:color/transparent"
-                android:divider="@null"
-                android:listSelector="@android:color/transparent" />
-
-            <ProgressBar
-                android:id="@+id/fragment_hometab_progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:indeterminate="true"
-                android:visibility="visible" />
 
             <LinearLayout
                 android:id="@+id/fragment_hometab_ll"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_gravity="center"
                 android:orientation="vertical"
                 android:visibility="gone">
 
                 <TextView
+                    style="@style/text_categoryes"
                     android:id="@+id/fragment_hometab_tvConnection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/content_main_lvNews"
-                    android:layout_centerHorizontal="true"
                     android:text="@string/connection" />
 
                 <Button
@@ -169,52 +48,28 @@
                     android:layout_below="@+id/fragment_hometab_tvConnection"
                     android:text="@string/thulai" />
             </LinearLayout>
-        </RelativeLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            <!--<android.support.v7.widget.RecyclerView--><!--android:id="@+id/cunghoangdao_fragment_recyclerSlide"--><!--android:layout_width="match_parent"--><!--android:layout_height="180dp" />-->
 
-            <LinearLayout
-                android:id="@+id/cunghoangdao_fragment_llFooter"
+            <RelativeLayout
+                android:id="@+id/fragment_hometab_rl"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    style="@style/text_categoryes"
-                    android:text="@string/cung_hoang_dao" />
+                android:layout_height="wrap_content">
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/cunghoangdao_fragment_recyclerSlide"
+                    android:id="@+id/fragment_hometab_rvNewFeed"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp" />
+                    android:layout_height="wrap_content" />
 
-                <TextView
-                    style="@style/text_categoryes"
-                    android:text="@string/new_feed" />
+            </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/fragment_hometab_rl"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/fragment_hometab_rvNewFeed"
-                        android:layout_width="match_parent"
-                        android:layout_height="560dp" />
-
-                    <ProgressBar
-                        android:id="@+id/fragment_hometab_progressBarNews"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:indeterminate="true"
-                        android:visibility="invisible" />
-
-                </RelativeLayout>
-            </LinearLayout>
-        </ScrollView>
-
-    </LinearLayout>
+            <ProgressBar
+                android:id="@+id/fragment_hometab_progressBarNews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:indeterminate="true"
+                android:visibility="visible" />
+        </LinearLayout>
+    </ScrollView>
 </android.support.v4.widget.NestedScrollView>

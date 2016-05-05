@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.Glide;
-
 import java.util.ArrayList;
 
 import cheng.com.android.cunghoangdao.R;
@@ -49,9 +47,8 @@ public class RecyclerViewIconCungHoangDaoAdapter extends RecyclerView.Adapter<Re
         recyclerViewHolder.tvName.setText(model.getName());
         Log.d(TAG, model.getImage() + "");
         if (model.getImage() != 0) {
-            Glide.with(context).load(model.getImage()).into(recyclerViewHolder.imgCunghoangdao);
+            recyclerViewHolder.imgCunghoangdao.setImageResource(model.getImage());
         }
-        recyclerViewHolder.tvDate.setText(model.getDate());
         recyclerViewHolder.ll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

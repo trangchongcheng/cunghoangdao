@@ -15,19 +15,49 @@
     </string-array>
 
     <array name="cunghoangdaoimage">
-        <item>@drawable/chd_bachduong</item>
-        <item>@drawable/chd_kimnguu</item>
-        <item>@drawable/chd_songtu</item>
-        <item>@drawable/chd_cugiai</item>
-        <item>@drawable/chd_sutu</item>
-        <item>@drawable/chd_xunu</item>
-        <item>@drawable/chd_thienbinh</item>
-        <item>@drawable/chd_bocap</item>
-        <item>@drawable/chd_nhanma</item>
-        <item>@drawable/chd_maket</item>
-        <item>@drawable/chd_baobinh</item>
-        <item>@drawable/chd_songngu</item>
+        <item>@drawable/chd_1</item>
+        <item>@drawable/chd_2</item>
+        <item>@drawable/chd_3</item>
+        <item>@drawable/chd_4</item>
+        <item>@drawable/chd_5</item>
+        <item>@drawable/chd_6</item>
+        <item>@drawable/chd_7</item>
+        <item>@drawable/chd_8</item>
+        <item>@drawable/chd_9</item>
+        <item>@drawable/chd_10</item>
+        <item>@drawable/chd_11</item>
+        <item>@drawable/chd_12</item>
 
+
+    </array>
+    <string-array name="congiapname">
+        <item>@string/tuoi_ty</item>
+        <item>@string/tuoi_suu</item>
+        <item>@string/tuoi_dan</item>
+        <item>@string/tuoi_mao</item>
+        <item>@string/tuoi_thin</item>
+        <item>@string/tuoi_ti</item>
+        <item>@string/tuoi_ngo</item>
+        <item>@string/tuoi_mui</item>
+        <item>@string/tuoi_than</item>
+        <item>@string/tuoi_dau</item>
+        <item>@string/tuoi_tuat</item>
+        <item>@string/tuoi_hoi</item>
+    </string-array>
+
+    <array name="congiapimage">
+        <item>@drawable/ic_12_con_giap_ty</item>
+        <item>@drawable/ic_12_con_giap_suu</item>
+        <item>@drawable/ic_12_con_giap_dan</item>
+        <item>@drawable/ic_12_con_giap_mao</item>
+        <item>@drawable/ic_12_con_giap_ti</item>
+        <item>@drawable/ic_12_con_giap_thin</item>
+        <item>@drawable/ic_12_con_giap_ngo</item>
+        <item>@drawable/ic_12_con_giap_mui</item>
+        <item>@drawable/ic_12_con_giap_than</item>
+        <item>@drawable/ic_12_con_giap_dau</item>
+        <item>@drawable/ic_12_con_giap_tuat</item>
+        <item>@drawable/ic_12_con_giap_hoi</item>
     </array>
     <string-array name="cunghoangdaodate">
         <item>@string/chd_bachduong_date</item>
@@ -58,7 +88,69 @@
         <item>@string/tien_ich</item>
     </string-array>
 
+    <array name="tienichimage">
+        <item>@drawable/ic_tienich1</item>
+        <item>@drawable/ic_tienich2</item>
+        <item>@drawable/ic_tienich3</item>
+        <item>@drawable/ic_tienich4</item>
+        <item>@drawable/ic_tienich5</item>
+        <item>@drawable/ic_tienich6</item>
+        <item>@drawable/ic_tienich7</item>
+        <item>@drawable/ic_tienich8</item>
+    </array>
+    <array name="tienichtitle">
+        <item>@string/tienich_boicunghoangdao</item>
+        <item>@string/tienich_boingaysinh</item>
+        <item>@string/tienich_boinotruinam</item>
+        <item>@string/tienich_tuvingaysinh</item>
+        <item>@string/tienich_tuvitheothang</item>
+        <item>@string/tienich_xemsaohan</item>
+        <item>@string/tienich_tuoisinhcon</item>
+        <item>@string/tienich_doilichamduong</item>
+    </array>
+    <array name="tienichdescription">
+        <item>@string/mota_boicunghoangdao</item>
+        <item>@string/mota_boingaysinh</item>
+        <item>@string/mota_boinotruinam</item>
+        <item>@string/mota_tuvingaysinh</item>
+        <item>@string/mota_tuvitheothang</item>
+        <item>@string/mota_xemsaohan</item>
+        <item>@string/mota_tuoisinhcon</item>
+        <item>@string/mota_doilichamduong</item>
+    </array>
 
+    <array name="tienichboitheothang">
+        <item>@string/thang1</item>
+        <item>@string/thang2</item>
+        <item>@string/thang3</item>
+        <item>@string/thang4</item>
+        <item>@string/thang5</item>
+        <item>@string/thang6</item>
+        <item>@string/thang7</item>
+        <item>@string/thang8</item>
+        <item>@string/thang9</item>
+        <item>@string/thang10</item>
+        <item>@string/thang11</item>
+        <item>@string/thang12</item>
+    </array>
 
+    <array name="type_boinotrui">
+        <item>@string/not_rui_tren_mat_nam</item>
+        <item>@string/not_rui_tren_mat_nu</item>
+        <item>@string/not_rui_tren_co_the_nam</item>
+        <item>@string/not_rui_tren_co_the_nu</item>
+        <item>@string/not_rui_tren_ban_tay</item>
+        <item>@string/not_rui_tren_ban_chan</item>
+    </array>
+    <array name="tienich_color">
+    <item>@color/tienich1</item>
+    <item>@color/tienich2</item>
+    <item>@color/tienich3</item>
+    <item>@color/tienich4</item>
+    <item>@color/tienich5</item>
+    <item>@color/tienich6</item>
+    <item>@color/tienich7</item>
+    <item>@color/tienich8</item>
+</array>
 
 </resources>

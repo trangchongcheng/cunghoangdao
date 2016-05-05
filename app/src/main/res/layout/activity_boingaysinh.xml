@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/textColorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+    <include layout="@layout/toolbar" />
+    <ScrollView
+
+        android:id="@+id/srv"
+        android:layout_below="@+id/toolbar"
+        android:scrollbarSize="10dp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+        <LinearLayout
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    style="@style/tv_trac_nghiem_ty"
+                    android:text="@string/ngay_sinh_nam" />
+
+                <TextView
+                    style="@style/tv_trac_nghiem_ty"
+                    android:text="@string/ngay_sinh_nu" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    style="@style/text_boi"
+                    android:text="20-10-1994"
+                    android:background="@drawable/config_spinner"
+                    android:id="@+id/activity_boingaysinh_tvName"/>
+
+                <TextView
+                    style="@style/text_title_categorye"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/text_boi"
+                    android:text="20-10-1994"
+                    android:background="@drawable/config_spinner"
+                    android:id="@+id/activity_boingaysinh_tvNu"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/activity_boingaysinh_btnKetqua"
+                style="@style/btn_check_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/btn_ketqua" />
+
+            <ProgressBar
+                android:id="@+id/activity_boingaysinh_progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+
+            <WebView
+                android:id="@+id/activity_boingaysinh_webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="23sp" />
+
+        </LinearLayout>
+    </ScrollView>
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/activity_boingaysinh_flbtn_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:visibility="visible"
+        app:menu_animationDelayPerItem="100"
+        app:menu_backgroundColor="@android:color/transparent"
+        app:menu_buttonSpacing="0dp"
+        app:menu_colorNormal="@color/colorPrimary"
+        app:menu_colorPressed="@color/grayish_lime_green"
+        app:menu_colorRipple="#99FFFFFF"
+        app:menu_fab_label="@string/mo_rong"
+        app:menu_fab_size="normal"
+        app:menu_icon="@drawable/ic_floatbutton_24dp"
+        app:menu_labels_colorNormal="#333333"
+        app:menu_labels_colorPressed="#444444"
+        app:menu_labels_colorRipple="#66FFFFFF"
+        app:menu_labels_cornerRadius="3dp"
+        app:menu_labels_ellipsize="none"
+        app:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        app:menu_labels_margin="0dp"
+        app:menu_labels_maxLines="-1"
+        app:menu_labels_padding="8dp"
+        app:menu_labels_paddingBottom="4dp"
+        app:menu_labels_paddingLeft="8dp"
+        app:menu_labels_paddingRight="8dp"
+        app:menu_labels_paddingTop="4dp"
+        app:menu_labels_position="left"
+        app:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        app:menu_labels_showShadow="true"
+        app:menu_labels_singleLine="false"
+        app:menu_labels_textColor="#FFFFFF"
+        app:menu_labels_textSize="14sp"
+        app:menu_openDirection="up"
+        app:menu_shadowColor="#66000000"
+        app:menu_shadowRadius="4dp"
+        app:menu_shadowXOffset="1dp"
+        app:menu_shadowYOffset="3dp"
+        app:menu_showShadow="true">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/activity_boingaysinh_flbtnShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sharefb"
+            app:fab_colorNormal="@color/colorPrimary"
+            app:fab_colorPressed="@color/blue_semi_transparent"
+            app:fab_colorRipple="#99FFFFFF"
+            app:fab_hideAnimation="@anim/fab_scale_down"
+            app:fab_label="@string/share_fb"
+            app:fab_showAnimation="@anim/fab_scale_up"
+            app:fab_size="mini" />
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+
+</RelativeLayout>

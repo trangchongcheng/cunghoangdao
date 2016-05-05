@@ -1,15 +1,12 @@
 package cheng.com.android.cunghoangdao.activities.intro;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,7 +22,7 @@ import cheng.com.android.cunghoangdao.ultils.CustomFont;
 
 public class LaunchScreenActivity extends AppCompatActivity {
 
-    private static final int SPLASH_TIME = 1000;
+    private static final int SPLASH_TIME = 3000;
     private ProgressBar google_progress;
     private TextView tvDecription, tvSologan;
     private RelativeLayout rl;
@@ -35,12 +32,6 @@ public class LaunchScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().getDecorView().setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
         setContentView(R.layout.activity_launch_screen);
         rl = (RelativeLayout) findViewById(R.id.rl);
         random = r.nextInt(4);
@@ -105,9 +96,9 @@ public class LaunchScreenActivity extends AppCompatActivity {
     private int[] getProgressDrawableColors() {
         int[] colors = new int[4];
         colors[0] = ContextCompat.getColor(this, R.color.colorPrimary);
-        colors[1] = ContextCompat.getColor(this, R.color.pink_pressed);
+        colors[1] = ContextCompat.getColor(this, R.color.dark_moderate);
         colors[2] = ContextCompat.getColor(this, R.color.bright_blue);
-        colors[3] = ContextCompat.getColor(this,R.color.navigationBarColor);
+        colors[3] = ContextCompat.getColor(this,R.color.vivid_yellow);
         return colors;
     }
 }

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/textColorPrimary"
+    android:layout_height="match_parent">
+    <include layout="@layout/toolbar"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/activity_tuoisinhcon_tvNu"
+                    style="@style/tv_trac_nghiem_ty"
+                    android:text="@string/ngay_sinh_bo" />
+
+                <TextView
+                    android:id="@+id/activity_tuoisinhcon_tvNam"
+                    style="@style/tv_trac_nghiem_ty"
+                    android:text="@string/ngay_sinh_me" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+
+                <TextView
+                    android:id="@+id/activity_tuoisinhcon_tvDateBo"
+                    style="@style/text_boi"
+                    android:background="@drawable/config_spinner"
+                    android:text="20-10-1994" />
+                <TextView
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/activity_tuoisinhcon_tvDateMe"
+                    style="@style/text_boi"
+                    android:background="@drawable/config_spinner"
+                    android:text="20-10-1994" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/text_categoryes"
+                android:text="@string/nam_sinh" />
+            <Spinner
+                android:layout_marginTop="8dp"
+                android:id="@+id/activity_tuoisinhcon_spnDate"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                android:background="@drawable/config_spinner"
+                android:spinnerMode="dropdown" />
+            <Button
+                android:id="@+id/activity_tuoisinhcon_btnKetqua"
+                style="@style/btn_check_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="@string/btn_ketqua" />
+
+            <ProgressBar
+                android:id="@+id/activity_tuoisinhcon_progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
+
+            <WebView
+                android:id="@+id/activity_tuoisinhcon_webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="23sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
