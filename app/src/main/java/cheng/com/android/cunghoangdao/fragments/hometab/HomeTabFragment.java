@@ -15,6 +15,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -60,12 +63,12 @@ public class HomeTabFragment extends BaseFragment implements
     private int state = 0;
     private int page = 0;
     private TextView tvTitle, tvDescription;
-    // private RecyclerCategoryAdapter categoryAdapter;
     private CustomAdapter categoryAdapter;
     private ImageView imgThumbnail;
     private ArrayList<Category> arrArticle;
     private Header header;
     private Random rand ;
+    private AdView adView;
 
 
     @Override
@@ -82,12 +85,14 @@ public class HomeTabFragment extends BaseFragment implements
     @Override
     public void init() {
         Log.d(TAG, "init +");
+        AdView mAdView = (AdView) getView().findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         rand = new Random();
         rvNewsFeed = (RecyclerView) getView().findViewById(R.id.fragment_hometab_rvNewFeed);
         rvNewsFeed.setHasFixedSize(true);
         rvNewsFeed.setNestedScrollingEnabled(false);
         rvNewsFeed.setLayoutManager(new LinearLayoutManager(getContext()));
-
         rvCongiap = (RecyclerView) getView().findViewById(R.id.fragment_hometab_rvCongiap);
         rvCongiap.setHasFixedSize(true);
         rvCongiap.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));

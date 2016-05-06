@@ -116,7 +116,6 @@ public class ApiServiceLichNgayTot {
             return null;
         } catch (SocketTimeoutException e) {
             Log.d("SocketTimeoutException", "SocketTimeoutException: ");
-            e.printStackTrace();
             return null;
         } catch (Exception e) {
             e.printStackTrace();

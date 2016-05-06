@@ -29,6 +29,8 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
@@ -104,6 +106,10 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
 
     @Override
     public void init() {
+        AdView mAdView = (AdView)findViewById(R.id.activity_viewing_adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        assert mAdView != null;
+        mAdView.loadAd(adRequest);
         intent = getIntent();
         typeOffline = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_OFFLINE);
         typeNotify = intent.getStringExtra(RecyclerCunghoangdaoAdapter.TYPE_NOTIFY);
@@ -236,7 +242,11 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
     @Override
     public void onReturnContent(String content) {
         Log.d(TAG, "onReturnContent: " + styleCss + content);
-        setContent(styleCss + content);
+        if(content!=null) {
+            setContent(styleCss + content);
+        }else {
+            ll.setVisibility(View.VISIBLE);
+        }
 
     }
 

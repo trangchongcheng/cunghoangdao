@@ -52,9 +52,9 @@ public class JsoupParseLichNgayTot extends AsyncTask<String, String, String> {
             videoUrl = document.select("div[class=\"mediaplayercontent\"]").attr("data-href");
         } catch (HttpStatusException ex) {
             Log.d("Category", "HttpStatusException");
-            return "";
+            return null;
         } catch (SocketTimeoutException e) {
-            Log.d("Category", "Socket Timeout: ");
+            return null;
         } catch (IOException e) {
             e.printStackTrace();
         }

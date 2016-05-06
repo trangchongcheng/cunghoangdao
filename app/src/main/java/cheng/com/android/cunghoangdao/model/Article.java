@@ -155,6 +155,7 @@ public class Article {
             return null;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
 
         return arrArticle;

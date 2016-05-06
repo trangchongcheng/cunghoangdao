@@ -26,7 +26,7 @@ public class CheckNetworkStateReceiver extends BroadcastReceiver {
             if(7<hour && hour<23){
                 Intent i = new Intent(context, PushNotifyService.class);
                 context.startService(i);
-                SetTimesSharedPreferences.getInstance(context).setIsTimesTrue();
+
             }
 
         }

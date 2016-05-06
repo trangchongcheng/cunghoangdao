@@ -9,7 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import java.util.Locale;
+import com.robohorse.gpversionchecker.GPVersionChecker;
+import com.robohorse.gpversionchecker.base.CheckingStrategy;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.ultils.ConnectivityChangeReceiver;
@@ -30,6 +31,7 @@ public abstract class BaseMainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new GPVersionChecker.Builder(this).create().setCheckingStrategy(CheckingStrategy.ONE_PER_DAY);
         overridePendingTransition(R.anim.activity_open_translate, R.anim.activity_close_scale);
         connectivityChangeReceiver = new ConnectivityChangeReceiver(this);
         filter = new IntentFilter();
@@ -86,8 +88,6 @@ public abstract class BaseMainActivity extends AppCompatActivity
 
     @Override
     protected void onResume() {
-        String locale = Locale.getDefault().getLanguage();
-        Log.d("TAG", locale);
         times = 0;
         super.onResume();
         Log.d(TAG, "onResumeBaseMainActivity: ");

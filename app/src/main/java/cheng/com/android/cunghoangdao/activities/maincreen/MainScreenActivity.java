@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.Calendar;
+import java.util.Random;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseMainActivity;
@@ -50,7 +52,6 @@ import cheng.com.android.cunghoangdao.provider.DataHandlerSaveContent;
 import cheng.com.android.cunghoangdao.services.CheckTimesService;
 import cheng.com.android.cunghoangdao.ultils.CustomToast;
 import cheng.com.android.cunghoangdao.ultils.SharedPreferencesNotify;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static cheng.com.android.cunghoangdao.R.string.openDrawer;
 
@@ -67,7 +68,7 @@ public class MainScreenActivity extends BaseMainActivity {
     private Toolbar mToolbar;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
-    private CircleImageView profile_image;
+    private ImageView profile_image;
     private TextView tvName;
     private View headerView;
     private FloatingActionsMenu floatButton;
@@ -82,6 +83,7 @@ public class MainScreenActivity extends BaseMainActivity {
     private TextView slideshow,gallery,tvHot;
     private SwitchCompat switchCompat;
     private DataHandlerSaveContent db;
+    private Random random;
 
     @Override
     public void onBackPressed() {
@@ -122,10 +124,13 @@ public class MainScreenActivity extends BaseMainActivity {
     }
     @Override
     public void init() {
+        random = new Random();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         navigationView = (NavigationView) findViewById(R.id.navigationview);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         headerView = navigationView.getHeaderView(0);
+        profile_image = (ImageView) headerView.findViewById(R.id.image);
+        profile_image.setImageResource(getResources().obtainTypedArray(R.array.cunghoangdaoimage).getResourceId(random.nextInt(11), -1));
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
         Log.d(TAG, "oncreateMainScreenActivity");
         db = new DataHandlerSaveContent(this);
@@ -153,6 +158,9 @@ public class MainScreenActivity extends BaseMainActivity {
             }
         });
         initializeCountDrawer();
+        if(switchCompat.isChecked()){
+            setTimeAlarm();
+        }
     }
     private void initializeCountDrawer(){
         gallery.setGravity(Gravity.CENTER_VERTICAL);
@@ -325,13 +333,14 @@ public class MainScreenActivity extends BaseMainActivity {
     }
 
     public void setTimeAlarm() {
+        Log.d(TAG, "setTimeAlarm: ");
         Calendar cal = Calendar.getInstance();
         Intent intent = new Intent(this, CheckTimesService.class);
         PendingIntent pintent = PendingIntent
                 .getService(this, 0, intent, 0);
 
         AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        // Start service every 20 seconds
+        // Start service every 5 seconds
         alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
                 5 * 1000, pintent);
     }
@@ -352,6 +361,11 @@ public class MainScreenActivity extends BaseMainActivity {
     @Override
     protected void onDestroy() {
         Log.d(TAG, "onDestroyMainCreen: ");
+        if(switchCompat.isChecked()){
+            setTimeAlarm();
+        }else {
+            stopService(new Intent(MainScreenActivity.this,CheckTimesService.class));
+        }
         super.onDestroy();
     }
 

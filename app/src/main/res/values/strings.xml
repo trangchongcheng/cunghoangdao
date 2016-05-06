@@ -6,6 +6,8 @@
     <string name="action_settings">Cài đặt</string>
     <string name="menu">Menu</string>
 
+    <string name="banner_ads">ca-app-pub-8502836799800950/9397121226</string>
+    <string name="banner_content">ca-app-pub-8502836799800950/5891924827</string>
     <string name="hint_name">Tên đầy đủ</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Mật khẩu</string>
@@ -165,7 +167,7 @@
     <string name="toast_exit">Bấm quay lại lần nữa để thoát ứng dụng!</string>
     <string name="luu_thanh_cong">Đã lưu thành công!</string>
     <string name="khoi_dong">Ứng dụng đang khởi chạy…</string>
-    <string name="sologan">Ứng dụng bói toán, xem tử vi, cung hoàng đạo hằng ngày</string>
+    <string name="sologan">Ứng dụng bói toán, xem tử vi,tin tức 12 cung hoàng đạo cập nhật hằng ngày</string>
 
 
     <string name="mota_home">Cập nhật các bài viết về bói toán, tử vi, cung hoàng đạo… mới nhất theo này.</string>
@@ -271,4 +273,10 @@
     <string name="thang10">Tháng mười</string>
     <string name="thang11">Tháng mười một</string>
     <string name="thang12">Tháng chạp</string>
+
+
+    <string name="gpvch_header">Đã tìm thấy phiên bản mới!</string>
+    <string name="gpvch_button_positive">Cập nhật phiên bản mới</string>
+    <string name="gpvch_button_negative">Để sau</string>
+    <string name="gpvch_new_version_info_title">Có gì mới</string>
 </resources>

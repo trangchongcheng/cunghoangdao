@@ -2,6 +2,7 @@ package cheng.com.android.cunghoangdao.ultils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 /**
  * Created by Welcome on 4/15/2016.
@@ -25,10 +26,12 @@ public class SetTimesSharedPreferences {
     public void setIsTimesTrue() {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(IS_TIMES, true);
+        Log.d("SetTimes", "setIsTimesTrue: ");
         editor.commit();
     }
     public void setIsTimesFalse(){
         SharedPreferences.Editor editor = sharedPreferences.edit();
+        Log.d("SetTimes", "setIsTimesFalse: ");
         editor.putBoolean(IS_TIMES, false);
         editor.commit();
     }

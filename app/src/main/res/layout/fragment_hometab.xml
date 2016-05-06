@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    >
+<android.support.v4.widget.NestedScrollView
     android:id="@+id/scroll"
-    android:background="@color/textColorPrimary"
+    android:layout_marginBottom="50dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/textColorPrimary"
     android:fillViewport="true"
     android:scrollbars="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
 
         <LinearLayout
+            android:layout_margin="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/fragment_hometab_rvCongiap"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/fragment_hometab_rvCongiap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:id="@+id/fragment_hometab_ll"
@@ -34,8 +41,8 @@
                 android:visibility="gone">
 
                 <TextView
-                    style="@style/text_categoryes"
                     android:id="@+id/fragment_hometab_tvConnection"
+                    style="@style/text_categoryes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/connection" />
@@ -49,12 +56,13 @@
                     android:text="@string/thulai" />
             </LinearLayout>
 
-            <!--<android.support.v7.widget.RecyclerView--><!--android:id="@+id/cunghoangdao_fragment_recyclerSlide"--><!--android:layout_width="match_parent"--><!--android:layout_height="180dp" />-->
+
+
 
             <RelativeLayout
                 android:id="@+id/fragment_hometab_rl"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/fragment_hometab_rvNewFeed"
@@ -62,6 +70,7 @@
                     android:layout_height="wrap_content" />
 
             </RelativeLayout>
+
 
             <ProgressBar
                 android:id="@+id/fragment_hometab_progressBarNews"
@@ -71,5 +80,14 @@
                 android:indeterminate="true"
                 android:visibility="visible" />
         </LinearLayout>
-    </ScrollView>
+
+    <!--</ScrollView>-->
 </android.support.v4.widget.NestedScrollView>
+    <com.google.android.gms.ads.AdView
+        android:layout_alignParentBottom="true"
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/banner_ads"/>
+</RelativeLayout>

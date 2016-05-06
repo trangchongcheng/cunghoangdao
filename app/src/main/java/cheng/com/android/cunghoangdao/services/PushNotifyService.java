@@ -21,6 +21,7 @@ import cheng.com.android.cunghoangdao.activities.viewing.ViewingActivity;
 import cheng.com.android.cunghoangdao.adapters.cunghoangdaotab.RecyclerCunghoangdaoAdapter;
 import cheng.com.android.cunghoangdao.model.Article;
 import cheng.com.android.cunghoangdao.provider.DataNewfeeds;
+import cheng.com.android.cunghoangdao.ultils.SetTimesSharedPreferences;
 
 
 /**
@@ -80,6 +81,7 @@ public class PushNotifyService extends Service {
         public void handleMessage(Message msg) {
             db.addArticle(Article.paserJsoupCategory("http://lichngaytot.com/tu-vi-12-cung-hoang-dao.html",getApplicationContext()));
             showNotification();
+            SetTimesSharedPreferences.getInstance(context).setIsTimesTrue();
             stopSelf(msg.arg1);
         }
     }
@@ -92,11 +94,13 @@ public class PushNotifyService extends Service {
                 .setAutoCancel(true)
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setContentText(article.getmDescription())
-                .setSmallIcon(R.drawable.icon_notify);
+                .setSmallIcon(R.drawable.ic_notifycation);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(alarmSound);
         Intent mainIntent = new Intent(getApplicationContext(), ViewingActivity.class);
+        mainIntent.putExtra(RecyclerCunghoangdaoAdapter.TITLE, article.getmTitle());
         mainIntent.putExtra(RecyclerCunghoangdaoAdapter.CONTENT,article.getmContent());
+        mainIntent.putExtra(RecyclerCunghoangdaoAdapter.CATEGORY,"Cung hoàng đạo");
         mainIntent.putExtra(RecyclerCunghoangdaoAdapter.TYPE_NOTIFY,"type_notify");
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 1,

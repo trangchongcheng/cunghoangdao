@@ -113,7 +113,7 @@ public class TuvitrondoiActivity extends BaseMainActivity implements
                 }else {
                     tp.setError("");
                     progressBar.setVisibility(View.VISIBLE);
-                    params = edtName.getText() + "&m_NgaySinh=" +tvDate.getText()+"&genderId="+ getPosition();
+                    params = edtName.getText().toString().trim().replace(" ","+") + "&m_NgaySinh=" +tvDate.getText()+"&genderId="+ getPosition();
                     Log.d(TAG, "onClick: " + UrlGetXml.TU_VI_TRON_DOI + params);
                     new LichngaytotAsyntask(getApplicationContext(), UrlGetXml.TU_VI_TRON_DOI + params,
                             ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, 0, TuvitrondoiActivity.this).execute();
