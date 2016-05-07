@@ -11,7 +11,7 @@
     android:padding="8dp">
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:scaleType="centerCrop"
         android:layout_gravity="center"
         android:id="@+id/item_tienichtab_imgType"

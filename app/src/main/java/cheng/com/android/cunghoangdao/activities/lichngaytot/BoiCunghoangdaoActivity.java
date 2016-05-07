@@ -17,6 +17,7 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.startapp.android.publish.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,7 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
     private FloatingActionMenu flbtnMenu;
     private String title, content,link;
     private DataHandlerSaveContent db;
+    private Banner banner;
     @Override
     public void setContentView() {
         setContentView(R.layout.activity_tracnghiemty);
@@ -54,6 +56,9 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
 
     @Override
     public void init() {
+        banner = (com.startapp.android.publish.banner.Banner) findViewById(R.id.activity_tnty_startAppBanner);
+        assert banner != null;
+        banner.hideBanner();
         db = new DataHandlerSaveContent(this);
         Intent intent = getIntent();
         toolbarName = intent.getStringExtra(MainScreenActivity.TOOLBAR_NAME);
@@ -117,7 +122,8 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
     public void onReturnJsonObject(ArrayList<Category> arrContent, int type,String categoryName) {
         if(arrContent!=null){
             tvContent.setText(Html.fromHtml(arrContent.get(0).getmContent()));
-            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.GONE);
+            banner.showBanner();
             flbtnMenu.showMenu(true);
             content = tvContent.getText().toString().substring(0,150);
         }else {
@@ -130,10 +136,10 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
         shareDialog = new ShareDialog(this);
 
         ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("play.google.com"))
+                .setContentUrl(Uri.parse(getString(R.string.link_app)))
                 .setContentTitle(getResources().getString(R.string.boi_ty_chd))
                 .setContentDescription("Khám phám xem tình yêu giữa "+spnNam.getSelectedItem()+" và "+ spnNu.getSelectedItem() +" như thế nào")
-                .setImageUrl(Uri.parse("https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Ecliptic_path.jpg/220px-Ecliptic_path.jpg"))
+                .setImageUrl(Uri.parse(getString(R.string.link_image)))
                 .build();
         shareDialog.show(linkContent);
     }

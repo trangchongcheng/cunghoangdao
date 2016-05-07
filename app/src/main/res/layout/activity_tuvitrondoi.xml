@@ -85,7 +85,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:text="@string/btn_ketqua" />
-
+            <com.startapp.android.publish.banner.Banner
+                android:id="@+id/activity_amduong_startAppBanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
             <ProgressBar
                 android:id="@+id/activity_tuvitrondoi_progressBar"
                 android:layout_width="wrap_content"

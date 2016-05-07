@@ -9,8 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.robohorse.gpversionchecker.GPVersionChecker;
 import com.robohorse.gpversionchecker.base.CheckingStrategy;
+import com.startapp.android.publish.StartAppSDK;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.ultils.ConnectivityChangeReceiver;
@@ -26,11 +30,21 @@ public abstract class BaseMainActivity extends AppCompatActivity
     private Context context;
     private IntentFilter filter;
     private BroadcastReceiver changeLocaleReceiver;
+    public static int isBack=0;
     int times;
-
+    public InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StartAppSDK.init(this,getString(R.string.banner_startapp), true);
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.banner_video));
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                showInterstitial();
+            }
+        });
+        Log.d(TAG, "onCreate: "+"hjhjhj");
         new GPVersionChecker.Builder(this).create().setCheckingStrategy(CheckingStrategy.ONE_PER_DAY);
         overridePendingTransition(R.anim.activity_open_translate, R.anim.activity_close_scale);
         connectivityChangeReceiver = new ConnectivityChangeReceiver(this);
@@ -40,6 +54,7 @@ public abstract class BaseMainActivity extends AppCompatActivity
         init();
         setValue(savedInstanceState);
         setEvent();
+
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            getWindow().getDecorView().setSystemUiVisibility(
 //                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
@@ -47,6 +62,22 @@ public abstract class BaseMainActivity extends AppCompatActivity
 //            getWindow().setStatusBarColor(Color.TRANSPARENT);
 //            // toolbar.setPadding(0, getStatusBarHeight(), 0, 0);
 //        }
+    }
+
+
+    private void showInterstitial() {
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            startGame();
+        }
+    }
+    private void startGame() {
+        if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mInterstitialAd.loadAd(adRequest);
+        }
+
     }
 
     public abstract void setContentView();
@@ -61,10 +92,6 @@ public abstract class BaseMainActivity extends AppCompatActivity
     protected void onStop() {
         Log.d(TAG, "onStopBaseMainActivity: ");
         super.onStop();
-        try {
-            unregisterReceiver(connectivityChangeReceiver);
-        } catch (IllegalArgumentException e) {
-        }
     }
 
     @Override
@@ -78,10 +105,12 @@ public abstract class BaseMainActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         Log.d(TAG, "onDestroyBaseMainActivity: ");
+        //isBack=0;
         super.onDestroy();
         try {
             unregisterReceiver(connectivityChangeReceiver);
         } catch (IllegalArgumentException e) {
+            e.printStackTrace();
         }
 
     }
@@ -104,10 +133,6 @@ public abstract class BaseMainActivity extends AppCompatActivity
         overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
         Log.d(TAG, "onPauseBaseMainActivity: ");
         super.onPause();
-        try {
-            unregisterReceiver(connectivityChangeReceiver);
-        } catch (IllegalArgumentException e) {
-        }
     }
 
     @Override
@@ -139,5 +164,16 @@ public abstract class BaseMainActivity extends AppCompatActivity
             });
             dialog.show();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        isBack++;
+        Log.d(TAG, "onBackPressed: "+isBack);
+        if(isBack==5||isBack==10||isBack==15||isBack==20){
+            Log.d(TAG, "onBackPressed1: "+isBack);
+            showInterstitial();
+        }
     }
 }

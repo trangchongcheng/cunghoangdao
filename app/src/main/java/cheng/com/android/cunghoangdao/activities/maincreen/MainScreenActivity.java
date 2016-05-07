@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
@@ -32,9 +31,6 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -71,9 +67,6 @@ public class MainScreenActivity extends BaseMainActivity {
     private ImageView profile_image;
     private TextView tvName;
     private View headerView;
-    private FloatingActionsMenu floatButton;
-    private FloatingActionButton floatButton_item_edit, floatButton_item_detail;
-    private CollapsingToolbarLayout mCollapsingToolbarLayout;
     private ViewPageContainerFragment homeFragment;
     private FragmentManager fragmentManager;
     boolean doubleBackToExitPressedOnce = false;
@@ -131,7 +124,6 @@ public class MainScreenActivity extends BaseMainActivity {
         headerView = navigationView.getHeaderView(0);
         profile_image = (ImageView) headerView.findViewById(R.id.image);
         profile_image.setImageResource(getResources().obtainTypedArray(R.array.cunghoangdaoimage).getResourceId(random.nextInt(11), -1));
-        mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
         Log.d(TAG, "oncreateMainScreenActivity");
         db = new DataHandlerSaveContent(this);
 

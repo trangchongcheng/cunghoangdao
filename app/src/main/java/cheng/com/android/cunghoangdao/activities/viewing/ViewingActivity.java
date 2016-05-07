@@ -1,18 +1,17 @@
 package cheng.com.android.cunghoangdao.activities.viewing;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.text.Spannable;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,6 +32,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.BaseMainActivity;
@@ -47,7 +47,6 @@ import cheng.com.android.cunghoangdao.interfaces.OnReturnContent;
 import cheng.com.android.cunghoangdao.model.Article;
 import cheng.com.android.cunghoangdao.model.Category;
 import cheng.com.android.cunghoangdao.provider.DataHandlerSaveContent;
-import cheng.com.android.cunghoangdao.provider.DataNewfeeds;
 import cheng.com.android.cunghoangdao.services.ApiServiceLichNgayTot;
 import cheng.com.android.cunghoangdao.services.CovertBitmapToByte;
 import cheng.com.android.cunghoangdao.services.JsoupParseLichNgayTot;
@@ -67,17 +66,13 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
     private Intent intent;
     private TextView tvMore;
     private ProgressBar progressBar;
-    private FloatingActionButton flbtnSave, flbtnShare;
+    private FloatingActionButton flbtnSave, flbtnShare,flbtnZalo;
     private DataHandlerSaveContent db;
-    private Spannable htmlSpan;
     private String contentTemp;
     private LinearLayout ll;
     private Button btnConnect;
     private NestedScrollView nestscv;
     private FloatingActionMenu flbtnMenu;
-    private Spannable processedText;
-    private Handler handler;
-    private DataNewfeeds dbNewFeeds;
     private WebView webview;
     private RecyclerView rvMore;
     private RecyclerCategoryAdapter categoryAdapter;
@@ -137,6 +132,7 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
         progressBar = (ProgressBar) findViewById(R.id.activity_viewing_progress);
         flbtnSave = (FloatingActionButton) findViewById(R.id.activity_viewing_flbtnSave);
         flbtnShare = (FloatingActionButton) findViewById(R.id.activity_viewing_flbtnShare);
+        flbtnZalo = (FloatingActionButton) findViewById(R.id.activity_viewing_flbtnZalo);
         progressBar.setVisibility(View.VISIBLE);
         ll = (LinearLayout) findViewById(R.id.activity_viewing_ll);
         btnConnect = (Button) findViewById(R.id.activity_viewing_btnConnect);
@@ -157,9 +153,7 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
         }
         assert flbtnMenu != null;
         flbtnMenu.hideMenu(true);
-        handler = new Handler();
         db = new DataHandlerSaveContent(this);
-        dbNewFeeds = new DataNewfeeds(this);
     }
 
     @Override
@@ -172,6 +166,7 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
             new JsoupParseLichNgayTot(this, "http://lichngaytot.com" + linkArticle, this, null).execute();
         } else {
             content = intent.getStringExtra(RecyclerCunghoangdaoAdapter.CONTENT);
+            contentShare = Html.fromHtml(content).toString().substring(0, 150);
             Log.d(TAG, "setContent: " + content);
             setContent(ChitietActivity.styleCss + content);
         }
@@ -200,6 +195,13 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
             @Override
             public void onClick(View v) {
                 setupFacebookShareIntent();
+                flbtnMenu.hideMenu(true);
+            }
+        });
+        flbtnZalo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                share();
                 flbtnMenu.hideMenu(true);
             }
         });
@@ -236,13 +238,10 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
     }
 
 
-    private void overrideFonts(Context context, View child) {
-    }
-
     @Override
     public void onReturnContent(String content) {
-        Log.d(TAG, "onReturnContent: " + styleCss + content);
         if(content!=null) {
+            contentShare = Html.fromHtml(content).toString().substring(0, 150);
             setContent(styleCss + content);
         }else {
             ll.setVisibility(View.VISIBLE);
@@ -261,11 +260,9 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
             if (typeOffline != null) {
                 Log.d(TAG, "setContent: 1");
                 webview.loadData(title + content, "text/html; charset=UTF-8", null);
-                contentShare = Html.fromHtml(content).toString().substring(0, 150);
                 progressBar.setVisibility(View.GONE);
             } else {
                 webview.loadData(title + content, "text/html; charset=UTF-8", null);
-                contentShare = Html.fromHtml(content).toString().substring(0, 150);
                 progressBar.setVisibility(View.INVISIBLE);
                 contentTemp = content;
                 if(category.equals(getString(R.string.menu_item_phong_thuy))){
@@ -320,10 +317,10 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
         shareDialog = new ShareDialog(this);
 
         ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("play.google.com"))
-                .setContentTitle(title)
-                .setContentDescription(contentShare)
-                .setImageUrl(Uri.parse(linkImage))
+                .setContentUrl(Uri.parse(getString(R.string.link_app)))
+                .setContentTitle(title.replace("<h1>","").replace("</h1>",""))
+                .setContentDescription(contentShare.substring(0,150))
+                .setImageUrl(Uri.parse("http://mxhviet.com/wp-content/uploads/2016/05/ic_laucher.png"))
                 .build();
         shareDialog.show(linkContent);
     }
@@ -348,17 +345,21 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
 
     @Override
     public void onReturnJsonObject(ArrayList<Category> arrContent, int type, String categoryName) {
-        for (int i = 0;i<arrContent.size();i++){
-            if(arrContent.get(i).getmTitle().substring(0,5).equals("Tử vi")){
-                Log.d(TAG, "onReturnJsonObject: "+arrContent.get(i).getmTitle());
-                arrContent.remove(i);
+        if(arrContent.size()>0){
+            for (int i = 0;i<arrContent.size();i++){
+                if(arrContent.get(i).getmTitle().substring(0,5).equals("Tử vi")){
+                    Log.d(TAG, "onReturnJsonObject: "+arrContent.get(i).getmTitle());
+                    arrContent.remove(i);
+                }
             }
+            categoryAdapter = new RecyclerCategoryAdapter(this, arrContent, this, rvMore, type, categoryName);
+            rvMore.setAdapter(categoryAdapter);
+            categoryAdapter.notifyDataSetChanged();
+            tvMore.setVisibility(View.VISIBLE);
+            rvMore.setVisibility(View.VISIBLE);
         }
-        categoryAdapter = new RecyclerCategoryAdapter(this, arrContent, this, rvMore, type, categoryName);
-        rvMore.setAdapter(categoryAdapter);
-        categoryAdapter.notifyDataSetChanged();
-        tvMore.setVisibility(View.VISIBLE);
-        rvMore.setVisibility(View.VISIBLE);
+
+
     }
 
     @Override
@@ -387,4 +388,33 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
         intent.putExtra(RecyclerCunghoangdaoAdapter.TYPE_LICH_NGAY_TOT, "type_lichngaytot");
         startActivity(intent);
     }
+    void share() {
+        try
+        {
+            List<Intent> targetedShareIntents = new ArrayList<Intent>();
+            Intent share = new Intent(android.content.Intent.ACTION_SEND);
+            share.setType("text/plain");
+            List<ResolveInfo> resInfo = getPackageManager().queryIntentActivities(share, 0);
+            if (!resInfo.isEmpty()){
+                for (ResolveInfo info : resInfo) {
+                    Intent targetedShare = new Intent(android.content.Intent.ACTION_SEND);
+                    targetedShare.setType("text/plain"); // put here your mime type
+                    if (info.activityInfo.packageName.toLowerCase().contains("com.zing.zalo") || info.activityInfo.name.toLowerCase().contains("com.zing.zalo")) {
+                        targetedShare.putExtra(Intent.EXTRA_SUBJECT,title.replace("<h1>","").replace("</h1>",""));
+                        targetedShare.putExtra(Intent.EXTRA_TEXT,contentShare.substring(0,150)
+                                +"\n"+getString(R.string.taitaiday)+"\n"+getString(R.string.link_app));
+                        targetedShare.setPackage(info.activityInfo.packageName);
+                        targetedShareIntents.add(targetedShare);
+                    }
+                }
+                Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Select app to share");
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
+                startActivity(chooserIntent);
+            }
+        }
+        catch(Exception e){
+            Log.v("VM","Exception while sending image on" + "com.zing.zalo" + " "+  e.getMessage());
+        }
+    }
+
 }

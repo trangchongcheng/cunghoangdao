@@ -144,6 +144,10 @@ public class Article {
             String title = context.getString(R.string.tu_vi_hom_nay);
             Elements content = document.select("div[class=\"chitiet-singger\"]");
             content.select("div[class=\"list_anchor_neo\"]").remove();
+            content.select("script").remove();
+            content.select("script").remove();
+            content.select("script").remove();
+            content.select("script").remove();
             arrArticle = new Article(title,content.text().substring(0,150),content.toString()
                     .replace("<img src=\"","<img src=\"http://lichngaytot.com"));
 

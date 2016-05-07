@@ -150,7 +150,7 @@ public class TuvitrondoiActivity extends BaseMainActivity implements
         if (arrContent != null) {
             Log.d(TAG, "onReturnJsonObject: " + ViewingActivity.styleCss + arrContent.get(0).getmContent());
             webview.loadDataWithBaseURL(null, ViewingActivity.styleCss + arrContent.get(0).getmContent(), null, "utf-8", null);
-            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.GONE);
         } else {
             webview.loadData("<h3>"+getResources().getString(R.string.thu_lai)+"</h3>","text/html; charset=utf-8", "UTF-8");
         }

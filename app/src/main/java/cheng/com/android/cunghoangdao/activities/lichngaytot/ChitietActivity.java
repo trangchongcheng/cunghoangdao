@@ -204,10 +204,10 @@ public class ChitietActivity extends BaseMainActivity implements OnReturnArticle
         shareDialog = new ShareDialog(this);
 
         ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("play.google.com"))
-                .setContentTitle(getResources().getString(R.string.boi_ty_chd))
+                .setContentUrl(Uri.parse(getString(R.string.link_app)))
+                .setContentTitle(getResources().getString(R.string.tu_vi_tron_doi)+spnCunghoangdao.getSelectedItem())
                 .setContentDescription("Xem tử vi 12 cung hoàng đạo trọn đời theo tình duyên, gia đình, sự nghiệm...chính xác nhất")
-                .setImageUrl(Uri.parse("https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Ecliptic_path.jpg/220px-Ecliptic_path.jpg"))
+                .setImageUrl(Uri.parse(getString(R.string.link_image)))
                 .build();
         shareDialog.show(linkContent);
     }
@@ -216,7 +216,7 @@ public class ChitietActivity extends BaseMainActivity implements OnReturnArticle
     public void onReturnArticleCunghoangdaoByDay(Article article) {
         if (article != null) {
             webview.loadDataWithBaseURL(null, styleCss + article.getmContent().replace("small","large"), null, "utf-8", null);
-            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.GONE);
             contentTemp = article.getmContent().replace("small","large");
             flbtnMenu.showMenu(true);
             try {

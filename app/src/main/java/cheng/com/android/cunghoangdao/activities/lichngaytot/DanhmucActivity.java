@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.jpardogo.android.googleprogressbar.library.FoldingCirclesDrawable;
 
 import java.util.ArrayList;
@@ -70,6 +72,10 @@ public class DanhmucActivity extends BaseMainActivity implements OnItemClickRecy
 
     @Override
     public void init() {
+        AdView mAdView = (AdView)findViewById(R.id.activity_category_adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        assert mAdView != null;
+        mAdView.loadAd(adRequest);
         Intent intent = getIntent();
         category = intent.getStringExtra(MainScreenActivity.TYPE_CATEGORY);
         toolbarName = intent.getStringExtra(MainScreenActivity.TOOLBAR_NAME);
@@ -77,10 +83,12 @@ public class DanhmucActivity extends BaseMainActivity implements OnItemClickRecy
         String mLink = getIntent().getStringExtra(HomeTabFragment.URL_CATEGORY);
         mCategory = getIntent().getStringExtra(HomeTabFragment.TITLE_CATEGORY);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        assert mToolbar != null;
         mToolbar.setTitle(toolbarName);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         rcvCategory = (RecyclerView) findViewById(R.id.activity_category_rcvNews);
+        assert rcvCategory != null;
         rcvCategory.setHasFixedSize(true);
         ll = (LinearLayout) findViewById(R.id.activity_category_ll);
         btnConnect = (Button) findViewById(R.id.activity_category_btnConnect);

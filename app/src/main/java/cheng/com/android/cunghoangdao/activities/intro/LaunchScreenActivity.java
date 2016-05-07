@@ -22,7 +22,7 @@ import cheng.com.android.cunghoangdao.ultils.CustomFont;
 
 public class LaunchScreenActivity extends AppCompatActivity {
 
-    private static final int SPLASH_TIME = 3000;
+    private static final int SPLASH_TIME = 2000;
     private ProgressBar google_progress;
     private TextView tvDecription, tvSologan;
     private RelativeLayout rl;

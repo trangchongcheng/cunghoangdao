@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.model.hometab.NewsFeed;
-import cheng.com.android.cunghoangdao.ultils.TimeAgoUtils;
 
 /**
  * Created by Welcome on 3/30/2016.
@@ -58,7 +57,6 @@ public class RecyclerCunghoangdaoAdapter extends RecyclerView.Adapter<RecyclerCu
         final NewsFeed newsFeed = arrNewsFeed.get(position);
         holder.tvTitle.setText(newsFeed.getmTitle());
         holder.tvDescription.setText(Html.fromHtml(newsFeed.getmDescription()));
-        holder.tvPubdate.setText(TimeAgoUtils.getDate(TimeAgoUtils.formatTime(newsFeed.getmPubdate()), true));
         if (!newsFeed.getmImageUrl().equals("")) {
             Glide.with(context).load(newsFeed.getmImageUrl())
                     .placeholder(R.drawable.ic_waiting)
@@ -81,7 +79,7 @@ public class RecyclerCunghoangdaoAdapter extends RecyclerView.Adapter<RecyclerCu
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView tvPubdate, tvTitle, tvDescription;
+        public TextView tvTitle, tvDescription;
         public ImageView imgThumbnail, imgFavorite;
         public LinearLayout ll;
         public CardView cardView;
@@ -89,7 +87,6 @@ public class RecyclerCunghoangdaoAdapter extends RecyclerView.Adapter<RecyclerCu
         public ViewHolder(View v) {
             super(v);
             ll = (LinearLayout) v.findViewById(R.id.item_cunghoangdao_ll);
-            tvPubdate = (TextView) v.findViewById(R.id.item_cunghoangdao_tvPubdate);
             tvTitle = (TextView) v.findViewById(R.id.item_cunghoangdao_tvTitle);
             tvDescription = (TextView) v.findViewById(R.id.item_cunghoangdao_tvDescription);
             imgThumbnail = (ImageView) v.findViewById(R.id.item_cunghoangdao_imgThumbnail);

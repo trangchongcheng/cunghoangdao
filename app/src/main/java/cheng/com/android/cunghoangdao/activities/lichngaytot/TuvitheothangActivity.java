@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.sleepbot.datetimepicker.time.RadialPickerLayout;
 import com.sleepbot.datetimepicker.time.TimePickerDialog;
+import com.startapp.android.publish.StartAppSDK;
+import com.startapp.android.publish.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -53,6 +55,7 @@ public class TuvitheothangActivity extends BaseMainActivity implements
     private DatePickerDialog datePickerDialog;
     private int year, month, day;
     private WebView webview;
+    private Banner banner;
 
     @Override
     public void setContentView() {
@@ -61,10 +64,15 @@ public class TuvitheothangActivity extends BaseMainActivity implements
 
     @Override
     public void init() {
+        banner = (com.startapp.android.publish.banner.Banner) findViewById(R.id.activity_tuvitheothang_startAppBanner);
+        assert banner != null;
+        banner.hideBanner();
+        StartAppSDK.init(this,getString(R.string.banner_startapp), false);
         final Calendar calendar = java.util.Calendar.getInstance();
         Intent intent = getIntent();
         toolbarName = intent.getStringExtra(MainScreenActivity.TOOLBAR_NAME);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        assert mToolbar != null;
         mToolbar.setTitle(toolbarName);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -150,7 +158,8 @@ public class TuvitheothangActivity extends BaseMainActivity implements
     public void onReturnJsonObject(ArrayList<Category> arrContent, int type, String categoryName) {
         if (arrContent != null) {
             webview.loadDataWithBaseURL(null,ViewingActivity.styleCss +arrContent.get(0).getmContent(),null, "utf-8", null);
-            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.GONE);
+            banner.showBanner();
         } else {
             webview.loadData("<h3>"+getResources().getString(R.string.thu_lai)+"</h3>","text/html; charset=utf-8", "UTF-8");
         }

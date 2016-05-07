@@ -108,7 +108,6 @@ public class HomeTabFragment extends BaseFragment implements
         //Get Article Cunghoangdao by Day
         new JsoupParseCungHoangDaoByDay(getActivity(), this, UrlGetXml.CUNG_HOANG_DAO_BY_DAY).execute();
         //get Article NewFeeds
-        progressBarNews.setVisibility(View.VISIBLE);
         new LichngaytotAsyntask(getActivity(), UrlGetXml.PHONG_THUY + page,
                 ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, 1, 0,
                 getResources().getString(R.string.category_phongthuy), this).execute();
@@ -192,7 +191,6 @@ public class HomeTabFragment extends BaseFragment implements
             getArray(arrContent);
             iTimes++;
             Log.d(TAG, "onReturnJsonObject: " + iTimes);
-            progressBarNews.setVisibility(View.INVISIBLE);
             ll.setVisibility(View.GONE);
             rl.setVisibility(View.VISIBLE);
         } else {
@@ -201,6 +199,7 @@ public class HomeTabFragment extends BaseFragment implements
             rl.setVisibility(View.INVISIBLE);
         }
         if (iTimes == 3) {
+            progressBarNews.setVisibility(View.GONE);
             if (arrArticle != null) {
                 Collections.shuffle(arrArticle);
                 categoryAdapter = new CustomAdapter(context, header, arrArticle, 0, "null", this);

@@ -134,7 +134,7 @@ public class TuvingaysinhActivity extends BaseMainActivity implements
         if (arrContent != null) {
             Log.d(TAG, "onReturnJsonObject:1");
             webview.loadDataWithBaseURL(null,ViewingActivity.styleCss +arrContent.get(0).getmContent(),null, "utf-8", null);
-            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.GONE);
         } else {
             Log.d(TAG, "onReturnJsonObject: 2");
             webview.loadData("<h3>"+getResources().getString(R.string.thu_lai)+"</h3>","text/html; charset=utf-8", "UTF-8");

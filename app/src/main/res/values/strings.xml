@@ -5,10 +5,16 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Cài đặt</string>
     <string name="menu">Menu</string>
+    <string name="link_app">https://play.google.com/store/apps/developer?id=trangchongcheng</string>
+    <string name="taitaiday">Tải ứng dụng Tử vi, Cung hoàng đạo tại đây:</string>
+    <string name="link_image">http://mxhviet.com/wp-content/uploads/2016/05/ic_laucher.png</string>
 
     <string name="banner_ads">ca-app-pub-8502836799800950/9397121226</string>
     <string name="banner_content">ca-app-pub-8502836799800950/5891924827</string>
+    <string name="banner_video">ca-app-pub-8502836799800950/8066662020</string>
+    <string name="banner_startapp">204704060</string>
     <string name="hint_name">Tên đầy đủ</string>
+    <string name="zalo">Không tìm thấy ứng dụng Zalo</string>
     <string name="hint_email">Email</string>
     <string name="hint_password">Mật khẩu</string>
     <string name="btn_sign_up">Đăng ký</string>
@@ -123,8 +129,10 @@
     <string name="btn_ketqua">Xem kết quả</string>
     <string name="text_null">vs</string>
     <string name="share_fb">Chia sẽ lên Facebook</string>
+    <string name="share_zalo">Chia sẽ lên Zalo</string>
     <string name="save_offline">Lưu lại đọc Offline</string>
     <string name="boi_ty_chd">Bói tình yêu theo cung hoàng đạo</string>
+    <string name="tu_vi_tron_doi">Xem tử vi trọn đời của</string>
 
     <string name="offine_mess">Chưa có bài viết nào được tải về!</string>
     <string name="khac">Khác</string>
@@ -229,7 +237,7 @@
     <string name="chon_not_rui">Chọn nốt rùi tra cứu</string>
     <string name="chon_vi_tri">Chọn vị trí nốt rùi</string>
     <string name="chon_nam">Nhập năm cần xem</string>
-    <string name="chon_ten">Nhập ho tên của bạn</string>
+    <string name="chon_ten">Nhập họ tên của bạn</string>
     <string name="loi_nhap_not_rui_tren_mat_nam">Xin hãy vị trí nốt rùi từ 1 đến 78</string>
     <string name="loi_nhap_not_rui_tren_mat_nu">Xin hãy vị trí nốt rùi từ 1 đến 62</string>
     <string name="loi_nhap_not_rui_tren_co_the_nam">Xin hãy vị trí nốt rùi từ 1 đến 20</string>

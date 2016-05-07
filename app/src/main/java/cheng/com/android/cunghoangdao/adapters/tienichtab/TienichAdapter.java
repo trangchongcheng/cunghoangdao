@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,7 +14,6 @@ import java.util.ArrayList;
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.interfaces.OnReturnPositionTienich;
 import cheng.com.android.cunghoangdao.model.Tienich;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Welcome on 4/25/2016.
@@ -52,7 +52,7 @@ public class TienichAdapter extends BaseAdapter  {
             viewHolder = new ViewHolder();
             convertView = LayoutInflater.from(context).inflate(R.layout.item_tienichtab, parent, false);
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.item_tienichtab_tvTitle);
-            viewHolder.imgType = (CircleImageView) convertView.findViewById(R.id.item_tienichtab_imgType);
+            viewHolder.imgType = (ImageView) convertView.findViewById(R.id.item_tienichtab_imgType);
             viewHolder.tvDescription = (TextView) convertView.findViewById(R.id.item_tienichtab_tvDescription);
             viewHolder.ll = (LinearLayout) convertView.findViewById(R.id.item_tienichtab_ll);
             convertView.setTag(viewHolder);
@@ -74,7 +74,7 @@ public class TienichAdapter extends BaseAdapter  {
         return convertView;
     }
     public class ViewHolder {
-        private CircleImageView imgType;
+        private ImageView imgType;
         private LinearLayout ll;
         private TextView tvTitle, tvDescription;
     }

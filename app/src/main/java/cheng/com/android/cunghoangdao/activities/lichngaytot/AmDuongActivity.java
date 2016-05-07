@@ -14,10 +14,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
 import com.sleepbot.datetimepicker.time.RadialPickerLayout;
 import com.sleepbot.datetimepicker.time.TimePickerDialog;
+import com.startapp.android.publish.banner.Banner;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -52,12 +51,10 @@ public class AmDuongActivity extends BaseMainActivity implements
     private String params, content;
     private TextView tvContent, tvDate;
     private ProgressBar progressBar;
-    private FloatingActionButton flbtnShare;
-    private FloatingActionMenu flbtnMenu;
     private Toolbar mToolbar;
-    private ArrayList<String> list = new ArrayList<>();
     private RadioButton rdoDuonglich, rdoAmlich;
     private WebView webview;
+    private Banner banner;
 
     @Override
     public void setContentView() {
@@ -66,6 +63,9 @@ public class AmDuongActivity extends BaseMainActivity implements
 
     @Override
     public void init() {
+        banner = (com.startapp.android.publish.banner.Banner) findViewById(R.id.activity_amduong_startAppBanner);
+        assert banner != null;
+        banner.hideBanner();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(getIntent().getStringExtra(MainScreenActivity.TOOLBAR_NAME));
         setSupportActionBar(mToolbar);
@@ -73,9 +73,6 @@ public class AmDuongActivity extends BaseMainActivity implements
         final Calendar calendar = java.util.Calendar.getInstance();
         tvDate = (TextView) findViewById(R.id.activity_amduong_tvDate);
         btnKetqua = (Button) findViewById(R.id.activity_amduong_btnKetqua);
-//        for (int i = 0; i < getResources().getStringArray(R.array.cunghoangdaoname).length; i++) {
-//            list.add(getResources().getStringArray(R.array.cunghoangdaoname)[i]);
-//        }
         rdoDuonglich = (RadioButton) findViewById(R.id.rdoDuonglich);
         rdoAmlich = (RadioButton) findViewById(R.id.rdoAmlich);
         //tvContent = (TextView) findViewById(R.id.activity_amduong_tvContent);
@@ -161,6 +158,7 @@ public class AmDuongActivity extends BaseMainActivity implements
             document.select("div[class=\"lich-conten\"]").remove();
             webview.loadDataWithBaseURL(null,ViewingActivity.styleCss + lichamduong+document.toString(),null, "utf-8", null);
             progressBar.setVisibility(View.GONE);
+            banner.showBanner();
         } else {
             webview.loadData("<h3>"+getResources().getString(R.string.thu_lai)+"</h3>","text/html; charset=utf-8", "UTF-8");
         }

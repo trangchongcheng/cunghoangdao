@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
@@ -22,10 +22,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_marginTop="8dp"
             android:paddingBottom="16dp"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:paddingTop="16dp">
+            android:paddingRight="8dp">
+
+            <com.startapp.android.publish.banner.Banner
+                android:id="@+id/startAppBanner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
 
             <LinearLayout
                 android:id="@+id/activity_viewing_ll"
@@ -36,13 +42,13 @@
                 android:visibility="gone">
 
                 <TextView
-                    android:textSize="25sp"
-                    android:textColor="@color/navigationBarColor"
                     android:id="@+id/activity_viewing_tvConnection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/connection" />
+                    android:text="@string/connection"
+                    android:textColor="@color/navigationBarColor"
+                    android:textSize="25sp" />
 
                 <Button
                     android:id="@+id/activity_viewing_btnConnect"
@@ -63,12 +69,13 @@
                 android:clickable="false"
                 android:focusableInTouchMode="false"
                 android:textSize="23sp" />
+
             <com.google.android.gms.ads.AdView
                 android:id="@+id/activity_viewing_adView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 ads:adSize="MEDIUM_RECTANGLE"
-                ads:adUnitId="@string/banner_ads"/>
+                ads:adUnitId="@string/banner_ads" />
 
             <TextView
                 android:id="@+id/activity_viewing_tvMore"
@@ -153,6 +160,18 @@
             app:fab_colorRipple="#99FFFFFF"
             app:fab_hideAnimation="@anim/fab_scale_down"
             app:fab_label="@string/share_fb"
+            app:fab_showAnimation="@anim/fab_scale_up"
+            app:fab_size="mini" />
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/activity_viewing_flbtnZalo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_zalo"
+            app:fab_colorNormal="@color/colorPrimary"
+            app:fab_colorPressed="@color/blue_semi_transparent"
+            app:fab_colorRipple="#99FFFFFF"
+            app:fab_hideAnimation="@anim/fab_scale_down"
+            app:fab_label="@string/share_zalo"
             app:fab_showAnimation="@anim/fab_scale_up"
             app:fab_size="mini" />
 

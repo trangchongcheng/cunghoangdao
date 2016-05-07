@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -178,7 +177,7 @@ public class BoingaysinhActivity extends BaseMainActivity implements
     public void onReturnJsonObject(ArrayList<Category> arrContent, int type, String categoryName) {
         if (arrContent != null) {
             webview.loadDataWithBaseURL(null,ViewingActivity.styleCss + arrContent.get(0).getmContent(),null, "utf-8", null);
-            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setVisibility(View.GONE);
             flbtnMenu.showMenu(true);
             try {
                 content = Html.fromHtml(arrContent.get(0).getmContent()).toString().substring(0, 150);
@@ -197,10 +196,10 @@ public class BoingaysinhActivity extends BaseMainActivity implements
         shareDialog = new ShareDialog(this);
 
         ShareLinkContent linkContent = new ShareLinkContent.Builder()
-                .setContentUrl(Uri.parse("play.google.com"))
+                .setContentUrl(Uri.parse(getString(R.string.link_app)))
                 .setContentTitle(getResources().getString(R.string.mota_boingaysinh))
                 .setContentDescription("Bói tình duyên theo ngày giữa " + tvNam.getText() + " và " + tvNu.getText() + " như thế nào?")
-                .setImageUrl(Uri.parse("https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Ecliptic_path.jpg/220px-Ecliptic_path.jpg"))
+                .setImageUrl(Uri.parse(getString(R.string.link_image)))
                 .build();
         shareDialog.show(linkContent);
     }
