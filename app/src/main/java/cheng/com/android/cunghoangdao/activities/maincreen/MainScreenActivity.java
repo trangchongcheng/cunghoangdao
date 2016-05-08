@@ -120,7 +120,6 @@ public class MainScreenActivity extends BaseMainActivity {
         profile_image.setImageResource(getResources().obtainTypedArray(R.array.cunghoangdaoimage).getResourceId(random.nextInt(11), -1));
         Log.d(TAG, "oncreateMainScreenActivity");
         db = new DataHandlerSaveContent(this);
-
         gallery=(TextView) MenuItemCompat.getActionView(navigationView.getMenu().
                 findItem(R.id.itemDownload));
         switchCompat=(SwitchCompat) MenuItemCompat.getActionView(navigationView.getMenu().
@@ -356,6 +355,7 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     protected void onPause() {
+        //setTimeAlarm();
         Log.d(TAG, "onPauseMainCreen: ");
         super.onPause();
     }

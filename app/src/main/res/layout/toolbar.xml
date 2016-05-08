@@ -9,7 +9,13 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
     app:layout_collapseMode="pin"
+<<<<<<< HEAD
     local:navigationIcon="@drawable/ic_back"
     local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
     local:titleTextAppearance="@style/Toolbar.TitleText" />
+=======
+    android:background="?attr/colorPrimaryDark"
+    local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+>>>>>>> daf69e5129a81981f8eceb4d59207ebd2a080f56

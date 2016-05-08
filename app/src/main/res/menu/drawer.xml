@@ -1,73 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/itemHot"
             android:checked="true"
-            app:actionViewClass="android.widget.TextView"
-            android:title="@string/xem_gi">
-        <menu>
-        <item
-            android:id="@+id/itemXemgi"
-            android:checked="false"
-            android:icon="@drawable/ic_person"
-            android:title="@string/menu_item_chi_tiet_ve_bạn" />
-        </menu>
+            android:title="@string/xem_gi"
+            app:actionViewClass="android.widget.TextView">
+            <menu>
+                <item
+                    android:id="@+id/itemXemgi"
+                    android:checked="false"
+                    android:icon="@drawable/ic_person"
+                    android:title="@string/menu_item_chi_tiet_ve_bạn" />
+            </menu>
         </item>
-        <item
-            android:title="@string/danh_muc">
-        <menu>
-            <item
-                android:id="@+id/itemCunghoangdao"
-                android:checked="false"
-                android:icon="@drawable/ic_item_cunghoangdao"
-                android:title="@string/menu_item_cunghoangdao" />
-            <item
-                android:id="@+id/itemTuvi"
-                android:checked="false"
-                android:icon="@drawable/ic_item_tuvi"
-                android:title="@string/menu_item_tu_vi" />
-            <item
-                android:id="@+id/itemPhongThuy"
-                android:checked="false"
-                android:icon="@drawable/ic_item_phongthuy"
-                android:title="@string/menu_item_phong_thuy" />
-            <item
-                android:id="@+id/itemXemtuong"
-                android:checked="false"
-                android:icon="@drawable/ic_boi"
-                android:title="@string/menu_item_xem_tuong" />
-            <item
-                android:id="@+id/itemTamlinh"
-                android:checked="false"
-                android:icon="@drawable/ic_item_tamlinh"
-                android:title="@string/menu_item_tam_linh" />
-            <item
-                android:id="@+id/itemClip"
-                android:checked="false"
-                android:icon="@drawable/ic_video"
-                android:title="@string/menu_item_clip_phongthuy" />
-            <item
-                android:id="@+id/itemDownload"
-                app:actionViewClass="android.widget.TextView"
-                android:checked="false"
-                android:icon="@drawable/ic_download"
-                android:title="@string/menu_item_download" />
+        <item android:title="@string/danh_muc">
+            <menu>
+                <item
+                    android:id="@+id/itemCunghoangdao"
+                    android:checked="false"
+                    android:icon="@drawable/ic_item_cunghoangdao"
+                    android:title="@string/menu_item_cunghoangdao" />
+                <item
+                    android:id="@+id/itemTuvi"
+                    android:checked="false"
+                    android:icon="@drawable/ic_item_tuvi"
+                    android:title="@string/menu_item_tu_vi" />
+                <item
+                    android:id="@+id/itemPhongThuy"
+                    android:checked="false"
+                    android:icon="@drawable/ic_item_phongthuy"
+                    android:title="@string/menu_item_phong_thuy" />
+                <item
+                    android:id="@+id/itemXemtuong"
+                    android:checked="false"
+                    android:icon="@drawable/ic_boi"
+                    android:title="@string/menu_item_xem_tuong" />
+                <item
+                    android:id="@+id/itemTamlinh"
+                    android:checked="false"
+                    android:icon="@drawable/ic_item_tamlinh"
+                    android:title="@string/menu_item_tam_linh" />
+                <item
+                    android:id="@+id/itemClip"
+                    android:checked="false"
+                    android:icon="@drawable/ic_video"
+                    android:title="@string/menu_item_clip_phongthuy" />
+                <item
+                    android:id="@+id/itemDownload"
+                    android:checked="false"
+                    android:icon="@drawable/ic_download"
+                    android:title="@string/menu_item_download"
+                    app:actionViewClass="android.widget.TextView" />
 
-        </menu>
+            </menu>
         </item>
-        <item
-            android:title="@string/tien_ich_hay">
+        <item android:title="@string/tien_ich_hay">
             <menu>
                 <item
                     android:id="@+id/itemThongbao"
                     android:checked="false"
-                    app:actionLayout="@layout/action_view_switch"
                     android:icon="@drawable/ic_item_thongbao"
-                    android:title="@string/menu_item_thongbao" />
+                    android:title="@string/menu_item_thongbao"
+                    app:actionLayout="@layout/action_view_switch" />
                 <item
                     android:id="@+id/itemTracNghiem"
                     android:checked="false"
@@ -87,8 +84,7 @@
 
             </menu>
         </item>
-        <item
-            android:title="@string/san_pham">
+        <item android:title="@string/san_pham">
             <menu>
                 <item
                     android:id="@+id/itemBinhchon"

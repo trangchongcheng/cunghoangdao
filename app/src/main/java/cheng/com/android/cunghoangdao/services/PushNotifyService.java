@@ -95,6 +95,7 @@ public class PushNotifyService extends Service {
                 .setColor(getResources().getColor(R.color.colorAccent))
                 .setContentText(article.getmDescription())
                 .setSmallIcon(R.drawable.ic_notifycation);
+
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         builder.setSound(alarmSound);
         Intent mainIntent = new Intent(getApplicationContext(), ViewingActivity.class);
