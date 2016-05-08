@@ -5,11 +5,7 @@
     android:background="@color/colorPrimary">
     <ImageView
         android:id="@+id/imgLogo"
-<<<<<<< HEAD
         android:src="@drawable/ic_laucher"
-=======
-        android:src="@mipmap/ic_launcher"
->>>>>>> daf69e5129a81981f8eceb4d59207ebd2a080f56
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_width="100dp"

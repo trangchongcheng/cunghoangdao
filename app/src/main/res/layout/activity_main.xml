@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-=======
-<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
->>>>>>> daf69e5129a81981f8eceb4d59207ebd2a080f56
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main_rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<<<<<<< HEAD
     <include layout="@layout/toolbar" />
-=======
-    <include layout="@layout/toolbar"/>
->>>>>>> daf69e5129a81981f8eceb4d59207ebd2a080f56
 
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer"
@@ -26,7 +19,6 @@
         <FrameLayout
             android:id="@+id/activity_maincree_frame_container"
             android:layout_width="match_parent"
-<<<<<<< HEAD
             android:layout_height="wrap_content"
             android:background="@color/textColorPrimary" />
 
@@ -34,16 +26,6 @@
             android:id="@+id/navigationview"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-=======
-            android:layout_height="match_parent"
-            android:background="#ffffff"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/navigationview"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
->>>>>>> daf69e5129a81981f8eceb4d59207ebd2a080f56
             android:layout_gravity="start"
             android:background="@color/windowBackground"
             android:fitsSystemWindows="true"
