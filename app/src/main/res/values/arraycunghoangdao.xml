@@ -59,29 +59,7 @@
         <item>@drawable/ic_12_con_giap_tuat</item>
         <item>@drawable/ic_12_con_giap_hoi</item>
     </array>
-    <string-array name="cunghoangdaodate">
-        <item>@string/chd_bachduong_date</item>
-        <item>@string/chd_kimnguu_date</item>
-        <item>@string/chd_songtu_date</item>
-        <item>@string/chd_cugiai_date</item>
-        <item>@string/chd_sutu_date</item>
-        <item>@string/chd_xunu_date</item>
-        <item>@string/chd_thienbinh_date</item>
-        <item>@string/chd_bocap_date</item>
-        <item>@string/chd_nhanma_date</item>
-        <item>@string/chd_maket_date</item>
-        <item>@string/chd_baobinh_date</item>
-        <item>@string/chd_songngu_date</item>
-    </string-array>
 
-    <array name="color_background_lauching">
-        <item>@color/textColorPrimary</item>
-        <item>@color/textColorPrimary</item>
-        <item>@color/textColorPrimary</item>
-        <item>@color/textColorPrimary</item>
-        <item>@color/textColorPrimary</item>
-        <item>@color/textColorPrimary</item>
-    </array>
     <string-array name="intro">
         <item>@string/trang_chu</item>
         <item>@string/menu</item>

@@ -41,7 +41,6 @@ public class RecyclerCategoryAdapter extends RecyclerView.Adapter {
     private int typeCategory;
     private String categoryName;
 
-    //typeCategory : type 1 is video or 0 is article
     public RecyclerCategoryAdapter(Context context, ArrayList<Category> arrCategory,
                                    OnItemClickRecyclerView onItemClickRecyclerView,
                                    RecyclerView recyclerView, int typeCategory, String categoryName) {

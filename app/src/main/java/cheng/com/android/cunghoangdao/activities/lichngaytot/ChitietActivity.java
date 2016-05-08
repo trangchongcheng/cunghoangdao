@@ -21,6 +21,8 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +56,8 @@ public class ChitietActivity extends BaseMainActivity implements OnReturnArticle
     private WebView webview;
     private String linkImage;
     private String contentTemp;
+    private  AdView mAdView;
+    private AdRequest adRequest;
     public static final String styleCss = "<meta charset=\"UTF-8\"><style>img{max-width: 100%; width:auto; height: auto;}" +
             "               a{color:#374046; text-decoration:none}" +
             "               h3,.lien_ket{font-size: 25px;color:#374046;font-weight: bold}" +
@@ -70,6 +74,8 @@ public class ChitietActivity extends BaseMainActivity implements OnReturnArticle
 
     @Override
     public void init() {
+        mAdView = (AdView)findViewById(R.id.activity_chitiet_adView);
+        adRequest = new AdRequest.Builder().build();
         db = new DataHandlerSaveContent(this);
         linkImage = getIntent().getStringExtra(RecyclerCunghoangdaoAdapter.LINK_IMAGE);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -225,6 +231,7 @@ public class ChitietActivity extends BaseMainActivity implements OnReturnArticle
                 flbtnMenu.hideMenu(true);
                 Toast.makeText(this, getString(R.string.thu_lai), Toast.LENGTH_SHORT).show();
             }
+            mAdView.loadAd(adRequest);
         } else {
             webview.loadData("<h3>" + getResources().getString(R.string.thu_lai) + "</h3>", "text/html; charset=utf-8", "UTF-8");
         }

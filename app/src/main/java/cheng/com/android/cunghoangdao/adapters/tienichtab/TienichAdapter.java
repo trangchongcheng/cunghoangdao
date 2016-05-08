@@ -60,7 +60,7 @@ public class TienichAdapter extends BaseAdapter  {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Tienich tienich = arrTienich.get(position);
-        viewHolder.imgType.setImageResource(    tienich.getImage());
+        viewHolder.imgType.setImageResource(tienich.getImage());
         viewHolder.tvTitle.setText(tienich.getTitle());
         viewHolder.tvDescription.setText(tienich.getDecription());
         viewHolder.ll.setBackgroundColor(tienich.getColor());

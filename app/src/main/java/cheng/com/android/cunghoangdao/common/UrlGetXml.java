@@ -4,12 +4,6 @@ package cheng.com.android.cunghoangdao.common;
  * Created by Welcome on 3/30/2016.
  */
 public class UrlGetXml {
-    public final static String HOME_TAB = "http://boi.vn/feed/";
-    public final static String CUNG_HOANG_DAO = "http://boi.vn/12-cung-hoang-dao/feed/";
-    public final static String CON_GIAP = "http://boi.vn/12-con-giap/feed/";
-    public final static String TU_VI = "http://boi.vn/xem-tu-vi/feed/";
-
-
     public final static String CUNG_BACH_DUONG = "http://lichngaytot.com/cung-hoang-dao/bach-duong-1.html";
     public final static String CUNG_BAO_BINH = "http://lichngaytot.com/cung-hoang-dao/bao-binh-11.html";
     public final static String CUNG_CU_GIAI = "http://lichngaytot.com/cung-hoang-dao/cu-giai-4.html";
@@ -23,8 +17,6 @@ public class UrlGetXml {
     public final static String CUNG_THIEN_BINH = "http://lichngaytot.com/cung-hoang-dao/thien-binh-7.html";
     public final static String CUNG_XU_NU = "http://lichngaytot.com/cung-hoang-dao/xu-nu-6.html";
     public final static String CUNG_HOANG_DAO_BY_DAY = "http://lichngaytot.com/tu-vi-12-cung-hoang-dao.html";
-
-
 
     public final static String PHONG_THUY = "http://lichngaytot.com/TongHopAjax/Ngam?categoryId=284&pageIndex=";
     public final static String TAM_LINH = "http://lichngaytot.com/TongHopAjax/Ngam?categoryId=564&pageIndex=";

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
-import android.text.style.URLSpan;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -37,7 +36,6 @@ import cheng.com.android.cunghoangdao.common.UrlGetXml;
 import cheng.com.android.cunghoangdao.model.Category;
 import cheng.com.android.cunghoangdao.services.ApiServiceLichNgayTot;
 import cheng.com.android.cunghoangdao.services.LichngaytotAsyntask;
-import cheng.com.android.cunghoangdao.ultils.removelink.URLSpanNoUnderline;
 
 /**
  * Created by Welcome on 4/29/2016.
@@ -188,16 +186,5 @@ public class TuoisinhconActivity extends BaseMainActivity implements
     @Override
     public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i1) {
 
-    }
-    public static Spannable removeUnderlines(Spannable p_Text) {
-        URLSpan[] spans = p_Text.getSpans(0, p_Text.length(), URLSpan.class);
-        for (URLSpan span : spans) {
-            int start = p_Text.getSpanStart(span);
-            int end = p_Text.getSpanEnd(span);
-            p_Text.removeSpan(span);
-            span = new URLSpanNoUnderline(span.getURL());
-            p_Text.setSpan(span, start, end, 0);
-        }
-        return p_Text;
     }
 }

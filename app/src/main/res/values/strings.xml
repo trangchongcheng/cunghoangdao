@@ -54,7 +54,7 @@
     <string name="cunghoangdao_name">Cung Bạch Dương</string>
     <string name="cunghoangdao_date">(01/07-24/07)</string>
 
-    <string name="connection">Không thể tải dữ liệu.\nVui lòng kiểm tra lại kết nối và thử lại!</string>
+    <string name="connection">Không thể tải dữ liệu.\nVui lòng kiểm tra lại kết nối và Bấm thử lại!</string>
     <string name="thulai">Thử lại</string>
 
     <string name="chd_bachduong">Cung Bạch Dương (21/03–19/04)</string>
@@ -83,20 +83,6 @@
     <string name="tuoi_tuat">Tuổi Tuất</string>
     <string name="tuoi_hoi">Tuổi Hợi</string>
 
-
-
-    <string name="chd_bachduong_date">(21/03-19/04)</string>
-    <string name="chd_kimnguu_date">(20/04-20/05)</string>
-    <string name="chd_songtu_date">(21/05-21/06)</string>
-    <string name="chd_cugiai_date">(22/06-22/07)</string>
-    <string name="chd_sutu_date">(23/07-22/08)</string>
-    <string name="chd_xunu_date">(23/08-22/09)</string>
-    <string name="chd_thienbinh_date">(23/09-23/10)</string>
-    <string name="chd_bocap_date">(24/10-22/11)</string>
-    <string name="chd_nhanma_date">(22/11-21/12)</string>
-    <string name="chd_maket_date">(22/12-19/01)</string>
-    <string name="chd_baobinh_date">(20/01-18/02)</string>
-    <string name="chd_songngu_date">(19/02-20/03)</string>
 
     <string name="danh_muc">Danh mục</string>
     <string name="tien_ich_hay">Tiện ích hay</string>
@@ -155,18 +141,6 @@
     <string name="tu_vi">TỬ VI</string>
     <string name="trang_chu">Home</string>
 
-    <string name="nam_truoc">Năm trước</string>
-    <string name="thang_truoc">Tháng trước</string>
-    <string name="tuan_truoc">Tuần trước</string>
-    <string name="ngay_truoc">Ngày trước</string>
-    <string name="hom_qua">Hôm qua</string>
-    <string name="mot_gio">giờ trước</string>
-    <string name="mot_gio_truoc">1 giờ trước</string>
-    <string name="mot_phut_truoc">1 phút trước</string>
-    <string name="phut_truoc">phút trước</string>
-    <string name="giay_truoc">giây trước</string>
-    <string name="moi_day">Mới đây</string>
-    <string name="thay_doi_ngon_ngu">Thay đổi ngôn ngữ</string>
 
     <string name="mo_rong">Mở rộng</string>
     <string name="app_id">1041345645929173</string>

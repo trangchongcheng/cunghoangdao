@@ -80,7 +80,6 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     public void onBackPressed() {
-//        int count = fragmentManager.getBackStackEntryCount();
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(Gravity.LEFT);
             animationIcon();
@@ -101,11 +100,6 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     public void setContentView() {
-//        isUserFirstTime = Boolean.valueOf(Utils.readSharedSetting(MainScreenActivity.this, PREF_USER_FIRST_TIME, "true"));
-//        Intent introIntent = new Intent(MainScreenActivity.this, PagerActivity.class);
-//        introIntent.putExtra(PREF_USER_FIRST_TIME, isUserFirstTime);
-//        if (isUserFirstTime)
-//            startActivity(introIntent);
         setContentView(R.layout.activity_main);
     }
     @Override
@@ -325,7 +319,6 @@ public class MainScreenActivity extends BaseMainActivity {
     }
 
     public void setTimeAlarm() {
-        Log.d(TAG, "setTimeAlarm: ");
         Calendar cal = Calendar.getInstance();
         Intent intent = new Intent(this, CheckTimesService.class);
         PendingIntent pintent = PendingIntent
@@ -363,7 +356,6 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     protected void onPause() {
-        //setTimeAlarm();
         Log.d(TAG, "onPauseMainCreen: ");
         super.onPause();
     }

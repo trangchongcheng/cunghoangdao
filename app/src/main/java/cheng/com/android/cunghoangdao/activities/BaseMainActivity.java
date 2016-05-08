@@ -1,13 +1,14 @@
 package cheng.com.android.cunghoangdao.activities;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -18,7 +19,6 @@ import com.startapp.android.publish.StartAppSDK;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.ultils.ConnectivityChangeReceiver;
-import me.drakeet.materialdialog.MaterialDialog;
 
 /**
  * Created by Welcome on 4/18/2016.
@@ -141,29 +141,27 @@ public abstract class BaseMainActivity extends AppCompatActivity
         Log.d(TAG, "onStartBaseMainActivity: ");
     }
 
-    private MaterialDialog dialog;
-
     public void showDialog(Context context) {
-        if( dialog != null ) return;
-            dialog = new MaterialDialog(context);
-            dialog.setTitle(getResources().getString(R.string.khong_co_ket_noi));
-            dialog.setMessage(getResources().getString(R.string.kiem_tra_ket_noi));
-            dialog.setNegativeButton(getResources().getString(R.string.dong_y), new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-            dialog.setPositiveButton(getResources().getString(R.string.bat_mang), new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(getResources().getString(R.string.khong_co_ket_noi));
+        builder.setMessage(getResources().getString(R.string.kiem_tra_ket_noi));
+        builder.setPositiveButton(getResources().getString(R.string.dong_y), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int arg1) {
+                dialog.cancel();
+            }
+        });
+
+        builder.setNegativeButton(getResources().getString(R.string.bat_mang),new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     dialog.dismiss();
-                }
-            });
-            dialog.show();
-
+            }
+        });
+        AlertDialog diag = builder.create();
+        diag.show();
     }
 
     @Override

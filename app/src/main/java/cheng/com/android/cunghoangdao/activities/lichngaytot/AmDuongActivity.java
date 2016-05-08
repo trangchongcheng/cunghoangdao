@@ -75,7 +75,6 @@ public class AmDuongActivity extends BaseMainActivity implements
         btnKetqua = (Button) findViewById(R.id.activity_amduong_btnKetqua);
         rdoDuonglich = (RadioButton) findViewById(R.id.rdoDuonglich);
         rdoAmlich = (RadioButton) findViewById(R.id.rdoAmlich);
-        //tvContent = (TextView) findViewById(R.id.activity_amduong_tvContent);
         webview = (WebView) findViewById(R.id.activity_amduong_webview);
         webview.setWebViewClient(new WebViewClient());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

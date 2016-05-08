@@ -60,14 +60,12 @@ public class DanhmucActivity extends BaseMainActivity implements OnItemClickRecy
 
     @Override
     public void setContentView() {
-        overridePendingTransition(R.anim.activity_open_translate, R.anim.activity_close_scale);
         setContentView(R.layout.activity_category);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
     }
 
     @Override

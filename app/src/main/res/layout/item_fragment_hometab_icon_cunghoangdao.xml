@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"/>
 
         <TextView
+            android:textColor="@color/colorPrimary"
             style="@style/text_cunghoangdao"
             android:text="@string/cunghoangdao_name"
             android:id="@+id/item_icon_tvName"/>

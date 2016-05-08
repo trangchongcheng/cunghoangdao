@@ -95,7 +95,6 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
 
     @Override
     public void setContentView() {
-        overridePendingTransition(R.anim.activity_open_translate, R.anim.activity_close_scale);
         setContentView(R.layout.activity_viewing);
     }
 
@@ -234,7 +233,6 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
     @Override
     protected void onPause() {
         super.onPause();
-        overridePendingTransition(R.anim.activity_open_scale, R.anim.activity_close_translate);
     }
 
 
@@ -402,7 +400,7 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
                     if (info.activityInfo.packageName.toLowerCase().contains("com.zing.zalo") || info.activityInfo.name.toLowerCase().contains("com.zing.zalo")) {
                         targetedShare.putExtra(Intent.EXTRA_SUBJECT,title.replace("<h1>","").replace("</h1>",""));
                         targetedShare.putExtra(Intent.EXTRA_TEXT,contentShare.substring(0,150)
-                                +"\n"+getString(R.string.taitaiday)+"\n"+getString(R.string.link_app));
+                                +"\n"+getString(R.string.taitaiday)+""+getString(R.string.link_app));
                         targetedShare.setPackage(info.activityInfo.packageName);
                         targetedShareIntents.add(targetedShare);
                     }

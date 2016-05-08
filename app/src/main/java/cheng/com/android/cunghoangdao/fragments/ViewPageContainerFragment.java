@@ -44,13 +44,6 @@ public class ViewPageContainerFragment extends BaseFragment {
             @Override
             public void onPageSelected(int position) {
                 if (position != 0) {
-//                    if (!isTabsSelected[position]
-//                            && adapter.getItem(position).getChildFragmentManager().getBackStackEntryCount() == 1
-//                            && getCurrentFragment(position) instanceof OnTabChangeListener) {
-//                        mOnTabChangeListener = (OnTabChangeListener) getCurrentFragment(position);
-//                        mOnTabChangeListener.onTabSelected();
-//                        Log.d(TAG, "onPageSelected: ");
-//                    }
                     if (getCurrentFragment(position) instanceof OnTabChangeListener) {
                         Fragment f = getCurrentFragment(position);
                         mOnTabChangeListener = (OnTabChangeListener) f;

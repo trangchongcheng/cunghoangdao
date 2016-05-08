@@ -1,12 +1,8 @@
 package cheng.com.android.cunghoangdao.fragments.tienich;
 
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
@@ -20,7 +16,6 @@ import cheng.com.android.cunghoangdao.activities.lichngaytot.TuoisinhconActivity
 import cheng.com.android.cunghoangdao.activities.lichngaytot.TuvingaysinhActivity;
 import cheng.com.android.cunghoangdao.activities.lichngaytot.TuvitheothangActivity;
 import cheng.com.android.cunghoangdao.activities.maincreen.MainScreenActivity;
-import cheng.com.android.cunghoangdao.adapters.cunghoangdaotab.RecyclerCunghoangdaoAdapter;
 import cheng.com.android.cunghoangdao.adapters.tienichtab.TienichAdapter;
 import cheng.com.android.cunghoangdao.fragments.BaseFragment;
 import cheng.com.android.cunghoangdao.interfaces.OnReturnPositionTienich;
@@ -32,12 +27,6 @@ import cheng.com.android.cunghoangdao.model.Tienich;
 public class TienichTabFragment extends BaseFragment implements OnReturnPositionTienich{
 
     private final String TAG = getClass().getSimpleName();
-    private RecyclerView rcvListNews;
-    private ProgressBar progressBar;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private RecyclerCunghoangdaoAdapter recyclerCunghoangdaoAdapter;
-    private Button btnConnect;
-    private LinearLayout ll;
     private GridView gvTienich;
     private ArrayList<Tienich> arrTienich;
     private TienichAdapter tienichAdapter;
