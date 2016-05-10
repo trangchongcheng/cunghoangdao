@@ -405,7 +405,7 @@ public class ViewingActivity extends BaseMainActivity implements OnReturnContent
                         targetedShareIntents.add(targetedShare);
                     }
                 }
-                Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Select app to share");
+                Intent chooserIntent = Intent.createChooser(targetedShareIntents.remove(0), "Lựa chọn ứng dụng");
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, targetedShareIntents.toArray(new Parcelable[]{}));
                 startActivity(chooserIntent);
             }

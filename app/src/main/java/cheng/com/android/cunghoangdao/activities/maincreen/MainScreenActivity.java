@@ -69,7 +69,7 @@ public class MainScreenActivity extends BaseMainActivity {
     private View headerView;
     private ViewPageContainerFragment homeFragment;
     private FragmentManager fragmentManager;
-    boolean doubleBackToExitPressedOnce = false;
+    public static boolean doubleBackToExitPressedOnce = false;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private int state = 0;
     private Menu menu;
@@ -344,8 +344,8 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "onDestroyMainCreen: ");
         if(switchCompat.isChecked()){
+            Log.d(TAG, "onDestroy: turnon");
             setTimeAlarm();
         }else {
             stopService(new Intent(MainScreenActivity.this,CheckTimesService.class));
@@ -355,7 +355,6 @@ public class MainScreenActivity extends BaseMainActivity {
 
     @Override
     protected void onPause() {
-        //setTimeAlarm();
         Log.d(TAG, "onPauseMainCreen: ");
         super.onPause();
     }

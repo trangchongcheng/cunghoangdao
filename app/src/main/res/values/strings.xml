@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Cung Hoàng Đạo Offical</string>
-    <string name="danh_gia">Hoàng Đạo Offical]Xin hãy giúp chúng tôi đóng góp ý kiến cho ứng dụng. </string>
+    <string name="app_name">Cung Hoàng Đạo Official</string>
+    <string name="danh_gia">Hoàng Đạo Official]Xin hãy giúp chúng tôi đóng góp ý kiến cho ứng dụng. </string>
     <string name="gmail">Bạn không có ứng dụng Gmail.Vui lòng tải hoặc gửi email tới gmail: cheng.cit@gmail.com</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Cài đặt</string>
@@ -190,7 +190,7 @@
     <string name="tienich_boicunghoangdao">Bói cung hoàng đạo</string>
     <string name="tienich_boingaysinh">Bói tình duyên</string>
     <string name="tienich_boinotruinam">Bói nốt rùi</string>
-    <string name="tienich_tuvingaysinh">Tử vi theo ngày sinh</string>
+    <string name="tienich_tuvingaysinh">Tử vi ngày sinh</string>
     <string name="tienich_tuvitheothang">Tử vi theo tháng</string>
     <string name="tienich_xemsaohan">Xem sao hạn</string>
     <string name="tienich_tuoisinhcon">Xem tuổi sinh con</string>

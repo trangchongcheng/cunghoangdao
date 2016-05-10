@@ -18,6 +18,7 @@ import com.robohorse.gpversionchecker.base.CheckingStrategy;
 import com.startapp.android.publish.StartAppSDK;
 
 import cheng.com.android.cunghoangdao.R;
+import cheng.com.android.cunghoangdao.activities.maincreen.MainScreenActivity;
 import cheng.com.android.cunghoangdao.ultils.ConnectivityChangeReceiver;
 
 /**
@@ -33,6 +34,7 @@ public abstract class BaseMainActivity extends AppCompatActivity
     public static int isBack=0;
     int times;
     public InterstitialAd mInterstitialAd;
+    private int isDestroy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,9 +106,8 @@ public abstract class BaseMainActivity extends AppCompatActivity
 
     @Override
     protected void onDestroy() {
-        Log.d(TAG, "onDestroyBaseMainActivity: ");
-        //isBack=0;
         super.onDestroy();
+        Log.d(TAG, "onDestroy: cheng");
         try {
             unregisterReceiver(connectivityChangeReceiver);
         } catch (IllegalArgumentException e) {
@@ -166,12 +167,14 @@ public abstract class BaseMainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         isBack++;
-        Log.d(TAG, "onBackPressed: "+isBack);
-        if(isBack==5||isBack==10||isBack==15||isBack==20){
-            Log.d(TAG, "onBackPressed1: "+isBack);
-            showInterstitial();
+        Log.d(TAG, "onBackPressed: "+isBack+MainScreenActivity.doubleBackToExitPressedOnce);
+        if(isBack==4||isBack==8||isBack==12||isBack==16||isBack==20){
+            if(!MainScreenActivity.doubleBackToExitPressedOnce){
+                showInterstitial();
+            }
         }
+        super.onBackPressed();
+
     }
 }

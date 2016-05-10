@@ -6,7 +6,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.startapp.android.publish.StartAppAd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +48,17 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
     private ProgressBar progressBar;
     private String params;
     private ScrollView scr;
+    private StartAppAd startAppAd;
+    public int isClick = 0;
 
     @Override
     public void setContentView() {
         setContentView(R.layout.activity_boinotrui);
     }
+
     @Override
     public void init() {
+        startAppAd = new StartAppAd(this);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(getIntent().getStringExtra(MainScreenActivity.TOOLBAR_NAME));
         btnKetqua = (Button) findViewById(R.id.activity_boinotrui_btnKetQua);
@@ -72,7 +76,7 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
         for (int i = 0; i < getResources().getStringArray(R.array.type_boinotrui).length; i++) {
             list.add(getResources().getStringArray(R.array.type_boinotrui)[i]);
         }
-        CustomFont.custfont(getApplicationContext(), tvContent,"fonts/Roboto-Regular.ttf");
+        CustomFont.custfont(getApplicationContext(), tvContent, "fonts/Roboto-Regular.ttf");
 
     }
 
@@ -143,14 +147,13 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
     }
 
     private void submitForm() {
-        Log.d(TAG, "submitForm: "+validate());
         if (validate()) {
             tvContent.setText("");
             progressBar.setVisibility(View.VISIBLE);
             params = ((spnType.getSelectedItemPosition() + 1) + "&ViTriNotRuoi=" + edtVitri.getText().toString().trim());
             new LichngaytotAsyntask(getApplicationContext(), UrlGetXml.BOI_NOT_RUI + params,
                     ApiServiceLichNgayTot.ApiRequestType.TYPE_GET, 0, BoinotruiActivity.this).execute();
-        }else {
+        } else {
             tp.setError("Vị trí không tìm thấy vui lòng chọn lại!");
         }
     }
@@ -164,7 +167,7 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
             } else if (Integer.parseInt(edtVitri.getText().toString()) > 78 || Integer.parseInt(edtVitri.getText().toString()) <= 0) {
                 setError(getString(R.string.loi_nhap_not_rui_tren_mat_nam));
                 return false;
-            }else {
+            } else {
                 tp.setErrorEnabled(false);
             }
         }
@@ -175,7 +178,7 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
             } else if (Integer.parseInt(edtVitri.getText().toString()) > 66 || Integer.parseInt(edtVitri.getText().toString()) <= 0) {
                 setError(getString(R.string.loi_nhap_not_rui_tren_mat_nu));
                 return false;
-            }else {
+            } else {
                 tp.setErrorEnabled(false);
             }
         }
@@ -186,7 +189,7 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
             } else if (Integer.parseInt(edtVitri.getText().toString()) > 20 || Integer.parseInt(edtVitri.getText().toString()) <= 0) {
                 setError(getString(R.string.loi_nhap_not_rui_tren_co_the_nam));
                 return false;
-            }else {
+            } else {
                 tp.setErrorEnabled(false);
             }
         }
@@ -197,7 +200,7 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
             } else if (Integer.parseInt(edtVitri.getText().toString()) > 31 || Integer.parseInt(edtVitri.getText().toString()) <= 0) {
                 setError(getString(R.string.loi_nhap_not_rui_tren_co_the_nu));
                 return false;
-            }else {
+            } else {
                 tp.setErrorEnabled(false);
             }
         }
@@ -208,7 +211,7 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
             } else if (Integer.parseInt(edtVitri.getText().toString()) > 28 || Integer.parseInt(edtVitri.getText().toString()) <= 0) {
                 setError(getString(R.string.loi_nhap_not_rui_tren_ban_tay));
                 return false;
-            }else {
+            } else {
                 tp.setErrorEnabled(false);
             }
         }
@@ -219,23 +222,28 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
             } else if (Integer.parseInt(edtVitri.getText().toString()) > 11 || Integer.parseInt(edtVitri.getText().toString()) <= 0) {
                 setError(getString(R.string.loi_nhap_not_rui_tren_ban_chan));
                 return false;
-            }else {
+            } else {
                 tp.setErrorEnabled(false);
             }
         }
         return true;
     }
 
-    public void setError(String error){
+    public void setError(String error) {
         tp.setError(error);
     }
 
     @Override
     public void onReturnJsonObject(ArrayList<Category> arrContent, int type, String categoryName) {
-        if(arrContent!=null){
+        if (arrContent != null) {
+            isClick++;
+            if (isClick == 3 || isClick == 7 || isClick == 12) {
+                startAppAd.showAd();
+                startAppAd.loadAd();
+            }
             tvContent.setText(Html.fromHtml(arrContent.get(0).getmContent()));
             progressBar.setVisibility(View.INVISIBLE);
-        }else {
+        } else {
             tvContent.setText(getString(R.string.thu_lai));
         }
 

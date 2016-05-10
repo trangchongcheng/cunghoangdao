@@ -23,7 +23,7 @@ public class CheckNetworkStateReceiver extends BroadcastReceiver {
         int hour = c.get(Calendar.HOUR_OF_DAY);
         Log.d("TAG", "onReceive: "+status + SetTimesSharedPreferences.getInstance(context).getIsTimes());
         if(status && !SetTimesSharedPreferences.getInstance(context).getIsTimes()){
-            if(7<hour && hour<23){
+            if(6<hour && hour<23){
                 Intent i = new Intent(context, PushNotifyService.class);
                 context.startService(i);
 

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.startapp.android.publish.StartAppAd;
 import com.startapp.android.publish.banner.Banner;
 
 import java.util.ArrayList;
@@ -46,9 +48,12 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
     private ProgressBar progressBar;
     private FloatingActionButton flbtnShare;
     private FloatingActionMenu flbtnMenu;
-    private String title, content,link;
+    private String title, content, link;
     private DataHandlerSaveContent db;
     private Banner banner;
+    public int isClick = 0;
+    private StartAppAd startAppAd;
+
     @Override
     public void setContentView() {
         setContentView(R.layout.activity_tracnghiemty);
@@ -56,6 +61,7 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
 
     @Override
     public void init() {
+        startAppAd = new StartAppAd(this);
         banner = (com.startapp.android.publish.banner.Banner) findViewById(R.id.activity_tnty_startAppBanner);
         assert banner != null;
         banner.hideBanner();
@@ -63,6 +69,7 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
         Intent intent = getIntent();
         toolbarName = intent.getStringExtra(MainScreenActivity.TOOLBAR_NAME);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        assert mToolbar != null;
         mToolbar.setTitle(toolbarName);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -76,7 +83,7 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
         progressBar = (ProgressBar) findViewById(R.id.activity_tnty_progressBar);
         flbtnShare = (FloatingActionButton) findViewById(R.id.activity_tnty_flbtnShare);
         flbtnMenu = (FloatingActionMenu) findViewById(R.id.activity_tnty_flbtn_menu);
-        CustomFont.custfont(getApplicationContext(), tvContent,"fonts/Roboto-Regular.ttf");
+        CustomFont.custfont(getApplicationContext(), tvContent, "fonts/Roboto-Regular.ttf");
         flbtnMenu.hideMenu(true);
 
     }
@@ -95,6 +102,12 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
         btnKetqua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "onClick: " + isClick);
+                isClick++;
+                if (isClick == 3 || isClick == 7 || isClick == 12) {
+                    startAppAd.showAd();
+                    startAppAd.loadAd(StartAppAd.AdMode.REWARDED_VIDEO);
+                }
                 progressBar.setVisibility(View.VISIBLE);
                 params = (spnNu.getSelectedItemPosition() + 1) + "&CungHoangDaoNam=" + (spnNam.getSelectedItemPosition() + 1);
                 new LichngaytotAsyntask(getApplicationContext(), UrlGetXml.BOI_CUNG_HOANG_DAO + params,
@@ -119,17 +132,18 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
     }
 
     @Override
-    public void onReturnJsonObject(ArrayList<Category> arrContent, int type,String categoryName) {
-        if(arrContent!=null){
+    public void onReturnJsonObject(ArrayList<Category> arrContent, int type, String categoryName) {
+        if (arrContent != null) {
             tvContent.setText(Html.fromHtml(arrContent.get(0).getmContent()));
             progressBar.setVisibility(View.GONE);
             banner.showBanner();
             flbtnMenu.showMenu(true);
-            content = tvContent.getText().toString().substring(0,150);
-        }else {
+            content = tvContent.getText().toString().substring(0, 150);
+        } else {
             tvContent.setText(getString(R.string.thu_lai));
         }
     }
+
     public void setupFacebookShareIntent() {
         ShareDialog shareDialog;
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -138,11 +152,10 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
         ShareLinkContent linkContent = new ShareLinkContent.Builder()
                 .setContentUrl(Uri.parse(getString(R.string.link_app)))
                 .setContentTitle(getResources().getString(R.string.boi_ty_chd))
-                .setContentDescription("Khám phám xem tình yêu giữa "+spnNam.getSelectedItem()+" và "+ spnNu.getSelectedItem() +" như thế nào")
+                .setContentDescription("Khám phám xem tình yêu giữa " + spnNam.getSelectedItem() + " và " + spnNu.getSelectedItem() + " như thế nào")
                 .setImageUrl(Uri.parse(getString(R.string.link_image)))
                 .build();
         shareDialog.show(linkContent);
     }
-
 
 }
