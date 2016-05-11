@@ -15,7 +15,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.robohorse.gpversionchecker.GPVersionChecker;
 import com.robohorse.gpversionchecker.base.CheckingStrategy;
-import com.startapp.android.publish.StartAppSDK;
 
 import cheng.com.android.cunghoangdao.R;
 import cheng.com.android.cunghoangdao.activities.maincreen.MainScreenActivity;
@@ -35,10 +34,10 @@ public abstract class BaseMainActivity extends AppCompatActivity
     int times;
     public InterstitialAd mInterstitialAd;
     private int isDestroy;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        StartAppSDK.init(this,getString(R.string.banner_startapp), true);
         mInterstitialAd = new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getString(R.string.banner_video));
         mInterstitialAd.setAdListener(new AdListener() {
@@ -67,14 +66,14 @@ public abstract class BaseMainActivity extends AppCompatActivity
     }
 
 
-    private void showInterstitial() {
+    public void showInterstitial() {
         if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
         } else {
             startGame();
         }
     }
-    private void startGame() {
+    public void startGame() {
         if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
             AdRequest adRequest = new AdRequest.Builder().build();
             mInterstitialAd.loadAd(adRequest);

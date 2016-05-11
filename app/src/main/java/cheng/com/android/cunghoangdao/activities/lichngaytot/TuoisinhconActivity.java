@@ -22,7 +22,6 @@ import android.widget.TextView;
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.sleepbot.datetimepicker.time.RadialPickerLayout;
 import com.sleepbot.datetimepicker.time.TimePickerDialog;
-import com.startapp.android.publish.StartAppSDK;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,7 +68,6 @@ public class TuoisinhconActivity extends BaseMainActivity implements
 
     @Override
     public void init() {
-        StartAppSDK.init(this,getString(R.string.banner_startapp), false);
         final Calendar calendar = java.util.Calendar.getInstance();
         Intent intent = getIntent();
         toolbarName = intent.getStringExtra(MainScreenActivity.TOOLBAR_NAME);

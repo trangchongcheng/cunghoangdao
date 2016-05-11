@@ -18,7 +18,8 @@ import android.widget.TextView;
 
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
-import com.startapp.android.publish.StartAppAd;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,6 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
     private ProgressBar progressBar;
     private String params;
     private ScrollView scr;
-    private StartAppAd startAppAd;
     public int isClick = 0;
 
     @Override
@@ -58,7 +58,11 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
 
     @Override
     public void init() {
-        startAppAd = new StartAppAd(this);
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                showInterstitial();
+            }
+        });
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbar.setTitle(getIntent().getStringExtra(MainScreenActivity.TOOLBAR_NAME));
         btnKetqua = (Button) findViewById(R.id.activity_boinotrui_btnKetQua);
@@ -238,8 +242,7 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
         if (arrContent != null) {
             isClick++;
             if (isClick == 3 || isClick == 7 || isClick == 12) {
-                startAppAd.showAd();
-                startAppAd.loadAd();
+                showInterstitial();
             }
             tvContent.setText(Html.fromHtml(arrContent.get(0).getmContent()));
             progressBar.setVisibility(View.INVISIBLE);
@@ -272,5 +275,19 @@ public class BoinotruiActivity extends BaseMainActivity implements LichngaytotAs
                     break;
             }
         }
+    }
+    public void showInterstitial() {
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            startGame();
+        }
+    }
+    public void startGame() {
+        if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mInterstitialAd.loadAd(adRequest);
+        }
+
     }
 }

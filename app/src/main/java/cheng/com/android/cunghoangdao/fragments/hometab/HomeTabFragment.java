@@ -1,5 +1,6 @@
 package cheng.com.android.cunghoangdao.fragments.hometab;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -169,7 +170,8 @@ public class HomeTabFragment extends BaseFragment implements
     //Return news Cung hoang dao by day
     @Override
     public void onReturnArticleCunghoangdaoByDay(final Article article) {
-        if (article != null) {
+        Activity activity = getActivity();
+        if (activity != null && article != null) {
             header = new Header(getString(R.string.category_cunghoangdao), article.getmContent(), article.getmTitle(),
                     article.getmDescription(), getResources().obtainTypedArray(R.array.cunghoangdaoimage).getResourceId(rand.nextInt(11), -1));
         }

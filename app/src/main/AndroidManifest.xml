@@ -26,10 +26,9 @@
             android:value="@string/app_id" />
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <meta-data android:name="com.startapp.android.DEV_ID"
-            android:value="104530013"/>
-        <meta-data android:name="com.startapp.android.APP_ID"
-            android:value="204704060>"/>
+        <meta-data android:name="vn.amobi.util.ads.widget_id"
+            android:value="@string/id_widget" >
+        </meta-data>
 
         <activity
             android:name=".activities.intro.LaunchScreenActivity"
@@ -89,19 +88,7 @@
         <activity
             android:name=".activities.lichngaytot.ClipPhongThuyActivity"
             android:configChanges="screenSize|orientation|keyboardHidden" />
-
-        <activity android:name="com.startapp.android.publish.list3d.List3DActivity"
-            android:theme="@android:style/Theme" />
-
-
-        <activity android:name="com.startapp.android.publish.OverlayActivity"
-            android:theme="@android:style/Theme.Translucent"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-
-        <activity android:name="com.startapp.android.publish.FullScreenActivity"
-            android:theme="@android:style/Theme"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-
+        <activity android:name="vn.amobi.util.ads.video.player.VideoActivity" > </activity>
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider1041345645929173"

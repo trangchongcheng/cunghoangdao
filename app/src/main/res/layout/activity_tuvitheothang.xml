@@ -61,11 +61,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:visibility="gone" />
-            <com.startapp.android.publish.banner.Banner
-                android:id="@+id/activity_tuvitheothang_startAppBanner"
+            <vn.amobi.util.ads.AmobiAdView
+                android:layout_gravity="center"
+                android:id="@+id/activity_tuvitheothang_adView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+                android:visibility="visible" />
             <WebView
                 android:id="@+id/activity_tuvitheothang_webview"
                 android:layout_width="match_parent"

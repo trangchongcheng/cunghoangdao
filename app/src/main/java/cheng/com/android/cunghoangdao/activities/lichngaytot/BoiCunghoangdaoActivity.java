@@ -18,8 +18,6 @@ import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.startapp.android.publish.StartAppAd;
-import com.startapp.android.publish.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +31,14 @@ import cheng.com.android.cunghoangdao.provider.DataHandlerSaveContent;
 import cheng.com.android.cunghoangdao.services.ApiServiceLichNgayTot;
 import cheng.com.android.cunghoangdao.services.LichngaytotAsyntask;
 import cheng.com.android.cunghoangdao.ultils.CustomFont;
+import vn.amobi.util.ads.AdEventInterface;
+import vn.amobi.util.ads.AmobiAdView;
 
 /**
  * Created by Welcome on 4/18/2016.
  */
-public class BoiCunghoangdaoActivity extends BaseMainActivity implements LichngaytotAsyntask.OnReturnJsonObject {
+public class BoiCunghoangdaoActivity extends BaseMainActivity
+        implements LichngaytotAsyntask.OnReturnJsonObject {
     private final String TAG = getClass().getSimpleName();
     private Toolbar mToolbar;
     private List<String> list = new ArrayList<String>();
@@ -50,9 +51,9 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
     private FloatingActionMenu flbtnMenu;
     private String title, content, link;
     private DataHandlerSaveContent db;
-    private Banner banner;
     public int isClick = 0;
-    private StartAppAd startAppAd;
+    private AmobiAdView adView;
+    private  AdEventInterface adEventInterface;
 
     @Override
     public void setContentView() {
@@ -61,10 +62,8 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
 
     @Override
     public void init() {
-        startAppAd = new StartAppAd(this);
-        banner = (com.startapp.android.publish.banner.Banner) findViewById(R.id.activity_tnty_startAppBanner);
-        assert banner != null;
-        banner.hideBanner();
+
+        adView = (AmobiAdView) findViewById(R.id.activity_tnty_adView);
         db = new DataHandlerSaveContent(this);
         Intent intent = getIntent();
         toolbarName = intent.getStringExtra(MainScreenActivity.TOOLBAR_NAME);
@@ -85,7 +84,22 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
         flbtnMenu = (FloatingActionMenu) findViewById(R.id.activity_tnty_flbtn_menu);
         CustomFont.custfont(getApplicationContext(), tvContent, "fonts/Roboto-Regular.ttf");
         flbtnMenu.hideMenu(true);
+        adEventInterface = new AdEventInterface() {
+            @Override
+            public void onAdViewLoaded() {
 
+            }
+
+            @Override
+            public void onAdViewClose() {
+
+            }
+
+            @Override
+            public void onLoadAdError(ErrorCode errorCode) {
+
+            }
+        };
     }
 
     @Override
@@ -105,8 +119,10 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
                 Log.d(TAG, "onClick: " + isClick);
                 isClick++;
                 if (isClick == 3 || isClick == 7 || isClick == 12) {
-                    startAppAd.showAd();
-                    startAppAd.loadAd(StartAppAd.AdMode.REWARDED_VIDEO);
+                    if(adView!=null){
+                    adView.setEventListener(adEventInterface);
+                    adView.loadAd(AmobiAdView.WidgetSize.FULL_SCREEN);
+                }
                 }
                 progressBar.setVisibility(View.VISIBLE);
                 params = (spnNu.getSelectedItemPosition() + 1) + "&CungHoangDaoNam=" + (spnNam.getSelectedItemPosition() + 1);
@@ -136,7 +152,10 @@ public class BoiCunghoangdaoActivity extends BaseMainActivity implements Lichnga
         if (arrContent != null) {
             tvContent.setText(Html.fromHtml(arrContent.get(0).getmContent()));
             progressBar.setVisibility(View.GONE);
-            banner.showBanner();
+            if(adView!=null){
+                adView.setEventListener(adEventInterface);
+                adView.loadAd(AmobiAdView.WidgetSize.SMALL);
+            }
             flbtnMenu.showMenu(true);
             content = tvContent.getText().toString().substring(0, 150);
         } else {

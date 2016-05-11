@@ -37,6 +37,8 @@ import cheng.com.android.cunghoangdao.model.Article;
 import cheng.com.android.cunghoangdao.provider.DataHandlerSaveContent;
 import cheng.com.android.cunghoangdao.services.CovertBitmapToByte;
 import cheng.com.android.cunghoangdao.services.JsoupParseCungHoangDaoByDay;
+import vn.amobi.util.ads.AdEventInterface;
+import vn.amobi.util.ads.AmobiAdView;
 
 /**
  * Created by Welcome on 5/5/2016.
@@ -58,6 +60,8 @@ public class ChitietActivity extends BaseMainActivity implements OnReturnArticle
     private String contentTemp;
     private  AdView mAdView;
     private AdRequest adRequest;
+    private AmobiAdView adView;
+    private AdEventInterface adEventInterface;
     public static final String styleCss = "<meta charset=\"UTF-8\"><style>img{max-width: 100%; width:auto; height: auto;}" +
             "               a{color:#374046; text-decoration:none}" +
             "               h3,.lien_ket{font-size: 25px;color:#374046;font-weight: bold}" +
@@ -74,6 +78,7 @@ public class ChitietActivity extends BaseMainActivity implements OnReturnArticle
 
     @Override
     public void init() {
+        adView = (AmobiAdView) findViewById(R.id.activity_chitiet_madView);
         mAdView = (AdView)findViewById(R.id.activity_chitiet_adView);
         adRequest = new AdRequest.Builder().build();
         db = new DataHandlerSaveContent(this);
@@ -106,6 +111,22 @@ public class ChitietActivity extends BaseMainActivity implements OnReturnArticle
         flbtnMenu = (FloatingActionMenu) findViewById(R.id.activity_chitiet_flbtn_menu);
         assert flbtnMenu != null;
         flbtnMenu.hideMenu(true);
+        adEventInterface = new AdEventInterface() {
+            @Override
+            public void onAdViewLoaded() {
+
+            }
+
+            @Override
+            public void onAdViewClose() {
+
+            }
+
+            @Override
+            public void onLoadAdError(ErrorCode errorCode) {
+
+            }
+        };
     }
 
     @Override
@@ -224,6 +245,10 @@ public class ChitietActivity extends BaseMainActivity implements OnReturnArticle
             webview.loadDataWithBaseURL(null, styleCss + article.getmContent().replace("small","large"), null, "utf-8", null);
             progressBar.setVisibility(View.GONE);
             contentTemp = article.getmContent().replace("small","large");
+            if(adView!=null){
+                adView.setEventListener(adEventInterface);
+                adView.loadAd(AmobiAdView.WidgetSize.SMALL);
+            }
             flbtnMenu.showMenu(true);
             try {
                 content = Html.fromHtml(article.getmContent()).toString().substring(0, 150);

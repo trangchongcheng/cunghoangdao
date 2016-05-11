@@ -8,8 +8,8 @@ android {
         applicationId "cheng.com.android.cunghoangdao"
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 5
-        versionName "1.4"
+        versionCode 6
+        versionName "1.5"
     }
     buildTypes {
         release {
@@ -41,5 +41,5 @@ dependencies {
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.5.0'
     compile 'com.robohorse.gpversionchecker:gpversionchecker:1.0.5'
     compile 'com.google.android.gms:play-services-ads:8.4.0'
-    compile files('libs/StartAppInApp-3.4.1.jar')
+    compile files('libs/Amobi SDK v2.0 20150520.jar')
 }

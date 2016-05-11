@@ -144,6 +144,7 @@
 
     <string name="mo_rong">Mở rộng</string>
     <string name="app_id">1041345645929173</string>
+    <string name="id_widget">62459f96ac6a5ba0c4545947eae5b982</string>
     <string name="title_activity_tab_intro">TabIntroActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="toast_exit">Bấm quay lại lần nữa để thoát ứng dụng!</string>
@@ -189,7 +190,7 @@
 
     <string name="tienich_boicunghoangdao">Bói cung hoàng đạo</string>
     <string name="tienich_boingaysinh">Bói tình duyên</string>
-    <string name="tienich_boinotruinam">Bói nốt rùi</string>
+    <string name="tienich_boinotruinam">Bói nốt ruồi</string>
     <string name="tienich_tuvingaysinh">Tử vi ngày sinh</string>
     <string name="tienich_tuvitheothang">Tử vi theo tháng</string>
     <string name="tienich_xemsaohan">Xem sao hạn</string>
@@ -199,7 +200,7 @@
 
     <string name="mota_boicunghoangdao">Bói tình yêu nam nữ theo cung hoàng đạo</string>
     <string name="mota_boingaysinh">Bói tình yêu nam nữ theo ngày sinh (Dương lịch)...</string>
-    <string name="mota_boinotruinam">Bói nốt rùi trên khuôn mặt, cơ thể, chân... </string>
+    <string name="mota_boinotruinam">Bói nốt ruồi trên khuôn mặt, cơ thể, chân... </string>
     <string name="mota_tuvingaysinh">Xem tử vi theo ngày tháng năm sinh của bạn về tình duyên, sức khỏe...</string>
     <string name="mota_tuvitheothang">Xem tử vi theo tháng về sức khỏe, công danh, tình duyên...</string>
     <string name="mota_xemsaohan">Xem sao chiếu mệnh, sao hạn cho các tuổi </string>
@@ -208,16 +209,16 @@
     <string name="ngay_sinh_nam">Ngày sinh Nam (DL)</string>
     <string name="ngay_sinh_nu">Ngày sinh Nữ (DL)</string>
     <string name="thu_lai">Không tìm thấy kết quả do đường truyền kém hoặc lỗi ở hệ thống! Vui lòng thử lại sau.</string>
-    <string name="chon_not_rui">Chọn nốt rùi tra cứu</string>
-    <string name="chon_vi_tri">Chọn vị trí nốt rùi</string>
+    <string name="chon_not_rui">Chọn nốt ruồi tra cứu</string>
+    <string name="chon_vi_tri">Chọn vị trí nốt ruồi</string>
     <string name="chon_nam">Nhập năm cần xem</string>
     <string name="chon_ten">Nhập họ tên của bạn</string>
-    <string name="loi_nhap_not_rui_tren_mat_nam">Xin hãy vị trí nốt rùi từ 1 đến 78</string>
-    <string name="loi_nhap_not_rui_tren_mat_nu">Xin hãy vị trí nốt rùi từ 1 đến 62</string>
-    <string name="loi_nhap_not_rui_tren_co_the_nam">Xin hãy vị trí nốt rùi từ 1 đến 20</string>
-    <string name="loi_nhap_not_rui_tren_co_the_nu">Xin hãy vị trí nốt rùi từ 1 đến 31</string>
-    <string name="loi_nhap_not_rui_tren_ban_tay">Xin hãy vị trí nốt rùi từ 1 đến 28</string>
-    <string name="loi_nhap_not_rui_tren_ban_chan">Xin hãy vị trí nốt rùi từ 1 đến 11</string>
+    <string name="loi_nhap_not_rui_tren_mat_nam">Xin hãy vị trí nốt ruồi từ 1 đến 78</string>
+    <string name="loi_nhap_not_rui_tren_mat_nu">Xin hãy vị trí nốt ruồi từ 1 đến 62</string>
+    <string name="loi_nhap_not_rui_tren_co_the_nam">Xin hãy vị trí nốt ruồi từ 1 đến 20</string>
+    <string name="loi_nhap_not_rui_tren_co_the_nu">Xin hãy vị trí nốt ruồi từ 1 đến 31</string>
+    <string name="loi_nhap_not_rui_tren_ban_tay">Xin hãy vị trí nốt ruồi từ 1 đến 28</string>
+    <string name="loi_nhap_not_rui_tren_ban_chan">Xin hãy vị trí nốt ruồi từ 1 đến 11</string>
     <string name="loi_nhap_nam">Năm bạn nhập không hợp lệ</string>
     <string name="loi_nhap_ten">Tên không được để trống hoặc dưới 5 kí tự</string>
     <string name="phong_to">* Dùng tay để phóng to ảnh lên.</string>
@@ -233,12 +234,12 @@
     <string name="am_lich">Âm lịch</string>
     <string name="bai_viet_lien_quan">Bài viết liên quan</string>
 
-    <string name="not_rui_tren_mat_nam">Nốt rùi trên mặt Nam</string>
-    <string name="not_rui_tren_mat_nu">Nốt rùi trên mặt Nữ</string>
-    <string name="not_rui_tren_co_the_nam">Nốt rùi trên cơ thể Nam</string>
-    <string name="not_rui_tren_co_the_nu">Nốt rùi trên cơ thể Nữ</string>
-    <string name="not_rui_tren_ban_tay">Nốt rùi trên bàn tay</string>
-    <string name="not_rui_tren_ban_chan">Nốt rùi trên bàn chân</string>
+    <string name="not_rui_tren_mat_nam">Nốt ruồi trên mặt Nam</string>
+    <string name="not_rui_tren_mat_nu">Nốt ruồi trên mặt Nữ</string>
+    <string name="not_rui_tren_co_the_nam">Nốt ruồi trên cơ thể Nam</string>
+    <string name="not_rui_tren_co_the_nu">Nốt ruồi trên cơ thể Nữ</string>
+    <string name="not_rui_tren_ban_tay">Nốt ruồi trên bàn tay</string>
+    <string name="not_rui_tren_ban_chan">Nốt ruồi trên bàn chân</string>
     <string name="ngay_sinh_bo">Ngày sinh Bố (DL)</string>
     <string name="ngay_sinh_me">Ngày sinh Mẹ (DL)</string>
     <string name="nam_sinh">Năm sinh dự kiến</string>

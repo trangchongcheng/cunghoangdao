@@ -18,8 +18,6 @@ import android.widget.TextView;
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.sleepbot.datetimepicker.time.RadialPickerLayout;
 import com.sleepbot.datetimepicker.time.TimePickerDialog;
-import com.startapp.android.publish.StartAppSDK;
-import com.startapp.android.publish.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,6 +32,8 @@ import cheng.com.android.cunghoangdao.model.Category;
 import cheng.com.android.cunghoangdao.services.ApiServiceLichNgayTot;
 import cheng.com.android.cunghoangdao.services.LichngaytotAsyntask;
 import cheng.com.android.cunghoangdao.ultils.CustomFont;
+import vn.amobi.util.ads.AdEventInterface;
+import vn.amobi.util.ads.AmobiAdView;
 
 /**
  * Created by Welcome on 4/28/2016.
@@ -55,7 +55,8 @@ public class TuvitheothangActivity extends BaseMainActivity implements
     private DatePickerDialog datePickerDialog;
     private int year, month, day;
     private WebView webview;
-    private Banner banner;
+    private AmobiAdView adView;
+    private  AdEventInterface adEventInterface;
 
     @Override
     public void setContentView() {
@@ -64,10 +65,7 @@ public class TuvitheothangActivity extends BaseMainActivity implements
 
     @Override
     public void init() {
-        banner = (com.startapp.android.publish.banner.Banner) findViewById(R.id.activity_tuvitheothang_startAppBanner);
-        assert banner != null;
-        banner.hideBanner();
-        StartAppSDK.init(this,getString(R.string.banner_startapp), false);
+        adView = (AmobiAdView) findViewById(R.id.activity_tuvitheothang_adView);
         final Calendar calendar = java.util.Calendar.getInstance();
         Intent intent = getIntent();
         toolbarName = intent.getStringExtra(MainScreenActivity.TOOLBAR_NAME);
@@ -93,6 +91,22 @@ public class TuvitheothangActivity extends BaseMainActivity implements
         CustomFont.custfont(getApplicationContext(), tvContent, "fonts/Roboto-Regular.ttf");
         datePickerDialog = DatePickerDialog.newInstance(this, calendar.get(java.util.Calendar.YEAR),
                 calendar.get(java.util.Calendar.MONTH), calendar.get(java.util.Calendar.DAY_OF_MONTH));
+        adEventInterface = new AdEventInterface() {
+            @Override
+            public void onAdViewLoaded() {
+
+            }
+
+            @Override
+            public void onAdViewClose() {
+
+            }
+
+            @Override
+            public void onLoadAdError(ErrorCode errorCode) {
+
+            }
+        };
     }
 
     @Override
@@ -159,7 +173,10 @@ public class TuvitheothangActivity extends BaseMainActivity implements
         if (arrContent != null) {
             webview.loadDataWithBaseURL(null,ViewingActivity.styleCss +arrContent.get(0).getmContent(),null, "utf-8", null);
             progressBar.setVisibility(View.GONE);
-            banner.showBanner();
+            if(adView!=null){
+                adView.setEventListener(adEventInterface);
+                adView.loadAd(AmobiAdView.WidgetSize.SMALL);
+            }
         } else {
             webview.loadData("<h3>"+getResources().getString(R.string.thu_lai)+"</h3>","text/html; charset=utf-8", "UTF-8");
         }

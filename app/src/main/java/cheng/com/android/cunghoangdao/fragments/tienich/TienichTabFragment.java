@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.GridView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import java.util.ArrayList;
 
 import cheng.com.android.cunghoangdao.R;
@@ -20,16 +24,22 @@ import cheng.com.android.cunghoangdao.adapters.tienichtab.TienichAdapter;
 import cheng.com.android.cunghoangdao.fragments.BaseFragment;
 import cheng.com.android.cunghoangdao.interfaces.OnReturnPositionTienich;
 import cheng.com.android.cunghoangdao.model.Tienich;
+import vn.amobi.util.ads.video.AmobiShowVideoAdRequest;
+import vn.amobi.util.ads.video.AmobiVideoAd;
+import vn.amobi.util.ads.video.AmobiVideoAdListener;
 
 /**
  * Created by Welcome on 3/30/2016.
  */
-public class TienichTabFragment extends BaseFragment implements OnReturnPositionTienich{
+public class TienichTabFragment extends BaseFragment implements OnReturnPositionTienich,AmobiVideoAdListener {
 
     private final String TAG = getClass().getSimpleName();
     private GridView gvTienich;
     private ArrayList<Tienich> arrTienich;
     private TienichAdapter tienichAdapter;
+    private int iClick = 0;
+    public InterstitialAd mInterstitialAd;
+
     @Override
     public void init() {
         Log.d(TAG, "init: ");
@@ -63,6 +73,12 @@ public class TienichTabFragment extends BaseFragment implements OnReturnPosition
     public void onReturnPositionFinish(int position) {
         Log.d(TAG, "onReturnPositionFinish: "+position);
         Intent intent = null;
+        iClick++;
+        Log.d(TAG, "onReturnPositionFinish: "+iClick);
+        if(iClick==4 ||iClick==10 || iClick==15){
+            AmobiVideoAd.getInstance().setVideoAdListener(this);
+            AmobiVideoAd.getInstance().prepare(getActivity());
+        }
         switch (position){
             case 0:
               intent  = new Intent(getActivity(), BoiCunghoangdaoActivity.class);
@@ -98,5 +114,48 @@ public class TienichTabFragment extends BaseFragment implements OnReturnPosition
                 break;
         }
         startActivity(intent);
+    }
+
+    @Override
+    public void onAdAvailable() {
+        Log.d(TAG, "onAdAvailable: ");
+        AmobiVideoAd.getInstance().showAd(new AmobiShowVideoAdRequest());
+    }
+
+    @Override
+    public void onPrepareError() {
+        mInterstitialAd = new InterstitialAd(getActivity());
+        mInterstitialAd.setAdUnitId(getString(R.string.banner_video));
+        mInterstitialAd.setAdListener(new AdListener() {
+            public void onAdLoaded() {
+                showInterstitial();
+            }
+        });
+        showInterstitial();
+    }
+
+    @Override
+    public void onAdStarted() {
+        Log.d(TAG, "onAdStarted: ");
+    }
+
+    @Override
+    public void onAdFinished() {
+        Log.d(TAG, "onAdFinished: ");
+
+    }
+    public void showInterstitial() {
+        if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            startGame();
+        }
+    }
+    public void startGame() {
+        if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mInterstitialAd.loadAd(adRequest);
+        }
+
     }
 }

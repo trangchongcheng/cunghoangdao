@@ -35,7 +35,6 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/config_spinner"
                 android:gravity="center"
-
                 android:spinnerMode="dropdown" />
 
             <Button
@@ -45,7 +44,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:text="@string/btn_ketqua" />
-
+            <vn.amobi.util.ads.AmobiAdView
+                android:layout_gravity="center"
+                android:id="@+id/activity_chitiet_madView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible" />
             <ProgressBar
                 android:id="@+id/activity_chitiet_progressBar"
                 android:layout_width="wrap_content"
